@@ -58,7 +58,7 @@ export function Home() {
         { label: "Tỷ lệ trích hoàn trả", value: "8-10%", icon: Percent },
       ],
       bullets: [
-        "Hạn mức được duyệt trước dựa trên doanh thu, số xe hoạt động và tần suất vận hành gần đây",
+        "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",
         "Bạn luôn theo dõi được số đã ứng, số còn lại và phần doanh thu sẽ được trích để hoàn trả",
         "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và các chi phí vận hành",
       ],

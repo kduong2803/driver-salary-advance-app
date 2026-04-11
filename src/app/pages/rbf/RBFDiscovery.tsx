@@ -51,8 +51,8 @@ export function RBFDiscovery() {
           <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
             <Building2 className="w-9 h-9" />
           </div>
-          <h1 className="text-3xl mb-2">Ứng Doanh Thu Đối Tác GSM</h1>
-          <p className="text-white/90 text-lg">Ứng trước doanh thu dựa trên lịch sử hoạt động</p>
+          <h1 className="text-3xl mb-2">Ứng Doanh Thu</h1>
+          <p className="text-white/90 text-lg">Dành cho tài xế và đối tác GSM — ứng trước doanh thu dựa trên lịch sử hoạt động</p>
         </motion.div>
 
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
