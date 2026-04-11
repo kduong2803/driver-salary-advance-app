@@ -54,8 +54,8 @@ export function Home() {
       bg: "bg-cyan-500/10",
       stats: [
         { label: "Doanh thu 90 ngày", value: "90.000.000đ", icon: TrendingUp },
-        { label: "Hạn mức được duyệt", value: "8.000.000đ", icon: Wallet },
-        { label: "Tỷ lệ trích hoàn trả", value: "8-10%", icon: Percent },
+        { label: "Hạn mức được duyệt", value: "15.000.000đ", icon: Wallet },
+        { label: "Tỷ lệ trích hoàn trả", value: "15-20%", icon: Percent },
       ],
       bullets: [
         "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",

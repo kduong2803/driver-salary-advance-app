@@ -7,13 +7,13 @@ export function RBFDiscovery() {
     {
       icon: TrendingUp,
       title: "Hạn mức được phê duyệt",
-      value: "8.000.000đ",
+      value: "15.000.000đ",
       description: "Dựa trên doanh thu và tần suất hoạt động 90 ngày gần nhất",
     },
     {
       icon: Percent,
       title: "Tỷ lệ trích doanh thu",
-      value: "8-10%",
+      value: "15-20%",
       description: "Tự động trích trên doanh thu phát sinh để hoàn trả khoản ứng",
     },
     {
@@ -78,11 +78,11 @@ export function RBFDiscovery() {
             <div className="h-px bg-border" />
             <div className="flex justify-between">
               <span>Hạn mức được duyệt</span>
-              <span className="text-primary">8.000.000đ</span>
+              <span className="text-primary">15.000.000đ</span>
             </div>
             <div className="flex justify-between">
               <span>Tỷ lệ trích doanh thu</span>
-              <span className="text-primary">10% / giao dịch</span>
+              <span className="text-primary">20% / giao dịch</span>
             </div>
           </div>
         </div>
@@ -151,22 +151,22 @@ export function RBFDiscovery() {
           <div className="space-y-3 text-sm">
             <div>
               <p className="text-muted-foreground mb-1">Kịch bản:</p>
-              <p>Ứng 8.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh</p>
+              <p>Ứng 15.000.000đ với tỷ lệ hoàn trả 20% trên doanh thu phát sinh</p>
             </div>
             <div className="h-px bg-border" />
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Doanh thu 500.000đ:</span>
-                <span>Trích 50.000đ</span>
+                <span>Trích 100.000đ</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Doanh thu 1.000.000đ:</span>
-                <span>Trích 100.000đ</span>
+                <span>Trích 200.000đ</span>
               </div>
             </div>
             <div className="h-px bg-border" />
             <p className="text-xs text-muted-foreground">
-              Với doanh thu trung bình 1 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 80 ngày.
+              Với doanh thu trung bình 1 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 75 ngày.
             </p>
           </div>
         </div>
