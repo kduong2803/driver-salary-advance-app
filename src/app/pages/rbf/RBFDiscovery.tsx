@@ -7,8 +7,8 @@ export function RBFDiscovery() {
     {
       icon: TrendingUp,
       title: "Hạn mức được phê duyệt",
-      value: "25.000.000đ",
-      description: "Dựa trên doanh thu, số chuyến và tần suất hoạt động 90 ngày gần nhất",
+      value: "90.000.000đ",
+      description: "Dựa trên doanh thu, số xe hoạt động và tần suất vận hành 90 ngày gần nhất",
     },
     {
       icon: Percent,
@@ -19,7 +19,7 @@ export function RBFDiscovery() {
     {
       icon: Calendar,
       title: "Thời gian ước tính",
-      value: "45-60 ngày",
+      value: "60-90 ngày",
       description: "Phụ thuộc vào mức doanh thu thực tế trong giai đoạn hoàn trả",
     },
   ];
@@ -28,7 +28,7 @@ export function RBFDiscovery() {
     "Hạn mức được duyệt trước để bạn chủ động kế hoạch chi tiêu vận hành",
     "Hoàn trả bằng tỷ lệ trích doanh thu, không cần lịch trả cố định",
     "Theo dõi rõ số đã ứng, số còn lại và tiến độ hoàn trả theo doanh thu phát sinh",
-    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho xăng xe, bảo dưỡng hoặc chi phí vận hành",
+    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và chi phí vận hành đội xe",
     "Minh bạch mức phí, tỷ lệ trích và số tiền còn phải hoàn trả",
   ];
 
@@ -51,8 +51,8 @@ export function RBFDiscovery() {
           <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
             <Building2 className="w-9 h-9" />
           </div>
-          <h1 className="text-3xl mb-2">Ứng doanh thu đối tác GSM</h1>
-          <p className="text-white/90 text-lg">Ứng trước một phần doanh thu để xoay vòng chi phí vận hành</p>
+          <h1 className="text-3xl mb-2">Ứng doanh thu đội fleet GSM</h1>
+          <p className="text-white/90 text-lg">Ứng trước doanh thu cho đội 5-10 xe để xoay vòng vận hành</p>
         </motion.div>
 
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -65,20 +65,20 @@ export function RBFDiscovery() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Doanh thu 90 ngày</span>
-              <span>180.000.000đ</span>
+              <span>720.000.000đ</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Số chuyến hoàn thành</span>
-              <span>780 chuyến</span>
+              <span className="text-muted-foreground">Số xe đang vận hành</span>
+              <span>7 xe</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Mức độ hoạt động</span>
-              <span>Ổn định 88%</span>
+              <span className="text-muted-foreground">Doanh thu trung bình/ngày</span>
+              <span>8.000.000đ</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
               <span>Hạn mức được duyệt</span>
-              <span className="text-primary">25.000.000đ</span>
+              <span className="text-primary">90.000.000đ</span>
             </div>
             <div className="flex justify-between">
               <span>Tỷ lệ trích doanh thu</span>
@@ -151,7 +151,7 @@ export function RBFDiscovery() {
           <div className="space-y-3 text-sm">
             <div>
               <p className="text-muted-foreground mb-1">Kịch bản:</p>
-              <p>Ứng 15.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh</p>
+              <p>Ứng 60.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh của đội xe</p>
             </div>
             <div className="h-px bg-border" />
             <div className="space-y-2">
@@ -166,7 +166,7 @@ export function RBFDiscovery() {
             </div>
             <div className="h-px bg-border" />
             <p className="text-xs text-muted-foreground">
-              Với doanh thu trung bình 3,5 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 45-60 ngày.
+              Với doanh thu trung bình 8 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 75 ngày.
             </p>
           </div>
         </div>

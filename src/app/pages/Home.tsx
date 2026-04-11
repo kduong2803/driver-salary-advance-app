@@ -48,19 +48,19 @@ export function Home() {
     {
       id: "rbf",
       title: "Ứng doanh thu cho tài xế đối tác GSM",
-      intro: "Bạn có thể ứng trước một phần doanh thu đã tích lũy để xoay vòng chi phí vận hành trong kỳ.",
+      intro: "Dành cho đội fleet 5-10 xe cần ứng trước một phần doanh thu để xoay vòng chi phí vận hành.",
       icon: Building2,
       accent: "text-cyan-700",
       bg: "bg-cyan-500/10",
       stats: [
-        { label: "Doanh thu 90 ngày", value: "180.000.000đ", icon: TrendingUp },
-        { label: "Hạn mức được duyệt", value: "25.000.000đ", icon: Wallet },
+        { label: "Doanh thu 90 ngày", value: "720.000.000đ", icon: TrendingUp },
+        { label: "Hạn mức được duyệt", value: "90.000.000đ", icon: Wallet },
         { label: "Tỷ lệ trích hoàn trả", value: "8-10%", icon: Percent },
       ],
       bullets: [
-        "Hạn mức được duyệt trước dựa trên doanh thu, số chuyến và mức độ hoạt động gần đây",
+        "Hạn mức được duyệt trước dựa trên doanh thu, số xe hoạt động và tần suất vận hành gần đây",
         "Bạn luôn theo dõi được số đã ứng, số còn lại và phần doanh thu sẽ được trích để hoàn trả",
-        "Phù hợp khi cần thêm dòng tiền ngắn hạn để chi cho vận hành hằng ngày",
+        "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, lương tài xế và bảo dưỡng đội xe",
       ],
     },
   ];

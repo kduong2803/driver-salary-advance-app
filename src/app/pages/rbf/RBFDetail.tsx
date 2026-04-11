@@ -10,13 +10,13 @@ export function RBFDetail() {
   // Mock data - in real app, fetch based on id
   const advance = {
     id: id || "1",
-    amount: 25000000,
+    amount: 90000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
     revenueRate: 0.1,
-    paidAmount: 9000000,
-    remainingAmount: 16000000,
-    progress: 36,
+    paidAmount: 28000000,
+    remainingAmount: 62000000,
+    progress: 31,
     estimatedCompletionDate: "2026-06-10",
   };
 
@@ -235,7 +235,7 @@ export function RBFDetail() {
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <div className="flex justify-between mb-2">
                 <span className="text-muted-foreground">Số dư ví VSP:</span>
-                <span className="text-lg">{formatCurrency(18000000)}</span>
+                <span className="text-lg">{formatCurrency(95000000)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Số tiền cần trả:</span>

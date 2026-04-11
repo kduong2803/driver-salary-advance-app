@@ -6,33 +6,33 @@ export function RBFList() {
   const advances = [
     {
       id: "1",
-      amount: 25000000,
+      amount: 90000000,
       status: "active" as const,
       createdAt: "2026-04-11",
       revenueRate: 0.1,
-      paidAmount: 9000000,
-      remainingAmount: 16000000,
-      progress: 36,
+      paidAmount: 28000000,
+      remainingAmount: 62000000,
+      progress: 31,
       estimatedCompletionDate: "2026-06-10",
     },
     {
       id: "2",
-      amount: 15000000,
+      amount: 60000000,
       status: "active" as const,
       createdAt: "2026-03-20",
       revenueRate: 0.12,
-      paidAmount: 9000000,
-      remainingAmount: 6000000,
+      paidAmount: 36000000,
+      remainingAmount: 24000000,
       progress: 60,
       estimatedCompletionDate: "2026-05-15",
     },
     {
       id: "3",
-      amount: 12000000,
+      amount: 45000000,
       status: "completed" as const,
       createdAt: "2026-02-01",
       revenueRate: 0.1,
-      paidAmount: 12000000,
+      paidAmount: 45000000,
       remainingAmount: 0,
       progress: 100,
       estimatedCompletionDate: "2026-04-05",
@@ -44,7 +44,7 @@ export function RBFList() {
     totalAmount: advances
       .filter((a) => a.status === "active")
       .reduce((sum, a) => sum + a.remainingAmount, 0),
-    availableLimit: 25000000,
+    availableLimit: 90000000,
   };
 
   const formatCurrency = (value: number) => {
