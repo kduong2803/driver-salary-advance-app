@@ -11,6 +11,9 @@ export function EWARequest() {
 
   const maxAmount = 15000000;
   const feeRate = 0.015; // 1.5%
+  const earnedIncome = 15000000;
+  const heldAmount = 2500000;
+  const availableEarnings = earnedIncome - heldAmount;
 
   const numAmount = parseInt(amount.replace(/\D/g, "")) || 0;
   const fee = Math.round(numAmount * feeRate);
@@ -41,8 +44,8 @@ export function EWARequest() {
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Ứng lương</h1>
-        <p className="text-white/80">Nhập số tiền bạn muốn ứng</p>
+        <h1 className="text-2xl mb-1">Ứng thu nhập khả dụng</h1>
+        <p className="text-white/80">Chọn số tiền muốn ứng trên phần thu nhập đã phát sinh</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-8 space-y-6">
@@ -50,18 +53,39 @@ export function EWARequest() {
         <div className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white rounded-2xl p-6 shadow-lg">
           <div className="flex items-center gap-2 mb-2">
             <Wallet className="w-5 h-5" />
-            <span className="text-white/80">Hạn mức khả dụng</span>
+            <span className="text-white/80">Thu nhập có thể ứng</span>
           </div>
           <p className="text-3xl">{formatCurrency(maxAmount)}</p>
           <p className="text-sm text-white/70 mt-1">
-            Dựa trên thu nhập 30 ngày gần nhất
+            Dựa trên thu nhập đã phát sinh sau khi trừ khoản giữ lại
           </p>
+        </div>
+
+        <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-3">
+          <h3>Breakdown thu nhập khả dụng</h3>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Lương cứng phân bổ</span>
+            <span>{formatCurrency(4200000)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Thu nhập từ cuốc đã hoàn thành</span>
+            <span>{formatCurrency(earnedIncome - 4200000)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Khoản pending / giữ lại</span>
+            <span className="text-destructive">-{formatCurrency(heldAmount)}</span>
+          </div>
+          <div className="h-px bg-border" />
+          <div className="flex justify-between text-sm">
+            <span>Thu nhập khả dụng</span>
+            <span className="text-primary">{formatCurrency(availableEarnings)}</span>
+          </div>
         </div>
 
         {/* Amount Input */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <label className="block mb-3">
-            <span className="text-sm text-muted-foreground">Số tiền muốn ứng</span>
+            <span className="text-sm text-muted-foreground">Số tiền muốn ứng từ thu nhập khả dụng</span>
           </label>
           <div className="relative">
             <input
@@ -95,10 +119,10 @@ export function EWARequest() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-3"
           >
-            <h3 className="mb-3">Chi tiết giao dịch</h3>
+            <h3 className="mb-3">Chi tiết ứng thu nhập</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Số tiền ứng:</span>
+                <span className="text-muted-foreground">Thu nhập được ứng:</span>
                 <span>{formatCurrency(numAmount)}</span>
               </div>
               <div className="flex justify-between text-sm">
@@ -115,8 +139,8 @@ export function EWARequest() {
             <div className="bg-muted/50 rounded-lg p-3 flex items-start gap-2 mt-4">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Số tiền sẽ được tự động khấu trừ từ thu nhập trong 7-30 ngày tới.
-                Bạn có thể chủ động trả trước bất kỳ lúc nào.
+                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo, ưu tiên từ doanh thu cuốc xe mới rồi đến lương cứng cuối kỳ.
+                Bạn vẫn có thể chủ động tất toán sớm từ ví VSP nếu muốn.
               </p>
             </div>
           </motion.div>

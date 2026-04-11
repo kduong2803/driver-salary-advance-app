@@ -53,7 +53,7 @@ export function RBFSuccess() {
           </div>
           <h1 className="text-3xl mb-2 text-primary">Thành công!</h1>
           <p className="text-muted-foreground">
-            Khoản ứng doanh thu đã được xử lý
+            Khoản ứng doanh thu cho đối tác đã được giải ngân thành công
           </p>
         </motion.div>
 
@@ -70,7 +70,7 @@ export function RBFSuccess() {
           <div className="relative">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Building2 className="w-5 h-5" />
-              <span className="text-white/80">Số tiền đã nhận</span>
+              <span className="text-white/80">Số tiền giải ngân</span>
             </div>
             <p className="text-5xl mb-1">{formatCurrency(transactionDetails.amount)}</p>
             <p className="text-white/70 text-sm">
@@ -86,7 +86,7 @@ export function RBFSuccess() {
           transition={{ delay: 0.3 }}
           className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-4"
         >
-          <h3 className="mb-4">Chi tiết giao dịch</h3>
+          <h3 className="mb-4">Chi tiết khoản ứng doanh thu</h3>
 
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
@@ -95,7 +95,7 @@ export function RBFSuccess() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Số tiền ứng:</span>
+              <span className="text-muted-foreground">Số tiền giải ngân:</span>
               <span className="text-lg">{formatCurrency(transactionDetails.amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
@@ -121,11 +121,11 @@ export function RBFSuccess() {
               <Percent className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
+              <h4 className="mb-1 text-primary">Tiến độ hoàn trả dự kiến</h4>
               <p className="text-lg mb-2">~{transactionDetails.estimatedDays} ngày</p>
               <p className="text-sm text-muted-foreground">
-                {transactionDetails.revenueRate * 100}% doanh thu sẽ được tự động trích từ mỗi chuyến xe hoàn thành.
-                Thời gian tất toán phụ thuộc vào hiệu quả vận hành thực tế.
+                Hệ thống sẽ tự động trích {transactionDetails.revenueRate * 100}% từ doanh thu phát sinh của fleet cho đến khi hoàn tất.
+                Thời gian tất toán phụ thuộc trực tiếp vào hiệu suất vận hành thực tế của đối tác.
               </p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export function RBFSuccess() {
           transition={{ delay: 0.5 }}
           className="space-y-3"
         >
-          <Link to="/rbf/list">
+          <Link to="/manage">
             <button className="w-full bg-blue-600 text-white py-4 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
               <span>Xem các khoản ứng</span>
               <ArrowRight className="w-5 h-5" />

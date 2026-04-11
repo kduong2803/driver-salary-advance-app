@@ -59,7 +59,7 @@ export function EWADetail() {
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Chi tiết khoản ứng</h1>
+        <h1 className="text-2xl mb-1">Chi tiết ứng thu nhập</h1>
         <p className="text-white/80">Mã: #{advance.id}</p>
       </div>
 
@@ -72,11 +72,11 @@ export function EWADetail() {
         >
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-white/80 text-sm mb-1">Số tiền còn lại</p>
+              <p className="text-white/80 text-sm mb-1">Còn phải khấu trừ</p>
               <p className="text-3xl">{formatCurrency(advance.remainingAmount)}</p>
             </div>
             <div className="text-right">
-              <p className="text-white/80 text-sm mb-1">Đã trả</p>
+              <p className="text-white/80 text-sm mb-1">Đã khấu trừ</p>
               <p className="text-xl">{formatCurrency(advance.paidAmount)}</p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export function EWADetail() {
               />
             </div>
             <div className="flex justify-between text-sm text-white/80">
-              <span>{advance.progress}% đã hoàn trả</span>
+              <span>{advance.progress}% đã khấu trừ</span>
               <span>{100 - advance.progress}% còn lại</span>
             </div>
           </div>
@@ -107,7 +107,7 @@ export function EWADetail() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Wallet className="w-5 h-5 text-primary" />
-            <h3>Thông tin giao dịch</h3>
+            <h3>Thông tin ứng thu nhập</h3>
           </div>
 
           <div className="space-y-3">
@@ -121,7 +121,7 @@ export function EWADetail() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Số tiền ứng:</span>
+              <span className="text-muted-foreground">Thu nhập được ứng:</span>
               <span>{formatCurrency(advance.amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
@@ -147,9 +147,9 @@ export function EWADetail() {
               <Calendar className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
+              <h4 className="mb-1 text-primary">Cơ chế khấu trừ</h4>
               <p className="text-sm text-muted-foreground">
-                Số tiền sẽ được tự động khấu trừ từ thu nhập hàng ngày của bạn.
+                Khoản ứng được tự động khấu trừ từ thu nhập phát sinh tiếp theo của bạn, ưu tiên từ các cuốc xe mới hoàn thành.
                 Dự kiến hoàn tất vào ngày <span className="text-foreground font-medium">{formatDate(advance.dueDate)}</span>
               </p>
             </div>
@@ -165,7 +165,7 @@ export function EWADetail() {
         >
           <div className="flex items-center gap-2 mb-4">
             <History className="w-5 h-5 text-primary" />
-            <h3>Lịch sử khấu trừ</h3>
+            <h3>Lịch sử khấu trừ thu nhập</h3>
           </div>
 
           <div className="space-y-3">
@@ -178,7 +178,7 @@ export function EWADetail() {
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <p className="text-sm">
-                        {item.type === "auto" ? "Khấu trừ tự động" : "Trả trước thủ công"}
+                        {item.type === "auto" ? "Khấu trừ tự động từ thu nhập" : "Tất toán sớm từ ví VSP"}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {formatDateTime(item.date)}
@@ -188,7 +188,7 @@ export function EWADetail() {
                   </div>
                   {item.tripId && (
                     <p className="text-xs text-muted-foreground">
-                      Từ chuyến xe {item.tripId}
+                      Từ cuốc xe {item.tripId}
                     </p>
                   )}
                 </div>
@@ -229,7 +229,7 @@ export function EWADetail() {
           >
             <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
 
-            <h3 className="text-xl mb-4">Trả trước khoản ứng</h3>
+            <h3 className="text-xl mb-4">Tất toán sớm khoản ứng</h3>
 
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <div className="flex justify-between mb-2">
@@ -245,7 +245,7 @@ export function EWADetail() {
             <div className="bg-primary/10 rounded-xl p-4 mb-6 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                Sau khi trả trước, khoản ứng sẽ được đóng và hạn mức của bạn sẽ được phục hồi ngay lập tức.
+                Sau khi tất toán sớm, khoản ứng sẽ được đóng và phần thu nhập khả dụng của bạn sẽ được cập nhật lại ngay.
               </p>
             </div>
 

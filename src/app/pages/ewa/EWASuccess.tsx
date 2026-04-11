@@ -63,7 +63,7 @@ export function EWASuccess() {
           </div>
           <h1 className="text-3xl mb-2 text-primary">Thành công!</h1>
           <p className="text-muted-foreground">
-            Giao dịch ứng lương đã được xử lý
+            Khoản ứng trên thu nhập đã phát sinh đã được giải ngân
           </p>
         </motion.div>
 
@@ -80,7 +80,7 @@ export function EWASuccess() {
           <div className="relative">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Wallet className="w-5 h-5" />
-              <span className="text-white/80">Số tiền đã nhận</span>
+              <span className="text-white/80">Số tiền thực nhận</span>
             </div>
             <p className="text-5xl mb-1">{formatCurrency(transactionDetails.netAmount)}</p>
             <p className="text-white/70 text-sm">Đã chuyển vào ví VSP của bạn</p>
@@ -94,7 +94,7 @@ export function EWASuccess() {
           transition={{ delay: 0.3 }}
           className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-4"
         >
-          <h3 className="mb-4">Chi tiết giao dịch</h3>
+          <h3 className="mb-4">Chi tiết ứng thu nhập</h3>
 
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
@@ -103,7 +103,7 @@ export function EWASuccess() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Số tiền ứng:</span>
+              <span className="text-muted-foreground">Thu nhập được ứng:</span>
               <span>{formatCurrency(transactionDetails.amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
@@ -130,11 +130,11 @@ export function EWASuccess() {
               <Calendar className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Ngày hoàn trả dự kiến</h4>
+              <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
               <p className="text-2xl mb-2">{formatDate(transactionDetails.expectedRepaymentDate)}</p>
               <p className="text-sm text-muted-foreground">
-                Số tiền sẽ được tự động khấu trừ từ thu nhập của bạn.
-                Bạn có thể chủ động trả trước bất kỳ lúc nào.
+                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo của bạn.
+                Hệ thống ưu tiên trích từ doanh thu cuốc xe mới rồi đến lương cứng cuối kỳ; bạn vẫn có thể tất toán sớm bất kỳ lúc nào.
               </p>
             </div>
           </div>

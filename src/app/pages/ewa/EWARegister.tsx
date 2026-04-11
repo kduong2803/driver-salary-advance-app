@@ -38,8 +38,8 @@ export function EWARegister() {
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Đăng ký dịch vụ</h1>
-        <p className="text-white/80">Hoàn tất các bước để kích hoạt</p>
+        <h1 className="text-2xl mb-1">Kích hoạt ứng thu nhập</h1>
+        <p className="text-white/80">Xác nhận điều khoản để sử dụng ứng trên thu nhập đã phát sinh</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-8 space-y-6">
@@ -85,7 +85,7 @@ export function EWARegister() {
                   <FileText className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="mb-1">Điều khoản sử dụng dịch vụ</h3>
+                  <h3 className="mb-1">Điều khoản ứng thu nhập</h3>
                   <p className="text-sm text-muted-foreground">
                     Vui lòng đọc kỹ trước khi đồng ý
                   </p>
@@ -96,29 +96,29 @@ export function EWARegister() {
                 <div>
                   <h4 className="mb-1">1. Phạm vi dịch vụ</h4>
                   <p className="text-muted-foreground">
-                    Dịch vụ ứng lương cho phép tài xế nhận trước một phần lương đã làm việc,
-                    với mức phí dịch vụ từ 1-2% trên số tiền ứng.
+                    Dịch vụ cho phép tài xế nhận trước một phần thu nhập đã phát sinh từ lương cứng phân bổ
+                    và doanh thu các cuốc xe đã hoàn thành, không áp dụng cho phần chưa kiếm được.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">2. Cơ chế hoàn trả</h4>
                   <p className="text-muted-foreground">
-                    Số tiền ứng sẽ được tự động khấu trừ từ thu nhập của bạn trong các kỳ
-                    thanh toán tiếp theo. Bạn có thể chủ động trả trước từ ví VSP.
+                    Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo, ưu tiên từ doanh thu cuốc xe mới
+                    và phần lương cứng cuối kỳ. Bạn có thể chủ động tất toán trước từ ví VSP.
                   </p>
                 </div>
                 <div>
-                  <h4 className="mb-1">3. Bảo mật thông tin</h4>
+                  <h4 className="mb-1">3. Thu nhập khả dụng</h4>
                   <p className="text-muted-foreground">
-                    Mọi thông tin cá nhân được mã hóa và bảo vệ theo tiêu chuẩn ngân hàng.
-                    Chúng tôi cam kết không chia sẻ dữ liệu với bên thứ ba.
+                    Thu nhập khả dụng được tính từ lương cứng phân bổ theo ngày cộng doanh thu cuốc đã hoàn thành,
+                    sau đó trừ các khoản pending, khoản giữ lại và các điều chỉnh hệ thống nếu có.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">4. Trách nhiệm người dùng</h4>
                   <p className="text-muted-foreground">
-                    Bạn cam kết cung cấp thông tin chính xác và sử dụng dịch vụ đúng mục đích.
-                    Việc lạm dụng dịch vụ có thể dẫn đến khóa tài khoản.
+                    Hệ thống có thể điều chỉnh hạn mức theo tần suất hoạt động, lịch sử hoàn trả và hành vi sử dụng.
+                    Trường hợp phát hiện hành vi bất thường, hạn mức có thể bị giảm hoặc tạm khóa.
                   </p>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export function EWARegister() {
             </div>
             <h2 className="text-2xl mb-2">Kích hoạt thành công!</h2>
             <p className="text-muted-foreground mb-8">
-              Bạn đã có thể sử dụng dịch vụ ứng lương
+              Bạn đã có thể sử dụng dịch vụ ứng thu nhập
             </p>
             <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />

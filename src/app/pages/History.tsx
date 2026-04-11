@@ -118,8 +118,8 @@ export function History() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-gradient-to-br from-primary via-cyan-500 to-cyan-600 text-white px-6 pt-12 pb-8">
-        <h1 className="text-2xl mb-1">Lịch sử giao dịch</h1>
-        <p className="text-white/80">Theo dõi các khoản trích từ chuyến đi</p>
+        <h1 className="text-2xl mb-1">Lịch sử hoàn trả</h1>
+        <p className="text-white/80">Theo dõi riêng các khoản khấu trừ thu nhập và trích doanh thu</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-6 space-y-6">
@@ -134,7 +134,7 @@ export function History() {
             }`}
           >
             <Wallet className="w-4 h-4" />
-            <span>Ứng lương</span>
+            <span>Ứng thu nhập</span>
           </button>
           <button
             onClick={() => setActiveTab("rbf")}
@@ -177,7 +177,9 @@ export function History() {
                     <div className="flex items-start justify-between gap-2 mb-2">
                       <div>
                         <p className="font-medium">
-                          {item.type === "manual" ? "Trả trước thủ công" : "Trích tự động từ chuyến đi"}
+                          {item.type === "manual"
+                            ? activeTab === "ewa" ? "Tất toán sớm thủ công" : "Thanh toán trước hạn"
+                            : activeTab === "ewa" ? "Khấu trừ tự động từ thu nhập cuốc xe" : "Trích tự động từ doanh thu fleet"}
                         </p>
                         <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                           <Clock className="w-3 h-3" />
@@ -205,7 +207,9 @@ export function History() {
                         {item.tripRevenue && (
                           <>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Doanh thu chuyến:</span>
+                              <span className="text-muted-foreground">
+                                {activeTab === "ewa" ? "Thu nhập phát sinh:" : "Doanh thu chuyến:"}
+                              </span>
                               <span className="text-primary">{formatCurrency(item.tripRevenue)}</span>
                             </div>
 
@@ -243,7 +247,7 @@ export function History() {
                     {item.type === "manual" && (
                       <div className="bg-muted/50 rounded-lg p-3 text-sm">
                         <p className="text-muted-foreground">
-                          Thanh toán thủ công từ ví VSP
+                          {activeTab === "ewa" ? "Tất toán sớm khoản ứng từ ví VSP" : "Thanh toán trước hạn từ ví VSP"}
                         </p>
                       </div>
                     )}

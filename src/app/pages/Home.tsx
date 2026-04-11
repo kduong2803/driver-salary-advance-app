@@ -1,28 +1,67 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Wallet, TrendingUp, Clock, Shield, ArrowRight, Zap } from "lucide-react";
+import { Wallet, TrendingUp, Clock, Shield, ArrowRight, Zap, CalendarDays, Car, Percent, Building2 } from "lucide-react";
 
 export function Home() {
   const services = [
     {
       id: "ewa",
-      title: "Ứng Lương Tài Xế",
-      subtitle: "EWA - Earned Wage Access",
-      description: "Nhận lương trước khi đến ngày trả, hỗ trợ tài xế chi tiêu hợp lý",
+      title: "Ứng Thu Nhập Tài Xế",
+      subtitle: "Ứng trên phần thu nhập đã phát sinh",
+      description: "Dành cho tài xế cần rút trước một phần thu nhập đã tích lũy từ ngày công và cuốc xe đã hoàn thành",
       icon: Wallet,
       gradient: "from-cyan-400 to-cyan-600",
       link: "/ewa/discovery",
-      features: ["Ứng tới 50% lương", "Phí thấp 1-2%", "Hoàn trả tự động"],
+      features: ["Ứng 50-70% thu nhập khả dụng", "Cập nhật sau mỗi cuốc", "Khấu trừ tự động"],
     },
     {
       id: "rbf",
       title: "Ứng Doanh Thu Fleet",
-      subtitle: "RBF - Revenue Based Financing",
-      description: "Ứng doanh thu cho chủ xe, đối tác fleet dựa trên hiệu quả vận hành",
+      subtitle: "Ứng theo hạn mức đã phê duyệt",
+      description: "Dành cho đối tác/fleet cần vốn vận hành trước và hoàn trả bằng một tỷ lệ phần trăm trên doanh thu phát sinh",
       icon: TrendingUp,
       gradient: "from-cyan-500 to-teal-600",
       link: "/rbf/discovery",
-      features: ["Hạn mức cao", "Trả theo % doanh thu", "Linh hoạt thời gian"],
+      features: ["Hạn mức duyệt trước", "Trích % doanh thu", "Phù hợp mở rộng vận hành"],
+    },
+  ];
+
+  const productExplainers = [
+    {
+      id: "ewa",
+      title: "Ứng thu nhập cho tài xế GSM",
+      intro: "Chỉ ứng trên phần thu nhập đã phát sinh, không ứng cho thu nhập chưa kiếm được.",
+      icon: Wallet,
+      accent: "text-primary",
+      bg: "bg-primary/10",
+      stats: [
+        { label: "Ngày công đã chạy", value: "22 ngày", icon: CalendarDays },
+        { label: "Thu nhập từ cuốc xe", value: "12.400.000đ", icon: Car },
+        { label: "Được ứng tối đa", value: "70%", icon: Percent },
+      ],
+      bullets: [
+        "Breakdown rõ: lương cứng phân bổ + thu nhập theo cuốc - khoản giữ lại",
+        "Available earnings cập nhật theo thời gian thực sau mỗi cuốc xe hoàn thành",
+        "Hoàn trả tự động từ thu nhập phát sinh tiếp theo, giảm thao tác thủ công",
+      ],
+    },
+    {
+      id: "rbf",
+      title: "Ứng doanh thu cho đối tác GSM",
+      intro: "Ứng trước vốn vận hành dựa trên hiệu suất doanh thu và hoàn trả bằng tỷ lệ trích doanh thu.",
+      icon: Building2,
+      accent: "text-cyan-700",
+      bg: "bg-cyan-500/10",
+      stats: [
+        { label: "Doanh thu 90 ngày", value: "4,8 tỷ", icon: TrendingUp },
+        { label: "Hạn mức được duyệt", value: "500.000.000đ", icon: Wallet },
+        { label: "Tỷ lệ trích hoàn trả", value: "8-12%", icon: Percent },
+      ],
+      bullets: [
+        "Hạn mức được phê duyệt trước dựa trên doanh thu, số chuyến và tần suất vận hành",
+        "Theo dõi rõ số đã ứng, số còn phải hoàn trả và tiến độ trích doanh thu",
+        "Phù hợp cho đối tác/fleet cần bổ sung dòng tiền để mở rộng hoạt động",
+      ],
     },
   ];
 
@@ -92,6 +131,52 @@ export function Home() {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="space-y-4">
+          <h2 className="text-xl px-1">Hiểu nhanh từng sản phẩm</h2>
+          <div className="space-y-4">
+            {productExplainers.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + index * 0.1 }}
+                className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm"
+              >
+                <div className="flex items-start gap-4 mb-5">
+                  <div className={`w-12 h-12 rounded-xl ${product.bg} flex items-center justify-center flex-shrink-0`}>
+                    <product.icon className={`w-6 h-6 ${product.accent}`} />
+                  </div>
+                  <div>
+                    <h3 className="mb-1">{product.title}</h3>
+                    <p className="text-sm text-muted-foreground">{product.intro}</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mb-5">
+                  {product.stats.map((stat) => (
+                    <div key={stat.label} className="rounded-xl bg-muted/40 p-3 border border-border/40">
+                      <stat.icon className={`w-4 h-4 mb-2 ${product.accent}`} />
+                      <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
+                      <p className="text-sm">{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  {product.bullets.map((bullet) => (
+                    <div key={bullet} className="flex items-start gap-3">
+                      <div className={`w-5 h-5 rounded-full ${product.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                        <div className={`w-2 h-2 rounded-full ${product.id === "ewa" ? "bg-primary" : "bg-cyan-700"}`} />
+                      </div>
+                      <p className="text-sm text-foreground/80">{bullet}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Benefits */}

@@ -1,42 +1,42 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, TrendingUp, Shield, Clock, Check, ChevronRight, Percent, Calendar } from "lucide-react";
+import { ArrowLeft, TrendingUp, Shield, Clock, Check, ChevronRight, Percent, Calendar, Building2 } from "lucide-react";
 
 export function RBFDiscovery() {
   const features = [
     {
       icon: TrendingUp,
-      title: "Hạn mức được duyệt",
+      title: "Hạn mức được phê duyệt",
       value: "500.000.000đ",
-      description: "Dựa trên lịch sử vận hành 90 ngày",
+      description: "Dựa trên doanh thu, số chuyến và tần suất vận hành 90 ngày",
     },
     {
       icon: Percent,
-      title: "Tỷ lệ hoàn trả",
+      title: "Tỷ lệ trích doanh thu",
       value: "8-12%",
-      description: "Phần trăm doanh thu mỗi chuyến",
+      description: "Tự động trích trên doanh thu phát sinh của fleet",
     },
     {
       icon: Calendar,
       title: "Thời gian ước tính",
       value: "60-120 ngày",
-      description: "Dựa trên doanh thu trung bình",
+      description: "Phụ thuộc hiệu suất vận hành thực tế của đối tác",
     },
   ];
 
   const benefits = [
-    "Hạn mức cao cho đối tác fleet",
-    "Trả theo doanh thu thực tế, không áp lực",
-    "Linh hoạt thời gian, không cố định kỳ hạn",
-    "Duyệt nhanh dựa trên hiệu quả vận hành",
-    "Hỗ trợ mở rộng quy mô kinh doanh",
+    "Hạn mức được duyệt trước để đối tác chủ động kế hoạch dòng tiền",
+    "Hoàn trả bằng tỷ lệ trích doanh thu, không cần lịch trả cố định",
+    "Theo dõi tiến độ theo doanh thu phát sinh thực tế của fleet",
+    "Phù hợp cho nhu cầu bổ sung vốn vận hành và mở rộng quy mô",
+    "Minh bạch mức phí, tỷ lệ trích và số còn phải hoàn trả",
   ];
 
   const howItWorks = [
-    { step: "1", title: "Đăng ký dịch vụ", desc: "Xác thực thông tin đối tác" },
-    { step: "2", title: "Chọn số tiền ứng", desc: "Xem trước % hoàn trả" },
-    { step: "3", title: "Chọn tài khoản nhận", desc: "Ví VSP hoặc ngân hàng" },
-    { step: "4", title: "Hoàn trả tự động", desc: "Trích % doanh thu mỗi chuyến" },
+    { step: "1", title: "Đánh giá hiệu suất vận hành", desc: "Hệ thống xét doanh thu, số chuyến và tần suất hoạt động" },
+    { step: "2", title: "Cấp hạn mức được duyệt trước", desc: "Đối tác xem trước số tiền có thể ứng và tỷ lệ trích doanh thu" },
+    { step: "3", title: "Giải ngân về ví hoặc ngân hàng", desc: "Xác nhận khoản ứng và nhận tiền ngay" },
+    { step: "4", title: "Trích doanh thu tự động", desc: "Khấu trừ một tỷ lệ % từ doanh thu phát sinh cho đến khi hoàn tất" },
   ];
 
   return (
@@ -53,10 +53,10 @@ export function RBFDiscovery() {
           animate={{ opacity: 1, y: 0 }}
         >
           <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
-            <TrendingUp className="w-9 h-9" />
+            <Building2 className="w-9 h-9" />
           </div>
           <h1 className="text-3xl mb-2">Ứng Doanh Thu Fleet</h1>
-          <p className="text-white/90 text-lg">Tài chính linh hoạt cho đối tác</p>
+          <p className="text-white/90 text-lg">Bổ sung vốn vận hành dựa trên hạn mức doanh thu được duyệt</p>
         </motion.div>
 
         {/* Decorative circles */}
@@ -64,7 +64,33 @@ export function RBFDiscovery() {
         <div className="absolute -left-20 top-40 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-lg mx-auto px-6 -mt-16 pb-8 space-y-6">
+      <div className="max-w-lg mx-auto px-6 -mt-8 pb-8 space-y-6">
+        <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
+          <h3 className="mb-4">Hạn mức được xác định như thế nào?</h3>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Doanh thu 90 ngày</span>
+              <span>4.800.000.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Số chuyến hoàn thành</span>
+              <span>12.450 chuyến</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tần suất hoạt động</span>
+              <span>Ổn định 92%</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between">
+              <span>Hạn mức được duyệt trước</span>
+              <span className="text-primary">500.000.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Tỷ lệ trích doanh thu</span>
+              <span className="text-primary">10% / chuyến</span>
+            </div>
+          </div>
+        </div>
         {/* Key Features */}
         <div className="grid gap-3">
           {features.map((feature, index) => (

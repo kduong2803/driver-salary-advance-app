@@ -38,12 +38,12 @@ export function RBFRequest() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-primary text-white px-6 pt-12 pb-8">
-        <Link to="/rbf/list" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
+        <Link to="/manage" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Ứng doanh thu</h1>
-        <p className="text-white/80">Nhập số tiền bạn muốn ứng</p>
+        <h1 className="text-2xl mb-1">Ứng doanh thu vận hành</h1>
+        <p className="text-white/80">Chọn số tiền trong hạn mức đã được phê duyệt trước</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-8 space-y-6">
@@ -55,14 +55,30 @@ export function RBFRequest() {
           </div>
           <p className="text-3xl">{formatCurrency(maxAmount)}</p>
           <p className="text-sm text-white/70 mt-1">
-            Dựa trên hiệu quả vận hành 90 ngày
+            Xác định từ doanh thu, số chuyến và tần suất vận hành 90 ngày
           </p>
+        </div>
+
+        <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-3">
+          <h3>Thông tin phê duyệt hiện tại</h3>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Doanh thu trung bình/ngày</span>
+            <span>{formatCurrency(avgDailyRevenue)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Tỷ lệ trích doanh thu</span>
+            <span className="text-primary">{revenueRate * 100}%</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Hạn mức còn khả dụng</span>
+            <span>{formatCurrency(maxAmount)}</span>
+          </div>
         </div>
 
         {/* Amount Input */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <label className="block mb-3">
-            <span className="text-sm text-muted-foreground">Số tiền muốn ứng</span>
+            <span className="text-sm text-muted-foreground">Số tiền muốn ứng từ hạn mức đã duyệt</span>
           </label>
           <div className="relative">
             <input
@@ -92,7 +108,7 @@ export function RBFRequest() {
         {/* Account Selection */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <label className="block mb-3">
-            <span className="text-sm text-muted-foreground">Tài khoản nhận tiền</span>
+            <span className="text-sm text-muted-foreground">Tài khoản giải ngân</span>
           </label>
           <div className="space-y-3">
             <label
@@ -152,11 +168,11 @@ export function RBFRequest() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-4"
           >
-            <h3 className="mb-3">Chi tiết khoản ứng</h3>
+            <h3 className="mb-3">Chi tiết khoản ứng doanh thu</h3>
 
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Số tiền ứng:</span>
+                <span className="text-muted-foreground">Số tiền giải ngân:</span>
                 <span className="text-lg">{formatCurrency(numAmount)}</span>
               </div>
               <div className="flex justify-between text-sm">
@@ -190,8 +206,8 @@ export function RBFRequest() {
             <div className="bg-muted/50 rounded-lg p-3 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Tỷ lệ {revenueRate * 100}% sẽ được tự động trích từ doanh thu mỗi chuyến xe
-                cho đến khi tất toán đầy đủ. Bạn có thể chủ động trả trước bất kỳ lúc nào.
+                Hệ thống sẽ tự động trích {revenueRate * 100}% trên doanh thu phát sinh của fleet cho đến khi khoản ứng hoàn tất.
+                Đối tác vẫn có thể chủ động thanh toán trước hạn từ ví VSP.
               </p>
             </div>
           </motion.div>

@@ -55,11 +55,11 @@ export function RBFDetail() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-primary text-white px-6 pt-12 pb-8">
-        <Link to="/rbf/list" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
+        <Link to="/manage" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Chi tiết khoản ứng</h1>
+        <h1 className="text-2xl mb-1">Chi tiết ứng doanh thu</h1>
         <p className="text-white/80">Mã: #{advance.id}</p>
       </div>
 
@@ -72,11 +72,11 @@ export function RBFDetail() {
         >
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-white/80 text-sm mb-1">Số tiền còn lại</p>
+              <p className="text-white/80 text-sm mb-1">Còn phải hoàn trả</p>
               <p className="text-3xl">{formatCurrency(advance.remainingAmount)}</p>
             </div>
             <div className="text-right">
-              <p className="text-white/80 text-sm mb-1">Đã trả</p>
+              <p className="text-white/80 text-sm mb-1">Đã trích</p>
               <p className="text-xl">{formatCurrency(advance.paidAmount)}</p>
             </div>
           </div>
@@ -107,7 +107,7 @@ export function RBFDetail() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Building2 className="w-5 h-5 text-primary" />
-            <h3>Thông tin giao dịch</h3>
+            <h3>Thông tin khoản ứng doanh thu</h3>
           </div>
 
           <div className="space-y-3">
@@ -121,7 +121,7 @@ export function RBFDetail() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Số tiền ứng:</span>
+              <span className="text-muted-foreground">Số tiền giải ngân:</span>
               <span className="text-lg">{formatCurrency(advance.amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
@@ -146,10 +146,10 @@ export function RBFDetail() {
               <TrendingUp className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
+              <h4 className="mb-1 text-primary">Cơ chế trích doanh thu</h4>
               <p className="text-sm text-muted-foreground">
-                {advance.revenueRate * 100}% doanh thu sẽ được tự động trích từ mỗi chuyến xe hoàn thành
-                của tất cả tài xế trong fleet. Dự kiến hoàn tất vào{" "}
+                {advance.revenueRate * 100}% doanh thu sẽ được tự động trích từ mỗi giao dịch phát sinh
+                của toàn fleet. Dự kiến hoàn tất vào{" "}
                 <span className="text-foreground font-medium">{formatDate(advance.estimatedCompletionDate)}</span>
               </p>
             </div>
@@ -165,7 +165,7 @@ export function RBFDetail() {
         >
           <div className="flex items-center gap-2 mb-4">
             <History className="w-5 h-5 text-primary" />
-            <h3>Lịch sử trích doanh thu</h3>
+            <h3>Lịch sử trích hoàn trả</h3>
           </div>
 
           <div className="space-y-3">
@@ -178,7 +178,7 @@ export function RBFDetail() {
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <p className="text-sm">
-                        {item.type === "manual" ? "Trả trước thủ công" : "Trích tự động"}
+                        {item.type === "manual" ? "Thanh toán trước hạn" : "Trích tự động từ doanh thu"}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {formatDateTime(item.date)}
@@ -230,7 +230,7 @@ export function RBFDetail() {
           >
             <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
 
-            <h3 className="text-xl mb-4">Trả trước khoản ứng</h3>
+            <h3 className="text-xl mb-4">Thanh toán trước hạn</h3>
 
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <div className="flex justify-between mb-2">

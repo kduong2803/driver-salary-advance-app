@@ -37,8 +37,8 @@ export function RBFRegister() {
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
-        <h1 className="text-2xl mb-1">Đăng ký dịch vụ RBF</h1>
-        <p className="text-white/80">Hoàn tất các bước để kích hoạt</p>
+        <h1 className="text-2xl mb-1">Kích hoạt ứng doanh thu</h1>
+        <p className="text-white/80">Xác nhận điều khoản để sử dụng hạn mức doanh thu đã được phê duyệt</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-8 space-y-6">
@@ -84,7 +84,7 @@ export function RBFRegister() {
                   <FileText className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="mb-1">Điều khoản sử dụng dịch vụ RBF</h3>
+                  <h3 className="mb-1">Điều khoản ứng doanh thu</h3>
                   <p className="text-sm text-muted-foreground">
                     Vui lòng đọc kỹ trước khi đồng ý
                   </p>
@@ -95,31 +95,29 @@ export function RBFRegister() {
                 <div>
                   <h4 className="mb-1">1. Phạm vi dịch vụ</h4>
                   <p className="text-muted-foreground">
-                    Dịch vụ ứng doanh thu cho phép đối tác fleet nhận trước vốn kinh doanh,
-                    với tỷ lệ hoàn trả từ 8-12% trên doanh thu thực tế của từng chuyến xe.
+                    Dịch vụ ứng doanh thu cho phép đối tác/fleet nhận trước vốn vận hành trong hạn mức đã được phê duyệt,
+                    dựa trên doanh thu, số chuyến và tần suất hoạt động gần nhất.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">2. Cơ chế hoàn trả</h4>
                   <p className="text-muted-foreground">
-                    Tỷ lệ phần trăm doanh thu sẽ được tự động trích từ mỗi chuyến xe hoàn thành
-                    cho đến khi tất toán đầy đủ. Không có kỳ hạn cố định, linh hoạt theo
-                    hiệu quả kinh doanh thực tế.
+                    Một tỷ lệ phần trăm doanh thu sẽ được tự động trích từ các giao dịch phát sinh
+                    cho đến khi khoản ứng được hoàn trả đầy đủ. Tiến độ hoàn trả phụ thuộc vào hiệu quả vận hành thực tế.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">3. Hạn mức và đánh giá</h4>
                   <p className="text-muted-foreground">
-                    Hạn mức được phê duyệt dựa trên lịch sử vận hành 90 ngày gần nhất.
-                    Hạn mức có thể được điều chỉnh theo hiệu quả hoàn trả.
+                    Hạn mức được duyệt trước dựa trên lịch sử vận hành 90 ngày gần nhất
+                    và có thể được điều chỉnh theo năng lực vận hành cũng như chất lượng hoàn trả của đối tác.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">4. Quyền và trách nhiệm</h4>
                   <p className="text-muted-foreground">
-                    Đối tác cam kết sử dụng vốn đúng mục đích kinh doanh và duy trì
-                    hoạt động vận hành ổn định. Chúng tôi cam kết bảo mật thông tin
-                    và minh bạch trong toàn bộ quá trình.
+                    Đối tác cam kết sử dụng vốn đúng mục đích kinh doanh, duy trì hoạt động vận hành minh bạch
+                    và chấp nhận cơ chế giám sát doanh thu để hệ thống trích hoàn trả tự động.
                   </p>
                 </div>
               </div>

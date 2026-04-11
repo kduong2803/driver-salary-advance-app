@@ -1,42 +1,42 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Wallet, TrendingUp, Shield, Clock, Check, ChevronRight } from "lucide-react";
+import { ArrowLeft, Wallet, TrendingUp, Shield, Clock, Check, ChevronRight, CalendarDays, Percent } from "lucide-react";
 
 export function EWADiscovery() {
   const features = [
     {
-      icon: Wallet,
-      title: "Hạn mức ước tính",
+      icon: CalendarDays,
+      title: "Thu nhập đã phát sinh",
       value: "15.000.000đ",
-      description: "Dựa trên thu nhập trung bình của bạn",
+      description: "Gồm lương cứng phân bổ và thu nhập từ các cuốc đã hoàn thành",
     },
     {
-      icon: TrendingUp,
-      title: "Phí dịch vụ",
-      value: "1-2%",
-      description: "Minh bạch, không phí ẩn",
+      icon: Percent,
+      title: "Tỷ lệ được ứng",
+      value: "50-70%",
+      description: "Chỉ áp dụng trên phần thu nhập khả dụng sau khi trừ giữ lại",
     },
     {
       icon: Clock,
-      title: "Thời gian hoàn trả",
+      title: "Cập nhật theo thời gian thực",
       value: "7-30 ngày",
-      description: "Tự động khấu trừ từ thu nhập",
+      description: "Hạn mức có thể tăng ngay sau mỗi cuốc xe hoàn thành",
     },
   ];
 
   const benefits = [
-    "Duyệt nhanh chóng, tiền về tức thì",
-    "Không cần thế chấp tài sản",
-    "Hoàn trả tự động, linh hoạt",
-    "Bảo mật thông tin tuyệt đối",
-    "Hỗ trợ 24/7",
+    "Chỉ ứng trên phần thu nhập đã kiếm được, không tạo cảm giác vay vượt khả năng",
+    "Breakdown rõ giữa lương cứng phân bổ và thu nhập theo cuốc",
+    "Hạn mức thay đổi theo hành vi hoạt động và số cuốc hoàn thành",
+    "Tự động khấu trừ từ thu nhập phát sinh tiếp theo, giảm thao tác trả thủ công",
+    "Minh bạch phí và số tiền thực nhận ngay từ bước xác nhận",
   ];
 
   const howItWorks = [
-    { step: "1", title: "Đăng ký dịch vụ", desc: "Xác thực thông tin qua OTP" },
-    { step: "2", title: "Chọn số tiền ứng", desc: "Xem trước phí và số tiền nhận" },
-    { step: "3", title: "Xác nhận giao dịch", desc: "Bảo mật bằng PIN/vân tay" },
-    { step: "4", title: "Nhận tiền ngay", desc: "Tiền về ví VSP tức thì" },
+    { step: "1", title: "Hệ thống tính thu nhập khả dụng", desc: "Cộng lương cứng phân bổ và cuốc đã hoàn thành" },
+    { step: "2", title: "Hiển thị phần có thể ứng", desc: "Trừ khoản giữ lại, pending và giới hạn trong 50-70%" },
+    { step: "3", title: "Chọn số tiền cần ứng", desc: "Xem phí, số tiền thực nhận và xác nhận giao dịch" },
+    { step: "4", title: "Khấu trừ tự động", desc: "Trích từ thu nhập phát sinh tiếp theo cho đến khi hoàn tất" },
   ];
 
   return (
@@ -56,7 +56,7 @@ export function EWADiscovery() {
             <Wallet className="w-9 h-9" />
           </div>
           <h1 className="text-3xl mb-2">Ứng Lương Tài Xế</h1>
-          <p className="text-white/90 text-lg">Nhận lương trước, lo toan sau</p>
+          <p className="text-white/90 text-lg">Ứng trước trên phần thu nhập bạn đã kiếm được</p>
         </motion.div>
 
         {/* Decorative circles */}
@@ -64,7 +64,33 @@ export function EWADiscovery() {
         <div className="absolute -left-20 top-40 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-lg mx-auto px-6 -mt-16 pb-8 space-y-6">
+      <div className="max-w-lg mx-auto px-6 -mt-8 pb-8 space-y-6">
+        <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
+          <h3 className="mb-4">Thu nhập khả dụng được tính như thế nào?</h3>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Lương cứng phân bổ theo ngày</span>
+              <span>4.200.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Thu nhập từ cuốc đã hoàn thành</span>
+              <span>10.800.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Khoản giữ lại / pending</span>
+              <span className="text-destructive">-1.500.000đ</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between">
+              <span>Thu nhập khả dụng</span>
+              <span className="text-primary">13.500.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Có thể ứng tối đa (70%)</span>
+              <span className="text-primary">9.450.000đ</span>
+            </div>
+          </div>
+        </div>
         {/* Key Features */}
         <div className="grid gap-3">
           {features.map((feature, index) => (

@@ -151,7 +151,7 @@ export function Manage() {
       {/* Header */}
       <div className="bg-gradient-to-br from-primary via-cyan-500 to-cyan-600 text-white px-6 pt-12 pb-8">
         <h1 className="text-2xl mb-1">Quản lý khoản ứng</h1>
-        <p className="text-white/80">Theo dõi và quản lý tài chính</p>
+        <p className="text-white/80">Theo dõi riêng ứng thu nhập tài xế và ứng doanh thu đối tác</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-6 space-y-6">
@@ -166,7 +166,7 @@ export function Manage() {
             }`}
           >
             <Wallet className="w-4 h-4" />
-            <span>Ứng lương</span>
+            <span>Ứng thu nhập</span>
           </button>
           <button
             onClick={() => setActiveTab("rbf")}
@@ -196,11 +196,13 @@ export function Manage() {
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                   <TrendingUp className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xs text-muted-foreground">Đang hoạt động</span>
+                <span className="text-xs text-muted-foreground">
+                  {activeTab === "ewa" ? "Khoản ứng đang khấu trừ" : "Khoản ứng đang hoàn trả"}
+                </span>
               </div>
               <p className="text-2xl text-primary">{stats.totalActive}</p>
               <p className="text-xs text-muted-foreground mt-1">
-                {formatCurrency(stats.totalAmount)}
+                {activeTab === "ewa" ? "Còn phải khấu trừ " : "Còn phải hoàn trả "}{formatCurrency(stats.totalAmount)}
               </p>
             </div>
 
@@ -209,10 +211,14 @@ export function Manage() {
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xs text-muted-foreground">Hạn mức khả dụng</span>
+                <span className="text-xs text-muted-foreground">
+                  {activeTab === "ewa" ? "Có thể ứng thêm" : "Hạn mức còn khả dụng"}
+                </span>
               </div>
               <p className="text-2xl text-primary">{formatCurrency(stats.availableLimit / 1000000)}tr</p>
-              <p className="text-xs text-muted-foreground mt-1">Có thể ứng thêm</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {activeTab === "ewa" ? "Dựa trên thu nhập đã phát sinh" : "Dựa trên hạn mức đã duyệt"}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -229,7 +235,7 @@ export function Manage() {
             <Link to={activeTab === "ewa" ? "/ewa/request" : "/rbf/request"}>
               <button className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
                 <Plus className="w-5 h-5" />
-                <span>{activeTab === "ewa" ? "Ứng lương mới" : "Ứng doanh thu mới"}</span>
+                <span>{activeTab === "ewa" ? "Tạo khoản ứng thu nhập" : "Tạo khoản ứng doanh thu"}</span>
               </button>
             </Link>
           </motion.div>
@@ -237,7 +243,7 @@ export function Manage() {
 
         {/* Advances List */}
         <div className="space-y-3">
-          <h3 className="px-1">Danh sách khoản ứng</h3>
+          <h3 className="px-1">{activeTab === "ewa" ? "Danh sách ứng thu nhập" : "Danh sách ứng doanh thu"}</h3>
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -267,7 +273,7 @@ export function Manage() {
                             <p className="text-xl mb-1">{formatCurrency(advance.amount)}</p>
                             <div className="flex items-center gap-2">
                               <p className="text-xs text-muted-foreground">
-                                Ngày ứng: {formatDate(advance.createdAt)}
+                                {activeTab === "ewa" ? "Ngày tạo ứng: " : "Ngày giải ngân: "}{formatDate(advance.createdAt)}
                               </p>
                               {activeTab === "rbf" && "revenueRate" in advance && (
                                 <span className="text-xs text-primary flex items-center gap-1">
@@ -289,8 +295,8 @@ export function Manage() {
                         {advance.status === "active" && (
                           <div className="mb-4">
                             <div className="flex justify-between text-xs text-muted-foreground mb-2">
-                              <span>Đã trả: {formatCurrency(advance.paidAmount)}</span>
-                              <span>Còn lại: {formatCurrency(advance.remainingAmount)}</span>
+                              <span>{activeTab === "ewa" ? "Đã khấu trừ: " : "Đã hoàn trả: "}{formatCurrency(advance.paidAmount)}</span>
+                              <span>{activeTab === "ewa" ? "Còn khấu trừ: " : "Còn phải trả: "}{formatCurrency(advance.remainingAmount)}</span>
                             </div>
                             <div className="h-2 bg-muted rounded-full overflow-hidden">
                               <motion.div
@@ -308,9 +314,9 @@ export function Manage() {
                           <span className="text-muted-foreground">
                             {advance.status === "active"
                               ? activeTab === "ewa"
-                                ? `Đến hạn: ${formatDate("dueDate" in advance ? advance.dueDate : "")}`
-                                : `Dự kiến: ${formatDate("estimatedCompletionDate" in advance ? advance.estimatedCompletionDate : "")}`
-                              : "Đã tất toán"}
+                                ? `Dự kiến khấu trừ xong: ${formatDate("dueDate" in advance ? advance.dueDate : "")}`
+                                : `Dự kiến hoàn tất: ${formatDate("estimatedCompletionDate" in advance ? advance.estimatedCompletionDate : "")}`
+                              : "Đã hoàn tất"}
                           </span>
                           <ChevronRight className="w-4 h-4 text-muted-foreground" />
                         </div>
