@@ -1,97 +1,92 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, TrendingUp, Shield, Clock, Check, ChevronRight, Percent, Calendar, Building2 } from "lucide-react";
+import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Calendar, Building2 } from "lucide-react";
 
 export function RBFDiscovery() {
   const features = [
     {
       icon: TrendingUp,
       title: "Hạn mức được phê duyệt",
-      value: "500.000.000đ",
-      description: "Dựa trên doanh thu, số chuyến và tần suất vận hành 90 ngày",
+      value: "25.000.000đ",
+      description: "Dựa trên doanh thu, số chuyến và tần suất hoạt động 90 ngày gần nhất",
     },
     {
       icon: Percent,
       title: "Tỷ lệ trích doanh thu",
-      value: "8-12%",
-      description: "Tự động trích trên doanh thu phát sinh của fleet",
+      value: "8-10%",
+      description: "Tự động trích trên doanh thu phát sinh để hoàn trả khoản ứng",
     },
     {
       icon: Calendar,
       title: "Thời gian ước tính",
-      value: "60-120 ngày",
-      description: "Phụ thuộc hiệu suất vận hành thực tế của đối tác",
+      value: "45-60 ngày",
+      description: "Phụ thuộc vào mức doanh thu thực tế trong giai đoạn hoàn trả",
     },
   ];
 
   const benefits = [
-    "Hạn mức được duyệt trước để đối tác chủ động kế hoạch dòng tiền",
+    "Hạn mức được duyệt trước để bạn chủ động kế hoạch chi tiêu vận hành",
     "Hoàn trả bằng tỷ lệ trích doanh thu, không cần lịch trả cố định",
-    "Theo dõi tiến độ theo doanh thu phát sinh thực tế của fleet",
-    "Phù hợp cho nhu cầu bổ sung vốn vận hành và mở rộng quy mô",
-    "Minh bạch mức phí, tỷ lệ trích và số còn phải hoàn trả",
+    "Theo dõi rõ số đã ứng, số còn lại và tiến độ hoàn trả theo doanh thu phát sinh",
+    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho xăng xe, bảo dưỡng hoặc chi phí vận hành",
+    "Minh bạch mức phí, tỷ lệ trích và số tiền còn phải hoàn trả",
   ];
 
   const howItWorks = [
-    { step: "1", title: "Đánh giá hiệu suất vận hành", desc: "Hệ thống xét doanh thu, số chuyến và tần suất hoạt động" },
-    { step: "2", title: "Cấp hạn mức được duyệt trước", desc: "Đối tác xem trước số tiền có thể ứng và tỷ lệ trích doanh thu" },
+    { step: "1", title: "Hệ thống đánh giá hoạt động", desc: "Xét doanh thu, số chuyến và mức độ hoạt động gần đây" },
+    { step: "2", title: "Cấp hạn mức ứng doanh thu", desc: "Hiển thị số tiền có thể ứng và tỷ lệ trích hoàn trả" },
     { step: "3", title: "Giải ngân về ví hoặc ngân hàng", desc: "Xác nhận khoản ứng và nhận tiền ngay" },
-    { step: "4", title: "Trích doanh thu tự động", desc: "Khấu trừ một tỷ lệ % từ doanh thu phát sinh cho đến khi hoàn tất" },
+    { step: "4", title: "Trích doanh thu tự động", desc: "Khấu trừ một tỷ lệ phần trăm từ doanh thu phát sinh cho đến khi hoàn tất" },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-cyan-500 to-teal-600 text-white px-6 pt-12 pb-32 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-cyan-500 to-teal-600 text-white px-6 pt-12 pb-16 relative overflow-hidden">
         <Link to="/" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
         </Link>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
             <Building2 className="w-9 h-9" />
           </div>
-          <h1 className="text-3xl mb-2">Ứng Doanh Thu Fleet</h1>
-          <p className="text-white/90 text-lg">Bổ sung vốn vận hành dựa trên hạn mức doanh thu được duyệt</p>
+          <h1 className="text-3xl mb-2">Ứng doanh thu đối tác GSM</h1>
+          <p className="text-white/90 text-lg">Ứng trước một phần doanh thu để xoay vòng chi phí vận hành</p>
         </motion.div>
 
-        {/* Decorative circles */}
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
         <div className="absolute -left-20 top-40 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-lg mx-auto px-6 -mt-8 pb-8 space-y-6">
+      <div className="max-w-lg mx-auto px-6 pt-6 pb-8 space-y-6">
         <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
           <h3 className="mb-4">Hạn mức được xác định như thế nào?</h3>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Doanh thu 90 ngày</span>
-              <span>4.800.000.000đ</span>
+              <span>180.000.000đ</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Số chuyến hoàn thành</span>
-              <span>12.450 chuyến</span>
+              <span>780 chuyến</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Tần suất hoạt động</span>
-              <span>Ổn định 92%</span>
+              <span className="text-muted-foreground">Mức độ hoạt động</span>
+              <span>Ổn định 88%</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
-              <span>Hạn mức được duyệt trước</span>
-              <span className="text-primary">500.000.000đ</span>
+              <span>Hạn mức được duyệt</span>
+              <span className="text-primary">25.000.000đ</span>
             </div>
             <div className="flex justify-between">
               <span>Tỷ lệ trích doanh thu</span>
-              <span className="text-primary">10% / chuyến</span>
+              <span className="text-primary">10% / giao dịch</span>
             </div>
           </div>
         </div>
-        {/* Key Features */}
+
         <div className="grid gap-3">
           {features.map((feature, index) => (
             <motion.div
@@ -115,7 +110,6 @@ export function RBFDiscovery() {
           ))}
         </div>
 
-        {/* How it works */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4 flex items-center gap-2">
             <span className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -124,7 +118,7 @@ export function RBFDiscovery() {
             Cách thức hoạt động
           </h3>
           <div className="space-y-4">
-            {howItWorks.map((item, index) => (
+            {howItWorks.map((item) => (
               <div key={item.step} className="flex gap-3">
                 <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm">
                   {item.step}
@@ -138,7 +132,6 @@ export function RBFDiscovery() {
           </div>
         </div>
 
-        {/* Benefits */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>
           <div className="space-y-3">
@@ -153,38 +146,32 @@ export function RBFDiscovery() {
           </div>
         </div>
 
-        {/* Example */}
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
           <h4 className="mb-3 text-primary">Ví dụ minh họa</h4>
           <div className="space-y-3 text-sm">
             <div>
               <p className="text-muted-foreground mb-1">Kịch bản:</p>
-              <p>Ứng 100.000.000đ với tỷ lệ hoàn trả 10% doanh thu mỗi chuyến</p>
+              <p>Ứng 15.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh</p>
             </div>
             <div className="h-px bg-border" />
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Chuyến xe doanh thu 500.000đ:</span>
+                <span className="text-muted-foreground">Doanh thu 500.000đ:</span>
                 <span>Trích 50.000đ</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Chuyến xe doanh thu 1.000.000đ:</span>
+                <span className="text-muted-foreground">Doanh thu 1.000.000đ:</span>
                 <span>Trích 100.000đ</span>
               </div>
             </div>
             <div className="h-px bg-border" />
             <p className="text-xs text-muted-foreground">
-              Với doanh thu trung bình 50 triệu/ngày, ước tính hoàn tất trong ~60 ngày
+              Với doanh thu trung bình 3,5 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 45-60 ngày.
             </p>
           </div>
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
           <Link to="/rbf/register">
             <button className="w-full bg-primary text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
               <span className="text-lg">Đăng ký ngay</span>
@@ -192,7 +179,7 @@ export function RBFDiscovery() {
             </button>
           </Link>
           <p className="text-center text-xs text-muted-foreground mt-3">
-            Bằng cách đăng ký, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật
+            Bằng cách đăng ký, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật.
           </p>
         </motion.div>
       </div>

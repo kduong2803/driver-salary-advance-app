@@ -48,33 +48,33 @@ export function Manage() {
   const rbfAdvances = [
     {
       id: "1",
-      amount: 100000000,
+      amount: 25000000,
       status: "active" as const,
       createdAt: "2026-04-11",
       revenueRate: 0.1,
-      paidAmount: 35000000,
-      remainingAmount: 65000000,
-      progress: 35,
+      paidAmount: 9000000,
+      remainingAmount: 16000000,
+      progress: 36,
       estimatedCompletionDate: "2026-06-10",
     },
     {
       id: "2",
-      amount: 200000000,
+      amount: 15000000,
       status: "active" as const,
       createdAt: "2026-03-20",
       revenueRate: 0.12,
-      paidAmount: 120000000,
-      remainingAmount: 80000000,
+      paidAmount: 9000000,
+      remainingAmount: 6000000,
       progress: 60,
       estimatedCompletionDate: "2026-05-15",
     },
     {
       id: "3",
-      amount: 150000000,
+      amount: 12000000,
       status: "completed" as const,
       createdAt: "2026-02-01",
       revenueRate: 0.1,
-      paidAmount: 150000000,
+      paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
       estimatedCompletionDate: "2026-04-05",
@@ -96,7 +96,7 @@ export function Manage() {
     totalAmount: rbfAdvances
       .filter((a) => a.status === "active")
       .reduce((sum, a) => sum + a.remainingAmount, 0),
-    availableLimit: 500000000,
+    availableLimit: 25000000,
   };
 
   const stats = activeTab === "ewa" ? ewaStats : rbfStats;

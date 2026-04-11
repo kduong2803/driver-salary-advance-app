@@ -21,7 +21,7 @@ export function RBFSuccess() {
   }, []);
 
   const transactionDetails = {
-    amount: 100000000,
+    amount: 15000000,
     revenueRate: 0.1,
     account: "vsp" as const,
     estimatedDays: 60,

@@ -64,7 +64,7 @@ export function EWADiscovery() {
         <div className="absolute -left-20 top-40 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-lg mx-auto px-6 -mt-8 pb-8 space-y-6">
+      <div className="max-w-lg mx-auto px-6 pt-6 pb-8 space-y-6">
         <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
           <h3 className="mb-4">Thu nhập khả dụng được tính như thế nào?</h3>
           <div className="space-y-3 text-sm">

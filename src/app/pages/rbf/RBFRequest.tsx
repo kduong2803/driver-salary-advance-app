@@ -10,9 +10,9 @@ export function RBFRequest() {
   const [account, setAccount] = useState<"vsp" | "bank">("vsp");
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const maxAmount = 500000000;
+  const maxAmount = 25000000;
   const revenueRate = 0.1; // 10%
-  const avgDailyRevenue = 50000000;
+  const avgDailyRevenue = 3500000;
 
   const numAmount = parseInt(amount.replace(/\D/g, "")) || 0;
   const estimatedDays = numAmount > 0 ? Math.ceil(numAmount / (avgDailyRevenue * revenueRate)) : 0;
@@ -28,7 +28,7 @@ export function RBFRequest() {
     }
   };
 
-  const quickAmounts = [50000000, 100000000, 200000000, 300000000];
+  const quickAmounts = [5000000, 10000000, 15000000, 20000000];
 
   const handleConfirm = () => {
     navigate("/rbf/success");
