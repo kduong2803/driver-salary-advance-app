@@ -215,7 +215,7 @@ export function Manage() {
                   {activeTab === "ewa" ? "Có thể ứng thêm" : "Hạn mức còn khả dụng"}
                 </span>
               </div>
-              <p className="text-2xl text-primary">{formatCurrency(stats.availableLimit / 1000000)}tr</p>
+              <p className="text-2xl text-primary">{stats.availableLimit / 1000000}tr</p>
               <p className="text-xs text-muted-foreground mt-1">
                 {activeTab === "ewa" ? "Dựa trên thu nhập đã phát sinh" : "Dựa trên hạn mức đã duyệt"}
               </p>

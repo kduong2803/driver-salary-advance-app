@@ -47,7 +47,7 @@ export function Home() {
     },
     {
       id: "rbf",
-      title: "Ứng doanh thu cho tài xế đối tác GSM",
+      title: "Ứng doanh thu cho đội fleet GSM",
       intro: "Dành cho đội fleet 5-10 xe cần ứng trước một phần doanh thu để xoay vòng chi phí vận hành.",
       icon: Building2,
       accent: "text-cyan-700",

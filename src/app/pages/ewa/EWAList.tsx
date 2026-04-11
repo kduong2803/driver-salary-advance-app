@@ -135,7 +135,7 @@ export function EWAList() {
               </div>
               <span className="text-xs text-muted-foreground">Hạn mức khả dụng</span>
             </div>
-            <p className="text-2xl text-primary">{formatCurrency(stats.availableLimit / 1000000)}tr</p>
+            <p className="text-2xl text-primary">{stats.availableLimit / 1000000}tr</p>
             <p className="text-xs text-muted-foreground mt-1">Có thể ứng thêm</p>
           </motion.div>
         </div>
