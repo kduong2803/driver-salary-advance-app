@@ -139,8 +139,7 @@ export function EWARequest() {
             <div className="bg-muted/50 rounded-lg p-3 flex items-start gap-2 mt-4">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo, ưu tiên từ doanh thu cuốc xe mới rồi đến lương cứng cuối kỳ.
-                Bạn vẫn có thể chủ động tất toán sớm từ ví VSP nếu muốn.
+                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh cuối kỳ. Bạn vẫn có thể chủ động tất toán sớm từ ví VSP nếu muốn.
               </p>
             </div>
           </motion.div>

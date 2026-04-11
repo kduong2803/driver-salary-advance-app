@@ -8,7 +8,7 @@ export function RBFDiscovery() {
       icon: TrendingUp,
       title: "Hạn mức được phê duyệt",
       value: "90.000.000đ",
-      description: "Dựa trên doanh thu, số xe hoạt động và tần suất vận hành 90 ngày gần nhất",
+      description: "Dựa trên doanh thu và tần suất hoạt động 90 ngày gần nhất",
     },
     {
       icon: Percent,
@@ -28,7 +28,7 @@ export function RBFDiscovery() {
     "Hạn mức được duyệt trước để bạn chủ động kế hoạch chi tiêu vận hành",
     "Hoàn trả bằng tỷ lệ trích doanh thu, không cần lịch trả cố định",
     "Theo dõi rõ số đã ứng, số còn lại và tiến độ hoàn trả theo doanh thu phát sinh",
-    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và chi phí vận hành đội xe",
+    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và các chi phí vận hành",
     "Minh bạch mức phí, tỷ lệ trích và số tiền còn phải hoàn trả",
   ];
 
@@ -51,8 +51,8 @@ export function RBFDiscovery() {
           <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
             <Building2 className="w-9 h-9" />
           </div>
-          <h1 className="text-3xl mb-2">Ứng doanh thu đội fleet GSM</h1>
-          <p className="text-white/90 text-lg">Ứng trước doanh thu cho đội 5-10 xe để xoay vòng vận hành</p>
+          <h1 className="text-3xl mb-2">Ứng Doanh Thu Đối Tác GSM</h1>
+          <p className="text-white/90 text-lg">Ứng trước doanh thu dựa trên lịch sử hoạt động</p>
         </motion.div>
 
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -68,8 +68,8 @@ export function RBFDiscovery() {
               <span>720.000.000đ</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Số xe đang vận hành</span>
-              <span>7 xe</span>
+              <span className="text-muted-foreground">Chuyến trung bình/ngày</span>
+              <span>12 chuyến</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Doanh thu trung bình/ngày</span>
@@ -151,7 +151,7 @@ export function RBFDiscovery() {
           <div className="space-y-3 text-sm">
             <div>
               <p className="text-muted-foreground mb-1">Kịch bản:</p>
-              <p>Ứng 60.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh của đội xe</p>
+              <p>Ứng 60.000.000đ với tỷ lệ hoàn trả 10% trên doanh thu phát sinh</p>
             </div>
             <div className="h-px bg-border" />
             <div className="space-y-2">

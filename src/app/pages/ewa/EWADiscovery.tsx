@@ -28,7 +28,7 @@ export function EWADiscovery() {
     "Chỉ ứng trên phần thu nhập đã kiếm được, không tạo cảm giác vay vượt khả năng",
     "Breakdown rõ giữa lương cứng phân bổ và thu nhập theo cuốc",
     "Hạn mức thay đổi theo hành vi hoạt động và số cuốc hoàn thành",
-    "Tự động khấu trừ từ thu nhập phát sinh tiếp theo, giảm thao tác trả thủ công",
+    "Tự động khấu trừ từ thu nhập cuối kỳ, không cần thao tác thủ công",
     "Minh bạch phí và số tiền thực nhận ngay từ bước xác nhận",
   ];
 
@@ -36,7 +36,7 @@ export function EWADiscovery() {
     { step: "1", title: "Hệ thống tính thu nhập khả dụng", desc: "Cộng lương cứng phân bổ và cuốc đã hoàn thành" },
     { step: "2", title: "Hiển thị phần có thể ứng", desc: "Trừ khoản giữ lại, pending và giới hạn trong 50-70%" },
     { step: "3", title: "Chọn số tiền cần ứng", desc: "Xem phí, số tiền thực nhận và xác nhận giao dịch" },
-    { step: "4", title: "Khấu trừ tự động", desc: "Trích từ thu nhập phát sinh tiếp theo cho đến khi hoàn tất" },
+    { step: "4", title: "Khấu trừ tự động cuối kỳ", desc: "Trừ toàn bộ khoản ứng từ thu nhập phát sinh vào cuối kỳ thanh toán" },
   ];
 
   return (

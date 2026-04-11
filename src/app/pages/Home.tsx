@@ -8,7 +8,7 @@ export function Home() {
       id: "ewa",
       title: "Ứng Thu Nhập Tài Xế",
       subtitle: "Ứng trên phần thu nhập đã phát sinh",
-      description: "Dành cho tài xế cần rút trước một phần thu nhập đã tích lũy từ ngày công và cuốc xe đã hoàn thành",
+      description: "Dành cho tài xế đã ký hợp đồng muốn ứng trước phần thu nhập gồm lương cứng và doanh thu đã phát sinh trong kỳ",
       icon: Wallet,
       gradient: "from-cyan-400 to-cyan-600",
       link: "/ewa/discovery",
@@ -16,21 +16,21 @@ export function Home() {
     },
     {
       id: "rbf",
-      title: "Ứng Doanh Thu Fleet",
+      title: "Ứng Doanh Thu",
       subtitle: "Ứng theo hạn mức đã phê duyệt",
-      description: "Dành cho đối tác/fleet cần vốn vận hành trước và hoàn trả bằng một tỷ lệ phần trăm trên doanh thu phát sinh",
+      description: "Dành cho tài xế và đối tác GSM muốn ứng trước doanh thu theo lịch sử hoạt động và hoàn trả bằng tỷ lệ trích trên doanh thu",
       icon: TrendingUp,
       gradient: "from-cyan-500 to-teal-600",
       link: "/rbf/discovery",
-      features: ["Hạn mức duyệt trước", "Trích % doanh thu", "Phù hợp mở rộng vận hành"],
+      features: ["Hạn mức duyệt trước", "Trích % doanh thu", "Phù hợp tài xế & đối tác GSM"],
     },
   ];
 
   const productExplainers = [
     {
       id: "ewa",
-      title: "Ứng thu nhập cho tài xế GSM",
-      intro: "Bạn có thể ứng trước một phần thu nhập mình đã tạo ra từ ngày công và các cuốc xe đã hoàn thành.",
+      title: "Ứng thu nhập cho tài xế có hợp đồng",
+      intro: "Ứng trước phần thu nhập đã phát sinh trong kỳ, gồm lương cứng phân bổ và doanh thu từ các cuốc đã hoàn thành.",
       icon: Wallet,
       accent: "text-primary",
       bg: "bg-primary/10",
@@ -42,13 +42,13 @@ export function Home() {
       bullets: [
         "Số tiền có thể ứng được tính từ lương cứng phân bổ và thu nhập từ cuốc xe đã hoàn thành",
         "Hạn mức ứng được cập nhật sau mỗi cuốc xe, nên bạn luôn thấy phần thu nhập đã sẵn sàng để rút",
-        "Khoản ứng được khấu trừ tự động từ thu nhập phát sinh tiếp theo, không cần thao tác phức tạp",
+        "Khoản ứng được khấu trừ tự động từ thu nhập cuối kỳ, không cần thao tác thủ công",
       ],
     },
     {
       id: "rbf",
-      title: "Ứng doanh thu cho đội fleet GSM",
-      intro: "Dành cho đội fleet 5-10 xe cần ứng trước một phần doanh thu để xoay vòng chi phí vận hành.",
+      title: "Ứng doanh thu cho tài xế và đối tác GSM",
+      intro: "Ứng trước doanh thu dựa trên lịch sử hoạt động, dành cho cả tài xế lẫn đối tác cá nhân hợp tác với GSM.",
       icon: Building2,
       accent: "text-cyan-700",
       bg: "bg-cyan-500/10",
@@ -60,7 +60,7 @@ export function Home() {
       bullets: [
         "Hạn mức được duyệt trước dựa trên doanh thu, số xe hoạt động và tần suất vận hành gần đây",
         "Bạn luôn theo dõi được số đã ứng, số còn lại và phần doanh thu sẽ được trích để hoàn trả",
-        "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, lương tài xế và bảo dưỡng đội xe",
+        "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và các chi phí vận hành",
       ],
     },
   ];
