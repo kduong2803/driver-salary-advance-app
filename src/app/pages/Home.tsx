@@ -53,8 +53,8 @@ export function Home() {
       accent: "text-cyan-700",
       bg: "bg-cyan-500/10",
       stats: [
-        { label: "Doanh thu 90 ngày", value: "720.000.000đ", icon: TrendingUp },
-        { label: "Hạn mức được duyệt", value: "90.000.000đ", icon: Wallet },
+        { label: "Doanh thu 90 ngày", value: "90.000.000đ", icon: TrendingUp },
+        { label: "Hạn mức được duyệt", value: "8.000.000đ", icon: Wallet },
         { label: "Tỷ lệ trích hoàn trả", value: "8-10%", icon: Percent },
       ],
       bullets: [
