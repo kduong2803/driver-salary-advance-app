@@ -33,7 +33,9 @@ export function EWARequest() {
   const quickAmounts = [1000000, 3000000, 5000000, 10000000];
 
   const handleConfirm = () => {
-    navigate("/ewa/success");
+    navigate("/ewa/success", {
+      state: { amount: numAmount, fee, netAmount },
+    });
   };
 
   return (

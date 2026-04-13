@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { motion } from "motion/react";
 import { CheckCircle2, Calendar, Wallet, ArrowRight } from "lucide-react";
 
 export function EWASuccess() {
   const navigate = useNavigate();
-  const [showConfetti, setShowConfetti] = useState(true);
+  const location = useLocation();
+  const [showConfetti] = useState(true);
+
+  const {
+    amount = 10000000,
+    fee = 150000,
+    netAmount = 9850000,
+  } = (location.state as any) || {};
+
+  const transactionId = "EWA" + Date.now().toString().slice(-10);
+  const repaymentDate = "30/04/2026";
 
   useEffect(() => {
-    // Import confetti dynamically
     import("canvas-confetti").then((confetti) => {
       confetti.default({
         particleCount: 100,
@@ -17,29 +26,10 @@ export function EWASuccess() {
         colors: ["#00bcd4", "#06b6d4", "#22d3ee"],
       });
     });
-
-    setTimeout(() => setShowConfetti(false), 3000);
   }, []);
-
-  const transactionDetails = {
-    amount: 10000000,
-    fee: 150000,
-    netAmount: 9850000,
-    expectedRepaymentDate: "2026-05-11",
-    transactionId: "EWA20260411001234",
-  };
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString("vi-VN") + "đ";
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
   };
 
   return (
@@ -82,7 +72,7 @@ export function EWASuccess() {
               <Wallet className="w-5 h-5" />
               <span className="text-white/80">Số tiền thực nhận</span>
             </div>
-            <p className="text-5xl mb-1">{formatCurrency(transactionDetails.netAmount)}</p>
+            <p className="text-5xl mb-1">{formatCurrency(netAmount)}</p>
             <p className="text-white/70 text-sm">Đã chuyển vào V-Smart Pay của bạn</p>
           </div>
         </motion.div>
@@ -99,21 +89,21 @@ export function EWASuccess() {
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Mã giao dịch:</span>
-              <span className="font-mono">{transactionDetails.transactionId}</span>
+              <span className="font-mono text-xs">{transactionId}</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Thu nhập được ứng:</span>
-              <span>{formatCurrency(transactionDetails.amount)}</span>
+              <span>{formatCurrency(amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Phí dịch vụ:</span>
-              <span className="text-destructive">-{formatCurrency(transactionDetails.fee)}</span>
+              <span className="text-muted-foreground">Phí dịch vụ (1.5%):</span>
+              <span className="text-destructive">-{formatCurrency(fee)}</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
               <span>Số tiền thực nhận:</span>
-              <span className="text-lg text-primary">{formatCurrency(transactionDetails.netAmount)}</span>
+              <span className="text-lg text-primary">{formatCurrency(netAmount)}</span>
             </div>
           </div>
         </motion.div>
@@ -131,7 +121,7 @@ export function EWASuccess() {
             </div>
             <div className="flex-1">
               <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
-              <p className="text-2xl mb-2">{formatDate(transactionDetails.expectedRepaymentDate)}</p>
+              <p className="text-2xl mb-2">{repaymentDate}</p>
               <p className="text-sm text-muted-foreground">
                 Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo của bạn.
                 Hệ thống ưu tiên trích từ doanh thu cuốc xe mới rồi đến lương cứng cuối kỳ; bạn vẫn có thể tất toán sớm bất kỳ lúc nào.
