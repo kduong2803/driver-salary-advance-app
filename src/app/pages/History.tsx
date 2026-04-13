@@ -1,50 +1,50 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { TrendingDown, Wallet, Building2, Clock, List, CalendarDays } from "lucide-react";
+import { TrendingDown, Wallet, Building2, Clock, List, CalendarDays, MapPin } from "lucide-react";
 
 export function History() {
   const [activeTab, setActiveTab] = useState<"ewa" | "rbf">("ewa");
   const [viewMode, setViewMode] = useState<"detail" | "daily">("detail");
 
-  // EWA — chi tiết theo cuốc xe (income per trip tracked toward advance)
+  // EWA — chi tiết theo cuốc xe (khấu trừ 50% thu nhập mỗi cuốc, cuối kỳ tất toán phần còn lại)
   const ewaDetailHistory = [
-    { id: "1", date: "2026-04-12T19:45:00", amount: 185000, type: "auto" as const, tripId: "T001241", tripRevenue: 185000 },
-    { id: "2", date: "2026-04-12T16:20:00", amount: 210000, type: "auto" as const, tripId: "T001240", tripRevenue: 210000 },
-    { id: "3", date: "2026-04-12T13:05:00", amount: 145000, type: "auto" as const, tripId: "T001239", tripRevenue: 145000 },
-    { id: "4", date: "2026-04-11T20:10:00", amount: 230000, type: "auto" as const, tripId: "T001238", tripRevenue: 230000 },
-    { id: "5", date: "2026-04-11T17:30:00", amount: 165000, type: "auto" as const, tripId: "T001237", tripRevenue: 165000 },
-    { id: "6", date: "2026-04-11T14:45:00", amount: 195000, type: "auto" as const, tripId: "T001236", tripRevenue: 195000 },
-    { id: "7", date: "2026-04-11T10:20:00", amount: 130000, type: "auto" as const, tripId: "T001235", tripRevenue: 130000 },
-    { id: "8", date: "2026-04-08T09:00:00", amount: 300000, type: "manual" as const, tripId: null },
+    { id: "1", date: "2026-04-12T19:45:00", tripRevenue: 185000, amount: 93000, type: "auto" as const, tripId: "T001241", from: "Quận 1, TP.HCM", to: "Quận 7, TP.HCM" },
+    { id: "2", date: "2026-04-12T16:20:00", tripRevenue: 210000, amount: 105000, type: "auto" as const, tripId: "T001240", from: "Tân Bình, TP.HCM", to: "Bình Thạnh, TP.HCM" },
+    { id: "3", date: "2026-04-12T13:05:00", tripRevenue: 145000, amount: 73000, type: "auto" as const, tripId: "T001239", from: "Gò Vấp, TP.HCM", to: "Phú Nhuận, TP.HCM" },
+    { id: "4", date: "2026-04-11T20:10:00", tripRevenue: 230000, amount: 115000, type: "auto" as const, tripId: "T001238", from: "Quận 3, TP.HCM", to: "Thủ Đức, TP.HCM" },
+    { id: "5", date: "2026-04-11T17:30:00", tripRevenue: 165000, amount: 83000, type: "auto" as const, tripId: "T001237", from: "Bình Thạnh, TP.HCM", to: "Quận 4, TP.HCM" },
+    { id: "6", date: "2026-04-11T14:45:00", tripRevenue: 195000, amount: 98000, type: "auto" as const, tripId: "T001236", from: "Quận 10, TP.HCM", to: "Quận 1, TP.HCM" },
+    { id: "7", date: "2026-04-11T10:20:00", tripRevenue: 130000, amount: 65000, type: "auto" as const, tripId: "T001235", from: "Tân Phú, TP.HCM", to: "Tân Bình, TP.HCM" },
+    { id: "8", date: "2026-04-08T09:00:00", tripRevenue: 0, amount: 300000, type: "manual" as const, tripId: null },
   ];
 
   // EWA — gộp theo ngày
   const ewaDailyHistory = [
-    { id: "1", date: "2026-04-12", amount: 540000, type: "auto" as const, tripCount: 3, dayLabel: "12/04" },
-    { id: "2", date: "2026-04-11", amount: 720000, type: "auto" as const, tripCount: 4, dayLabel: "11/04" },
-    { id: "3", date: "2026-04-10", amount: 590000, type: "auto" as const, tripCount: 3, dayLabel: "10/04" },
-    { id: "4", date: "2026-04-09", amount: 650000, type: "auto" as const, tripCount: 4, dayLabel: "09/04" },
+    { id: "1", date: "2026-04-12", amount: 271000, type: "auto" as const, tripCount: 3, tripRevenue: 540000, dayLabel: "12/04" },
+    { id: "2", date: "2026-04-11", amount: 361000, type: "auto" as const, tripCount: 4, tripRevenue: 720000, dayLabel: "11/04" },
+    { id: "3", date: "2026-04-10", amount: 295000, type: "auto" as const, tripCount: 3, tripRevenue: 590000, dayLabel: "10/04" },
+    { id: "4", date: "2026-04-09", amount: 325000, type: "auto" as const, tripCount: 4, tripRevenue: 650000, dayLabel: "09/04" },
     { id: "5", date: "2026-04-08", amount: 300000, type: "manual" as const, dayLabel: "08/04" },
   ];
 
-  // RBF — chi tiết theo cuốc xe (20% trích mỗi cuốc)
+  // RBF — chi tiết theo cuốc xe (trích 20% doanh thu mỗi cuốc)
   const rbfDetailHistory = [
-    { id: "1", date: "2026-04-12T19:45:00", amount: 37000, type: "auto" as const, tripId: "T002145", tripRevenue: 185000, revenueRate: 0.2 },
-    { id: "2", date: "2026-04-12T16:20:00", amount: 42000, type: "auto" as const, tripId: "T002144", tripRevenue: 210000, revenueRate: 0.2 },
-    { id: "3", date: "2026-04-12T13:05:00", amount: 29000, type: "auto" as const, tripId: "T002143", tripRevenue: 145000, revenueRate: 0.2 },
-    { id: "4", date: "2026-04-11T20:10:00", amount: 46000, type: "auto" as const, tripId: "T002142", tripRevenue: 230000, revenueRate: 0.2 },
-    { id: "5", date: "2026-04-11T17:30:00", amount: 33000, type: "auto" as const, tripId: "T002141", tripRevenue: 165000, revenueRate: 0.2 },
-    { id: "6", date: "2026-04-11T14:45:00", amount: 39000, type: "auto" as const, tripId: "T002140", tripRevenue: 195000, revenueRate: 0.2 },
-    { id: "7", date: "2026-04-11T10:20:00", amount: 26000, type: "auto" as const, tripId: "T002139", tripRevenue: 130000, revenueRate: 0.2 },
+    { id: "1", date: "2026-04-12T19:45:00", amount: 37000, type: "auto" as const, tripId: "T002145", tripRevenue: 185000, revenueRate: 0.2, from: "Quận 1, TP.HCM", to: "Quận 7, TP.HCM" },
+    { id: "2", date: "2026-04-12T16:20:00", amount: 42000, type: "auto" as const, tripId: "T002144", tripRevenue: 210000, revenueRate: 0.2, from: "Tân Bình, TP.HCM", to: "Bình Thạnh, TP.HCM" },
+    { id: "3", date: "2026-04-12T13:05:00", amount: 29000, type: "auto" as const, tripId: "T002143", tripRevenue: 145000, revenueRate: 0.2, from: "Gò Vấp, TP.HCM", to: "Phú Nhuận, TP.HCM" },
+    { id: "4", date: "2026-04-11T20:10:00", amount: 46000, type: "auto" as const, tripId: "T002142", tripRevenue: 230000, revenueRate: 0.2, from: "Quận 3, TP.HCM", to: "Thủ Đức, TP.HCM" },
+    { id: "5", date: "2026-04-11T17:30:00", amount: 33000, type: "auto" as const, tripId: "T002141", tripRevenue: 165000, revenueRate: 0.2, from: "Bình Thạnh, TP.HCM", to: "Quận 4, TP.HCM" },
+    { id: "6", date: "2026-04-11T14:45:00", amount: 39000, type: "auto" as const, tripId: "T002140", tripRevenue: 195000, revenueRate: 0.2, from: "Quận 10, TP.HCM", to: "Quận 1, TP.HCM" },
+    { id: "7", date: "2026-04-11T10:20:00", amount: 26000, type: "auto" as const, tripId: "T002139", tripRevenue: 130000, revenueRate: 0.2, from: "Tân Phú, TP.HCM", to: "Tân Bình, TP.HCM" },
     { id: "8", date: "2026-04-08T09:00:00", amount: 500000, type: "manual" as const, tripId: null },
   ];
 
   // RBF — gộp theo ngày
   const rbfDailyHistory = [
-    { id: "1", date: "2026-04-12", amount: 210000, type: "auto" as const, tripCount: 10, tripRevenue: 1050000, dayLabel: "12/04", revenueRate: 0.2 },
-    { id: "2", date: "2026-04-11", amount: 190000, type: "auto" as const, tripCount: 9, tripRevenue: 950000, dayLabel: "11/04", revenueRate: 0.2 },
-    { id: "3", date: "2026-04-10", amount: 220000, type: "auto" as const, tripCount: 10, tripRevenue: 1100000, dayLabel: "10/04", revenueRate: 0.2 },
-    { id: "4", date: "2026-04-09", amount: 180000, type: "auto" as const, tripCount: 9, tripRevenue: 900000, dayLabel: "09/04", revenueRate: 0.2 },
+    { id: "1", date: "2026-04-12", amount: 108000, type: "auto" as const, tripCount: 3, tripRevenue: 540000, dayLabel: "12/04", revenueRate: 0.2 },
+    { id: "2", date: "2026-04-11", amount: 144000, type: "auto" as const, tripCount: 4, tripRevenue: 720000, dayLabel: "11/04", revenueRate: 0.2 },
+    { id: "3", date: "2026-04-10", amount: 118000, type: "auto" as const, tripCount: 3, tripRevenue: 590000, dayLabel: "10/04", revenueRate: 0.2 },
+    { id: "4", date: "2026-04-09", amount: 130000, type: "auto" as const, tripCount: 4, tripRevenue: 650000, dayLabel: "09/04", revenueRate: 0.2 },
     { id: "5", date: "2026-04-08", amount: 500000, type: "manual" as const, dayLabel: "08/04" },
   ];
 
@@ -149,8 +149,8 @@ export function History() {
                           {item.type === "manual"
                             ? activeTab === "ewa" ? "Tất toán sớm từ V-Smart Pay" : "Thanh toán trước hạn"
                             : activeTab === "ewa"
-                              ? viewMode === "detail" ? "Thu nhập từ cuốc xe" : "Thu nhập trong ngày"
-                              : viewMode === "detail" ? "Trích từ cuốc xe" : "Trích doanh thu trong ngày"}
+                              ? viewMode === "detail" ? "Khấu trừ thu nhập cuốc xe" : "Khấu trừ thu nhập trong ngày"
+                              : viewMode === "detail" ? "Trích doanh thu cuốc xe" : "Trích doanh thu trong ngày"}
                         </p>
                         <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                           <Clock className="w-3 h-3" />
@@ -160,24 +160,42 @@ export function History() {
                       <p className="text-lg text-primary whitespace-nowrap">-{formatCurrency(item.amount)}</p>
                     </div>
 
-                    {/* Chi tiết view */}
+                    {/* Chi tiết view — per-trip */}
                     {item.type === "auto" && viewMode === "detail" && "tripId" in item && item.tripId && (
                       <div className="bg-muted/50 rounded-lg p-3 space-y-2 text-sm">
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Mã cuốc xe:</span>
+                          <span className="text-muted-foreground">Mã chuyến:</span>
                           <span className="font-mono">{item.tripId}</span>
                         </div>
-                        {"tripRevenue" in item && item.tripRevenue && (
+                        {"tripRevenue" in item && (item as any).tripRevenue > 0 && (
                           <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Doanh thu cuốc:</span>
-                            <span className="text-primary">{formatCurrency(item.tripRevenue)}</span>
+                            <span className="text-muted-foreground">
+                              {activeTab === "ewa" ? "Thu nhập phát sinh:" : "Doanh thu cuốc:"}
+                            </span>
+                            <span className="text-primary">{formatCurrency((item as any).tripRevenue)}</span>
                           </div>
                         )}
-                        {activeTab === "rbf" && "revenueRate" in item && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Tỷ lệ trích:</span>
-                            <span>{(item as any).revenueRate * 100}%</span>
-                          </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Tỷ lệ khấu trừ:</span>
+                          <span>{activeTab === "ewa" ? "50%" : "20%"}</span>
+                        </div>
+                        {"from" in item && (item as any).from && (
+                          <>
+                            <div className="h-px bg-border/60" />
+                            <div className="flex items-start gap-2">
+                              <MapPin className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                              <div className="flex-1 space-y-1">
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Điểm đón:</span>
+                                  <span className="text-right">{(item as any).from}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Điểm đến:</span>
+                                  <span className="text-right">{(item as any).to}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </>
                         )}
                       </div>
                     )}
@@ -188,21 +206,19 @@ export function History() {
                         {"tripCount" in item && (
                           <div className="flex items-center justify-between">
                             <span className="text-muted-foreground">Số cuốc trong ngày:</span>
-                            <span>{"tripCount" in item ? (item as any).tripCount : 0} cuốc</span>
+                            <span>{(item as any).tripCount} cuốc</span>
                           </div>
                         )}
-                        {"tripRevenue" in item && (item as any).tripRevenue && (
+                        {"tripRevenue" in item && (item as any).tripRevenue > 0 && (
                           <div className="flex items-center justify-between">
                             <span className="text-muted-foreground">Tổng doanh thu ngày:</span>
                             <span className="text-primary">{formatCurrency((item as any).tripRevenue)}</span>
                           </div>
                         )}
-                        {activeTab === "rbf" && "revenueRate" in item && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Tỷ lệ trích:</span>
-                            <span>{(item as any).revenueRate * 100}%</span>
-                          </div>
-                        )}
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Tỷ lệ khấu trừ:</span>
+                          <span>{activeTab === "ewa" ? "50%" : "20%"}</span>
+                        </div>
                       </div>
                     )}
 
