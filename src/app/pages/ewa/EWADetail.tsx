@@ -15,7 +15,7 @@ export function EWADetail() {
     fee: 150000,
     status: "active" as const,
     createdAt: "2026-04-11T10:30:00",
-    dueDate: "2026-05-11",
+    dueDate: "2026-04-30",
     paidAmount: 3000000,
     remainingAmount: 7000000,
     progress: 30,
@@ -116,7 +116,7 @@ export function EWADetail() {
               <span>{formatDateTime(advance.createdAt)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Ngày đến hạn:</span>
+              <span className="text-muted-foreground">Kỳ tất toán lương:</span>
               <span>{formatDate(advance.dueDate)}</span>
             </div>
             <div className="h-px bg-border" />
@@ -149,8 +149,9 @@ export function EWADetail() {
             <div className="flex-1">
               <h4 className="mb-1 text-primary">Cơ chế khấu trừ</h4>
               <p className="text-sm text-muted-foreground">
-                Khoản ứng được tự động khấu trừ từ thu nhập phát sinh tiếp theo của bạn, ưu tiên từ các cuốc xe mới hoàn thành.
-                Dự kiến hoàn tất vào ngày <span className="text-foreground font-medium">{formatDate(advance.dueDate)}</span>
+                Thu nhập từ các cuốc xe hoàn thành sẽ được dùng để khấu trừ dần khoản ứng trong tháng.
+                Phần còn lại (nếu có) sẽ được trừ tự động một lần vào kỳ nhận lương cuối tháng —
+                dự kiến ngày <span className="text-foreground font-medium">{formatDate(advance.dueDate)}</span>.
               </p>
             </div>
           </div>
