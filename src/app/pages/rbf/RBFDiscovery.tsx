@@ -185,7 +185,7 @@ export function RBFDiscovery() {
                   <span>10.000.000đ</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Phí dịch vụ (3.0% ~ 36%/năm):</span>
+                  <span className="text-muted-foreground">Phí dịch vụ (3.0%):</span>
                   <span>300.000đ</span>
                 </div>
                 <div className="h-px bg-border my-1" />

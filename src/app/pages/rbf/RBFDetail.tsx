@@ -137,6 +137,10 @@ export function RBFDetail() {
               <span className="text-muted-foreground">Tổng phải hoàn trả:</span>
               <span className="font-medium">{formatCurrency(totalRepay)}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Lãi chậm trả:</span>
+              <span>0.1%/ngày trên số dư còn lại</span>
+            </div>
           </div>
         </motion.div>
 
