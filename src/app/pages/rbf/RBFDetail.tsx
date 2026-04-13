@@ -13,7 +13,7 @@ export function RBFDetail() {
     amount: 90000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
-    revenueRate: 0.1,
+    revenueRate: 0.2,
     paidAmount: 28000000,
     remainingAmount: 62000000,
     progress: 31,

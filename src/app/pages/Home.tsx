@@ -91,7 +91,7 @@ export function Home() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-primary text-white px-6 pt-12 pb-8 rounded-b-3xl shadow-lg"
       >
-        <h1 className="text-3xl mb-2">XanhSM Tài Chính</h1>
+        <h1 className="text-3xl mb-2">XanhSM</h1>
         <p className="text-primary-foreground/80">Giải pháp tài chính thông minh cho tài xế</p>
       </motion.div>
 

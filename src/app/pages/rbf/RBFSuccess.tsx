@@ -22,7 +22,7 @@ export function RBFSuccess() {
 
   const transactionDetails = {
     amount: 60000000,
-    revenueRate: 0.1,
+    revenueRate: 0.2,
     account: "vsp" as const,
     estimatedDays: 75,
     transactionId: "RBF20260411001234",
