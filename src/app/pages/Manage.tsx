@@ -331,12 +331,6 @@ export function Manage() {
                                   <span className="text-muted-foreground">
                                     Đến hạn tất toán: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
                                   </span>
-                                  {(() => {
-                                    const days = getDaysRemaining("dueDate" in advance ? advance.dueDate as string : "");
-                                    return days <= 0
-                                      ? <p className="text-xs text-destructive mt-0.5">Trễ hạn — đang tính lãi phạt 0.1%/ngày</p>
-                                      : <p className="text-xs text-muted-foreground mt-0.5">Trễ hạn bị phạt 0.1%/ngày</p>;
-                                  })()}
                                 </div>
                               )
                             ) : (

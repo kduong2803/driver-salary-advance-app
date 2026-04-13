@@ -227,12 +227,6 @@ export function RBFList() {
                             <span className="text-muted-foreground">
                               Đến hạn tất toán: {formatDate(advance.dueDate)}
                             </span>
-                            {(() => {
-                              const days = getDaysRemaining(advance.dueDate);
-                              return days <= 0
-                                ? <p className="text-xs text-destructive mt-0.5">Trễ hạn — đang tính lãi phạt 0.1%/ngày</p>
-                                : <p className="text-xs text-muted-foreground mt-0.5">Trễ hạn bị phạt 0.1%/ngày</p>;
-                            })()}
                           </>
                         ) : (
                           <span className="text-muted-foreground">Đã tất toán</span>

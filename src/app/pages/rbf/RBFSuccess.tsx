@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { motion } from "motion/react";
-import { CheckCircle2, Percent, Building2, ArrowRight } from "lucide-react";
+import { CheckCircle2, Percent, Building2, Wallet, ArrowRight } from "lucide-react";
 
 export function RBFSuccess() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showConfetti, setShowConfetti] = useState(true);
+
+  const {
+    amount = 10000000,
+    feeAmount = 300000,
+    totalRepay = 10300000,
+    revenueRate = 0.3,
+    termDays = 30,
+    estimatedDays = 34,
+    account = "vsp",
+  } = (location.state as any) || {};
+
+  const transactionId = "RBF" + Date.now().toString().slice(-10);
 
   useEffect(() => {
     import("canvas-confetti").then((confetti) => {
@@ -19,14 +32,6 @@ export function RBFSuccess() {
 
     setTimeout(() => setShowConfetti(false), 3000);
   }, []);
-
-  const transactionDetails = {
-    amount: 15000000,
-    revenueRate: 0.2,
-    account: "vsp" as const,
-    estimatedDays: 75,
-    transactionId: "RBF20260411001234",
-  };
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString("vi-VN") + "đ";
@@ -72,9 +77,9 @@ export function RBFSuccess() {
               <Building2 className="w-5 h-5" />
               <span className="text-white/80">Số tiền giải ngân</span>
             </div>
-            <p className="text-5xl mb-1">{formatCurrency(transactionDetails.amount)}</p>
+            <p className="text-5xl mb-1">{formatCurrency(amount)}</p>
             <p className="text-white/70 text-sm">
-              Đã chuyển vào {transactionDetails.account === "vsp" ? "V-Smart Pay" : "tài khoản ngân hàng"}
+              Đã chuyển vào {account === "vsp" ? "V-Smart Pay" : "tài khoản ngân hàng"}
             </p>
           </div>
         </motion.div>
@@ -91,20 +96,35 @@ export function RBFSuccess() {
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Mã giao dịch:</span>
-              <span className="font-mono">{transactionDetails.transactionId}</span>
+              <span className="font-mono text-xs">{transactionId}</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Số tiền giải ngân:</span>
-              <span className="text-lg">{formatCurrency(transactionDetails.amount)}</span>
+              <span>{formatCurrency(amount)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Tỷ lệ hoàn trả:</span>
-              <span className="text-blue-600">{transactionDetails.revenueRate * 100}% mỗi chuyến</span>
+              <span className="text-muted-foreground">Phí dịch vụ:</span>
+              <span className="text-destructive">+{formatCurrency(feeAmount)}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Tổng phải hoàn trả:</span>
+              <span className="font-medium">{formatCurrency(totalRepay)}</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Kỳ hạn:</span>
+              <span>{termDays} ngày</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
+              <span className="text-primary">{Math.round(revenueRate * 100)}%</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Tài khoản nhận:</span>
-              <span>{transactionDetails.account === "vsp" ? "V-Smart Pay" : "Ngân hàng"}</span>
+              <span className="flex items-center gap-1">
+                {account === "vsp" ? <><Wallet className="w-3.5 h-3.5" /> V-Smart Pay</> : <><Building2 className="w-3.5 h-3.5" /> Ngân hàng</>}
+              </span>
             </div>
           </div>
         </motion.div>
@@ -122,10 +142,10 @@ export function RBFSuccess() {
             </div>
             <div className="flex-1">
               <h4 className="mb-1 text-primary">Tiến độ hoàn trả dự kiến</h4>
-              <p className="text-lg mb-2">~{transactionDetails.estimatedDays} ngày</p>
+              <p className="text-lg mb-2">~{estimatedDays} ngày</p>
               <p className="text-sm text-muted-foreground">
-                Hệ thống sẽ tự động trích {transactionDetails.revenueRate * 100}% từ doanh thu phát sinh của bạn cho đến khi hoàn tất.
-                Thời gian tất toán phụ thuộc trực tiếp vào hiệu suất vận hành thực tế của đối tác.
+                Hệ thống sẽ tự động trích {Math.round(revenueRate * 100)}% từ doanh thu phát sinh của bạn cho đến khi hoàn tất.
+                Có thể tất toán sớm bất kỳ lúc nào từ V-Smart Pay.
               </p>
             </div>
           </div>

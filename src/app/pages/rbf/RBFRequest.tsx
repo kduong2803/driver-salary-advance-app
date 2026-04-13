@@ -93,7 +93,17 @@ export function RBFRequest() {
     term.maxAmount,
   ].filter((v, i, arr) => v > 0 && arr.indexOf(v) === i);
 
-  const handleConfirm = () => navigate("/rbf/success");
+  const handleConfirm = () => navigate("/rbf/success", {
+    state: {
+      amount: numAmount,
+      feeAmount,
+      totalRepay,
+      revenueRate: deductionRate,
+      termDays: term.days,
+      estimatedDays,
+      account,
+    },
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -145,7 +155,6 @@ export function RBFRequest() {
                 <Percent className="w-4 h-4 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">{term.desc} — phí {term.feeLabel} một lần khi giải ngân. Tất toán sớm không phát sinh thêm phí.</span>
               </div>
-              <p className="text-xs text-destructive pl-6">Quá hạn bị phạt lãi 0.1%/ngày trên số dư còn lại.</p>
             </motion.div>
           </AnimatePresence>
         </div>
