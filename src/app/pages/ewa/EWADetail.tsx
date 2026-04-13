@@ -1,56 +1,28 @@
-import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Calendar, Wallet, TrendingDown, History, AlertCircle } from "lucide-react";
+import { ArrowLeft, Calendar, Wallet } from "lucide-react";
+
+const ADVANCES = [
+  { id: "1", amount: 10000000, netAmount: 9850000, fee: 150000, status: "active" as const, createdAt: "2026-04-11T10:30:00", dueDate: "2026-04-30" },
+  { id: "2", amount: 5000000, netAmount: 4925000, fee: 75000, status: "active" as const, createdAt: "2026-04-05T09:00:00", dueDate: "2026-04-30" },
+  { id: "3", amount: 8000000, netAmount: 7880000, fee: 120000, status: "completed" as const, createdAt: "2026-03-15T08:00:00", dueDate: "2026-04-10" },
+];
 
 export function EWADetail() {
   const { id } = useParams();
-  const [showPayEarly, setShowPayEarly] = useState(false);
 
-  // Mock data - in real app, fetch based on id
-  const advance = {
-    id: id || "1",
-    amount: 10000000,
-    netAmount: 9850000,
-    fee: 150000,
-    status: "active" as const,
-    createdAt: "2026-04-11T10:30:00",
-    dueDate: "2026-04-30",
-    paidAmount: 3000000,
-    remainingAmount: 7000000,
-    progress: 30,
-  };
+  const advance = ADVANCES.find((a) => a.id === id) || ADVANCES[0];
 
-  const repaymentHistory = [
-    { date: "2026-04-12T20:00:00", amount: 680000, type: "auto", dayLabel: "12/04" },
-    { date: "2026-04-11T20:00:00", amount: 720000, type: "auto", dayLabel: "11/04" },
-    { date: "2026-04-10T20:00:00", amount: 590000, type: "auto", dayLabel: "10/04" },
-    { date: "2026-04-09T20:00:00", amount: 710000, type: "auto", dayLabel: "09/04" },
-    { date: "2026-04-08T20:00:00", amount: 300000, type: "manual", dayLabel: null },
-  ];
-
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString("vi-VN") + "đ";
-  };
+  const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return date.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   };
 
   return (
@@ -65,38 +37,19 @@ export function EWADetail() {
         <p className="text-white/80">Mã: #{advance.id}</p>
       </div>
 
-      <div className="max-w-lg mx-auto px-6 py-6 space-y-6">
-        {/* Progress Card */}
+      <div className="max-w-lg mx-auto px-6 py-6 space-y-5">
+        {/* Amount Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white rounded-2xl p-6 shadow-xl"
+          className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white rounded-2xl p-6 shadow-xl text-center relative overflow-hidden"
         >
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <p className="text-white/80 text-sm mb-1">Còn phải khấu trừ</p>
-              <p className="text-3xl">{formatCurrency(advance.remainingAmount)}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-white/80 text-sm mb-1">Đã khấu trừ</p>
-              <p className="text-xl">{formatCurrency(advance.paidAmount)}</p>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="space-y-2">
-            <div className="h-3 bg-white/20 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${advance.progress}%` }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="h-full bg-white rounded-full"
-              />
-            </div>
-            <div className="flex justify-between text-sm text-white/80">
-              <span>{advance.progress}% đã khấu trừ</span>
-              <span>{100 - advance.progress}% còn lại</span>
-            </div>
+          <div className="absolute -right-12 -top-12 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+          <div className="absolute -left-12 -bottom-12 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+          <div className="relative">
+            <p className="text-white/80 text-sm mb-1">Số tiền thực nhận</p>
+            <p className="text-4xl mb-1">{formatCurrency(advance.netAmount)}</p>
+            <p className="text-white/70 text-sm">Đã chuyển vào V-Smart Pay</p>
           </div>
         </motion.div>
 
@@ -105,33 +58,30 @@ export function EWADetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50"
+          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
             <Wallet className="w-5 h-5 text-primary" />
             <h3>Thông tin ứng thu nhập</h3>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Ngày ứng:</span>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Ngày ứng tiền:</span>
               <span>{formatDateTime(advance.createdAt)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Kỳ tất toán lương:</span>
-              <span>{formatDate(advance.dueDate)}</span>
-            </div>
             <div className="h-px bg-border" />
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Thu nhập được ứng:</span>
               <span>{formatCurrency(advance.amount)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Phí dịch vụ:</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Phí dịch vụ (1.5%):</span>
               <span className="text-destructive">-{formatCurrency(advance.fee)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Số tiền thực nhận:</span>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between font-medium">
+              <span>Số tiền thực nhận:</span>
               <span className="text-primary">{formatCurrency(advance.netAmount)}</span>
             </div>
           </div>
@@ -149,122 +99,15 @@ export function EWADetail() {
               <Calendar className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế khấu trừ</h4>
+              <h4 className="mb-1 text-primary">Ngày dự kiến thanh toán</h4>
+              <p className="text-2xl mb-2">{formatDate(advance.dueDate)}</p>
               <p className="text-sm text-muted-foreground">
-                Thu nhập từ các cuốc xe hoàn thành sẽ được dùng để khấu trừ dần khoản ứng trong tháng.
-                Phần còn lại (nếu có) sẽ được trừ tự động một lần vào kỳ nhận lương cuối tháng —
-                dự kiến ngày <span className="text-foreground font-medium">{formatDate(advance.dueDate)}</span>.
+                Toàn bộ khoản ứng sẽ được khấu trừ một lần từ thu nhập cuối kỳ tháng này — không cần thao tác, không cần nhớ ngày.
               </p>
             </div>
           </div>
-        </motion.div>
-
-        {/* Repayment History */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <History className="w-5 h-5 text-primary" />
-            <h3>Lịch sử khấu trừ thu nhập</h3>
-          </div>
-
-          <div className="space-y-3">
-            {repaymentHistory.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 pb-3 border-b border-border last:border-0">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <TrendingDown className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <div>
-                      <p className="text-sm">
-                        {item.type === "auto" ? "Khấu trừ từ thu nhập cuốc xe" : "Tất toán sớm từ V-Smart Pay"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {formatDateTime(item.date)}
-                      </p>
-                    </div>
-                    <p className="text-sm text-destructive">-{formatCurrency(item.amount)}</p>
-                  </div>
-                  {"dayLabel" in item && item.dayLabel && (
-                    <p className="text-xs text-muted-foreground">
-                      Thu nhập tích lũy ngày {item.dayLabel}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Pay Early Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <button
-            onClick={() => setShowPayEarly(true)}
-            className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
-          >
-            Trả trước từ V-Smart Pay
-          </button>
         </motion.div>
       </div>
-
-      {/* Pay Early Modal */}
-      {showPayEarly && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-50"
-          onClick={() => setShowPayEarly(false)}
-        >
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ type: "spring", damping: 25 }}
-            className="bg-card w-full max-w-lg rounded-t-3xl p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
-
-            <h3 className="text-xl mb-4">Tất toán sớm khoản ứng</h3>
-
-            <div className="bg-muted/50 rounded-xl p-4 mb-6">
-              <div className="flex justify-between mb-2">
-                <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
-                <span className="text-lg">{formatCurrency(12000000)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Số tiền cần trả:</span>
-                <span className="text-lg text-primary">{formatCurrency(advance.remainingAmount)}</span>
-              </div>
-            </div>
-
-            <div className="bg-primary/10 rounded-xl p-4 mb-6 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-muted-foreground">
-                Sau khi tất toán sớm, khoản ứng sẽ được đóng và phần thu nhập khả dụng của bạn sẽ được cập nhật lại ngay.
-              </p>
-            </div>
-
-            <button className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors mb-3">
-              Xác nhận trả {formatCurrency(advance.remainingAmount)}
-            </button>
-
-            <button
-              onClick={() => setShowPayEarly(false)}
-              className="w-full py-3 text-muted-foreground"
-            >
-              Hủy bỏ
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
     </div>
   );
 }

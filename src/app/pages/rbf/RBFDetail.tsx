@@ -4,37 +4,34 @@ import { motion } from "motion/react";
 import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2, ChevronUp, ChevronDown } from "lucide-react";
 
 const DAILY_RATE = 0.36 / 365;
+const AVG_DAILY_REVENUE = 1000000;
+
+const ADVANCES = [
+  { id: "1", amount: 15000000, status: "active" as const, createdAt: "2026-04-11T14:30:00", revenueRate: 0.2, paidAmount: 5000000, remainingAmount: 10000000, progress: 33 },
+  { id: "2", amount: 10000000, status: "active" as const, createdAt: "2026-03-20T09:00:00", revenueRate: 0.3, paidAmount: 6000000, remainingAmount: 4000000, progress: 60 },
+  { id: "3", amount: 12000000, status: "completed" as const, createdAt: "2026-02-01T10:00:00", revenueRate: 0.3, paidAmount: 12000000, remainingAmount: 0, progress: 100 },
+];
 
 export function RBFDetail() {
   const { id } = useParams();
   const [showPayEarly, setShowPayEarly] = useState(false);
 
-  const advance = {
-    id: id || "1",
-    amount: 10000000,
-    status: "active" as const,
-    createdAt: "2026-04-11T14:30:00",
-    revenueRate: 0.2,
-    paidAmount: 5000000,
-    remainingAmount: 5000000,
-    progress: 50,
-  };
+  const advance = ADVANCES.find((a) => a.id === id) || ADVANCES[0];
 
   const [currentRate, setCurrentRate] = useState(advance.revenueRate);
   const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
-  const avgDailyRevenue = 1000000;
-  const daysSinceCreation = Math.ceil(
-    (new Date("2026-04-13").getTime() - new Date(advance.createdAt).getTime()) / (1000 * 60 * 60 * 24)
-  );
-  const accruedFee = Math.round(advance.amount * DAILY_RATE * daysSinceCreation);
-  const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (avgDailyRevenue * currentRate));
+  const estimatedDays = Math.ceil(advance.amount / (AVG_DAILY_REVENUE * advance.revenueRate));
+  const feeAmount = Math.round(advance.amount * DAILY_RATE * estimatedDays);
+  const feePercent = (feeAmount / advance.amount * 100).toFixed(1);
+  const totalRepay = advance.amount + feeAmount;
+  const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * currentRate));
 
   const repaymentHistory = [
-    { date: "2026-04-12T19:45:00", amount: 56000, tripRevenue: 185000, tripId: "T002145" },
-    { date: "2026-04-12T16:20:00", amount: 63000, tripRevenue: 210000, tripId: "T002144" },
-    { date: "2026-04-12T13:05:00", amount: 44000, tripRevenue: 145000, tripId: "T002143" },
-    { date: "2026-04-11T20:10:00", amount: 69000, tripRevenue: 230000, tripId: "T002142" },
+    { date: "2026-04-12T19:45:00", amount: Math.round(185000 * advance.revenueRate), tripRevenue: 185000, tripId: "T002145" },
+    { date: "2026-04-12T16:20:00", amount: Math.round(210000 * advance.revenueRate), tripRevenue: 210000, tripId: "T002144" },
+    { date: "2026-04-12T13:05:00", amount: Math.round(145000 * advance.revenueRate), tripRevenue: 145000, tripId: "T002143" },
+    { date: "2026-04-11T20:10:00", amount: Math.round(230000 * advance.revenueRate), tripRevenue: 230000, tripId: "T002142" },
     { date: "2026-04-08T09:00:00", amount: 500000, type: "manual" as const, tripRevenue: null, tripId: null },
   ];
 
@@ -119,17 +116,17 @@ export function RBFDetail() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Phí dịch vụ:</span>
-              <span>36%/năm (tính theo ngày)</span>
-            </div>
-            <div className="flex justify-between">
               <span className="text-muted-foreground">Số tiền giải ngân:</span>
               <span>{formatCurrency(advance.amount)}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Phí dịch vụ ({feePercent}%):</span>
+              <span className="text-destructive">+{formatCurrency(feeAmount)}</span>
+            </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
-              <span>Tổng hoàn trả ước tính:</span>
-              <span className="text-primary">{formatCurrency(advance.amount + accruedFee)}</span>
+              <span>Tổng hoàn trả:</span>
+              <span className="text-primary">{formatCurrency(totalRepay)}</span>
             </div>
           </div>
         </motion.div>
