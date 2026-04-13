@@ -119,15 +119,17 @@ export function RBFDetail() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
+              <span className="text-muted-foreground">Phí dịch vụ:</span>
+              <span>36%/năm (tính theo ngày)</span>
+            </div>
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Số tiền giải ngân:</span>
               <span>{formatCurrency(advance.amount)}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Phí phát sinh đến nay ({daysSinceCreation} ngày):</span>
-              <span className="text-destructive">+{formatCurrency(accruedFee)}</span>
-            </div>
-            <div className="bg-muted/40 rounded-lg px-3 py-2 text-xs text-muted-foreground">
-              Phí tính theo ngày thực tế (36%/năm).
+            <div className="h-px bg-border" />
+            <div className="flex justify-between font-medium">
+              <span>Tổng hoàn trả ước tính:</span>
+              <span className="text-primary">{formatCurrency(advance.amount + accruedFee)}</span>
             </div>
           </div>
         </motion.div>
@@ -147,12 +149,12 @@ export function RBFDetail() {
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {Math.round(advance.revenueRate * 100)}% (mốc ban đầu) • Tối đa 50%</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tăng mức khấu trừ để hoàn trả sớm hơn, nâng điểm tín dụng và tiếp cận khoản vay mới nhanh hơn</p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => adjustPendingRate(-0.05)}
-                disabled={pendingRate <= advance.minRate}
+                disabled={pendingRate <= advance.revenueRate}
                 className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
               >
                 <ChevronDown className="w-4 h-4" />
@@ -162,7 +164,7 @@ export function RBFDetail() {
               </span>
               <button
                 onClick={() => adjustPendingRate(0.05)}
-                disabled={pendingRate >= 0.8}
+                disabled={pendingRate >= 0.5}
                 className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
               >
                 <ChevronUp className="w-4 h-4" />

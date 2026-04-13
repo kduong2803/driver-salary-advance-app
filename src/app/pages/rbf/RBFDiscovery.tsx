@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Building2, Zap, TrendingDown } from "lucide-react";
+import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Building2, Zap } from "lucide-react";
 
 export function RBFDiscovery() {
   const features = [
@@ -20,7 +20,7 @@ export function RBFDiscovery() {
       icon: Percent,
       title: "Trích càng cao, phí càng thấp",
       value: "10 – 50%",
-      description: "Chọn 10/20/30/40/50% mỗi chuyến — hoàn tất nhanh hơn, ít ngày tính phí hơn",
+      description: "Chọn 10/20/30/40/50% mỗi chuyến — hoàn tất sớm hơn, phí thấp hơn",
     },
   ];
 
@@ -60,20 +60,6 @@ export function RBFDiscovery() {
       </div>
 
       <div className="max-w-lg mx-auto px-6 pt-6 pb-8 space-y-6">
-
-        {/* Fee Model Highlight */}
-        <div className="bg-primary/10 border border-primary/30 rounded-2xl p-5 flex items-start gap-4">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-            <TrendingDown className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="mb-1 text-primary">Phí tính theo ngày thực tế nắm giữ</p>
-            <p className="text-sm text-foreground/80">
-              Lãi suất 36%/năm, tính theo ngày. Hoàn trả càng nhanh = ít ngày tính phí = tổng phí thấp hơn.
-              Không có phí cố định, không có deadline gây áp lực.
-            </p>
-          </div>
-        </div>
 
         {/* Key Features */}
         <div className="grid gap-3">
@@ -166,9 +152,6 @@ export function RBFDiscovery() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-3">
-                Phí tính theo công thức: 10.000.000đ × (36%/365) × số ngày thực tế nắm giữ
-              </p>
             </div>
           </div>
         </div>

@@ -55,7 +55,7 @@ export function Home() {
       stats: [
         { label: "Doanh thu 90 ngày", value: "90.000.000đ", icon: TrendingUp },
         { label: "Hạn mức được duyệt", value: "15.000.000đ", icon: Wallet },
-        { label: "Tỷ lệ trích hoàn trả", value: "10–100%", icon: Percent },
+        { label: "Tỷ lệ trích hoàn trả", value: "10–50%", icon: Percent },
       ],
       bullets: [
         "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",
