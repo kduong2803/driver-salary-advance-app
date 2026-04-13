@@ -10,21 +10,22 @@ export function RBFDetail() {
   // Mock data - in real app, fetch based on id
   const advance = {
     id: id || "1",
-    amount: 90000000,
+    amount: 15000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
     revenueRate: 0.2,
-    paidAmount: 28000000,
-    remainingAmount: 62000000,
-    progress: 31,
-    estimatedCompletionDate: "2026-06-10",
+    paidAmount: 5000000,
+    remainingAmount: 10000000,
+    progress: 33,
+    estimatedCompletionDate: "2026-04-30",
   };
 
   const repaymentHistory = [
-    { date: "2026-04-15", amount: 1200000, tripRevenue: 12000000, tripId: "T005678", driverId: "D123" },
-    { date: "2026-04-14", amount: 800000, tripRevenue: 8000000, tripId: "T005677", driverId: "D124" },
-    { date: "2026-04-14", amount: 1500000, tripRevenue: 15000000, tripId: "T005676", driverId: "D125" },
-    { date: "2026-04-13", amount: 2000000, type: "manual", tripRevenue: null, tripId: null, driverId: null },
+    { date: "2026-04-12T19:45:00", amount: 37000, tripRevenue: 185000, tripId: "T002145" },
+    { date: "2026-04-12T16:20:00", amount: 42000, tripRevenue: 210000, tripId: "T002144" },
+    { date: "2026-04-12T13:05:00", amount: 29000, tripRevenue: 145000, tripId: "T002143" },
+    { date: "2026-04-11T20:10:00", amount: 46000, tripRevenue: 230000, tripId: "T002142" },
+    { date: "2026-04-08T09:00:00", amount: 500000, type: "manual", tripRevenue: null, tripId: null },
   ];
 
   const formatCurrency = (value: number) => {
@@ -188,7 +189,7 @@ export function RBFDetail() {
                   </div>
                   {item.tripId && item.tripRevenue && (
                     <div className="text-xs text-muted-foreground space-y-0.5">
-                      <p>Chuyến {item.tripId} • Tài xế {item.driverId}</p>
+                      <p>Mã chuyến: {item.tripId}</p>
                       <p>Doanh thu: {formatCurrency(item.tripRevenue)} → Trích {advance.revenueRate * 100}%</p>
                     </div>
                   )}
