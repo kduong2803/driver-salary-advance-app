@@ -233,7 +233,7 @@ export function LoanDetail() {
                 initial={{ width: 0 }}
                 animate={{ width: `${Math.min(100, (loan.todayTripPaid / todayTotal) * 100)}%` }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="h-full bg-green-500 rounded-full"
+                className="h-full bg-teal-500 rounded-full"
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1.5">

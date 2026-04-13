@@ -15,17 +15,25 @@ export function MotorbikeIcon({ className = "w-6 h-6" }: MotorbikeIconProps) {
       className={className}
     >
       {/* Rear wheel */}
-      <circle cx="5.5" cy="17" r="2.5" />
+      <circle cx="5" cy="17" r="2.5" />
       {/* Front wheel */}
-      <circle cx="18.5" cy="17" r="2.5" />
-      {/* Main frame: rear axle → seat post → head tube */}
-      <path d="M5.5 17 L9 10 L14 10 L18.5 17" />
-      {/* Fuel tank / body top */}
-      <path d="M9 10 L11 6.5 L15.5 6.5 L17 10" />
-      {/* Seat */}
-      <path d="M11 6.5 L14 6.5" />
-      {/* Handlebar */}
-      <path d="M17 8 L20.5 8" />
+      <circle cx="19" cy="17" r="2.5" />
+      {/* Step-through floor (key scooter feature — horizontal, not a bicycle V-frame) */}
+      <path d="M7.5 14.5 L17 14.5" />
+      {/* Rear body: from rear wheel up to seat */}
+      <path d="M5 14.5 L6.5 11 L9 9.5" />
+      {/* Seat (horizontal, slightly raised at rear) */}
+      <path d="M8.5 9.5 L12.5 9.5" />
+      {/* Main body connecting seat down to floor */}
+      <path d="M6.5 11 L7.5 14.5" />
+      {/* Front fairing: from seat area forward and down */}
+      <path d="M12.5 9.5 L15.5 10.5 L17 14.5" />
+      {/* Front fork */}
+      <path d="M17 14.5 L18 14 L19 14.5" />
+      {/* Headtube / front upper fork */}
+      <path d="M16 10 L17.5 8" />
+      {/* Handlebars */}
+      <path d="M15.5 8 L20.5 8" />
       <path d="M20.5 7 L20.5 9.5" />
     </svg>
   );

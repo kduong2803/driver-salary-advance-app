@@ -220,7 +220,7 @@ export function Manage() {
             const config = {
               ewa: { icon: Wallet, label: "Thu nhập" },
               rbf: { icon: Building2, label: "Doanh thu" },
-              loan: { icon: label: "Vay xe" },
+              loan: { icon: MotorbikeIcon, label: "Vay xe" },
             }[tab];
             const Icon = config.icon;
             return (
