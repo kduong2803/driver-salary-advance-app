@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight, Wallet, Building2, Bike, Flame, Zap } from "lucide-react";
+import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight, Wallet, Building2,  Flame, Zap } from "lucide-react";
+import { MotorbikeIcon } from "../components/MotorbikeIcon";
 
 export function Manage() {
   const [activeTab, setActiveTab] = useState<"ewa" | "rbf" | "loan">("ewa");
@@ -219,7 +220,7 @@ export function Manage() {
             const config = {
               ewa: { icon: Wallet, label: "Thu nhập" },
               rbf: { icon: Building2, label: "Doanh thu" },
-              loan: { icon: Bike, label: "Vay xe" },
+              loan: { icon: label: "Vay xe" },
             }[tab];
             const Icon = config.icon;
             return (
@@ -291,7 +292,7 @@ export function Manage() {
             transition={{ duration: 0.2 }}
           >
             <Link to={activeTab === "ewa" ? "/ewa/request" : activeTab === "rbf" ? "/rbf/request" : "/loan/request"}>
-              <button className={`w-full text-white py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg ${activeTab === "loan" ? "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20" : "bg-primary hover:bg-primary/90 shadow-primary/20"}`}>
+              <button className={`w-full text-white py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg ${activeTab === "loan" ? "bg-teal-600 hover:bg-teal-700 shadow-teal-500/20" : "bg-primary hover:bg-primary/90 shadow-primary/20"}`}>
                 <Plus className="w-5 h-5" />
                 <span>{activeTab === "ewa" ? "Tạo khoản ứng thu nhập" : activeTab === "rbf" ? "Tạo khoản ứng doanh thu" : "Đăng ký vay mua xe"}</span>
               </button>
@@ -397,8 +398,8 @@ export function Manage() {
                         {/* Header */}
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <Bike className="w-5 h-5 text-emerald-600" />
+                            <div className="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <MotorbikeIcon className="w-5 h-5 text-teal-600" />
                             </div>
                             <div>
                               <p className="font-medium mb-0.5">{loan.vehicleName}</p>
@@ -429,7 +430,7 @@ export function Manage() {
                               <span>Còn lại: {formatCurrency(loan.remainingAmount)}</span>
                             </div>
                             <div className="h-2 bg-muted rounded-full overflow-hidden">
-                              <motion.div initial={{ width: 0 }} animate={{ width: `${loan.progress}%` }} transition={{ duration: 1, delay: 0.3 + index * 0.05 }} className="h-full bg-emerald-500 rounded-full" />
+                              <motion.div initial={{ width: 0 }} animate={{ width: `${loan.progress}%` }} transition={{ duration: 1, delay: 0.3 + index * 0.05 }} className="h-full bg-teal-500 rounded-full" />
                             </div>
                           </div>
                         )}

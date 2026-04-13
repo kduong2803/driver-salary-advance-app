@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Bike, Calendar, CheckCircle2, Clock, AlertCircle, Wifi, MapPin, ArrowRight, Flame, Wallet, Zap } from "lucide-react";
+import { ArrowLeft,  Calendar, CheckCircle2, Clock, AlertCircle, Wifi, MapPin, ArrowRight, Flame, Wallet, Zap } from "lucide-react";
+import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 type DayStatus = "trip" | "wallet" | "missed" | "today" | "future";
 
@@ -114,7 +115,7 @@ export function LoanDetail() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-teal-500 to-emerald-700 text-white px-6 pt-12 pb-8">
+      <div className="bg-gradient-to-br from-cyan-600 to-teal-700 text-white px-6 pt-12 pb-8">
         <Link to="/manage" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
@@ -129,11 +130,11 @@ export function LoanDetail() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-teal-500 to-emerald-700 text-white rounded-2xl p-6 shadow-xl"
+          className="bg-gradient-to-br from-cyan-600 to-teal-700 text-white rounded-2xl p-6 shadow-xl"
         >
           <div className="flex items-start gap-3 mb-5">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Bike className="w-7 h-7" />
+              <MotorbikeIcon className="w-7 h-7" />
             </div>
             <div>
               <p className="text-white/80 text-sm">{loan.vehicleType}</p>
@@ -194,7 +195,7 @@ export function LoanDetail() {
             className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Clock className="w-5 h-5 text-emerald-600" />
+              <Clock className="w-5 h-5 text-teal-600" />
               <h3>Trạng thái hôm nay</h3>
               <span className="ml-auto text-xs text-muted-foreground">14/04/2026</span>
             </div>
@@ -203,7 +204,7 @@ export function LoanDetail() {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Bike className="w-4 h-4 text-green-600" />
+                    <MotorbikeIcon className="w-4 h-4 text-green-600" />
                   </div>
                   <span className="text-muted-foreground">Đã trích từ cuốc xe</span>
                 </div>
@@ -223,7 +224,7 @@ export function LoanDetail() {
               <div className="h-px bg-border" />
               <div className="flex justify-between items-center font-medium">
                 <span>Cần trả hôm nay</span>
-                <span className="text-emerald-700">{formatCurrency(todayTotal)}</span>
+                <span className="text-teal-700">{formatCurrency(todayTotal)}</span>
               </div>
             </div>
 
@@ -250,7 +251,7 @@ export function LoanDetail() {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-emerald-600" />
+              <Calendar className="w-5 h-5 text-teal-600" />
               <h3>Lịch trả góp</h3>
             </div>
             {loan.status !== "completed" && (
@@ -292,7 +293,7 @@ export function LoanDetail() {
           className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Bike className="w-5 h-5 text-emerald-600" />
+            <MotorbikeIcon className="w-5 h-5 text-teal-600" />
             <h3>Thông tin khoản vay</h3>
           </div>
           <div className="space-y-3 text-sm">
@@ -316,12 +317,12 @@ export function LoanDetail() {
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
               <span>Tổng hoàn trả:</span>
-              <span className="text-emerald-700">{formatCurrency(loan.totalRepay)}</span>
+              <span className="text-teal-700">{formatCurrency(loan.totalRepay)}</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
               <span>Góp mỗi ngày:</span>
-              <span className="text-emerald-700">{formatCurrency(loan.dailyPayment)}</span>
+              <span className="text-teal-700">{formatCurrency(loan.dailyPayment)}</span>
             </div>
           </div>
         </motion.div>
@@ -335,7 +336,7 @@ export function LoanDetail() {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Wifi className="w-5 h-5 text-emerald-600" />
+              <Wifi className="w-5 h-5 text-teal-600" />
               <h3>Trạng thái phương tiện</h3>
             </div>
             <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full flex items-center gap-1">
@@ -371,7 +372,7 @@ export function LoanDetail() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <button
               onClick={() => { setPayAmount(""); setPin(["", "", "", "", "", ""]); setPinError(false); setPayStep("amount"); }}
-              className="w-full bg-emerald-600 text-white py-4 rounded-xl hover:bg-emerald-700 transition-colors"
+              className="w-full bg-teal-600 text-white py-4 rounded-xl hover:bg-teal-700 transition-colors"
             >
               Tất toán sớm từ V-Smart Pay
             </button>
@@ -408,25 +409,25 @@ export function LoanDetail() {
                     <p className="text-sm text-muted-foreground mb-5">Chọn số tiền muốn trả trước</p>
                     <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
                       <div className="flex justify-between"><span className="text-muted-foreground">Số dư V-Smart Pay:</span><span>{formatCurrency(WALLET_BALANCE)}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">Còn phải trả:</span><span className="text-emerald-700">{formatCurrency(loan.remainingAmount)}</span></div>
+                      <div className="flex justify-between"><span className="text-muted-foreground">Còn phải trả:</span><span className="text-teal-700">{formatCurrency(loan.remainingAmount)}</span></div>
                     </div>
                     <input
                       type="text" inputMode="numeric" placeholder="Nhập số tiền"
                       value={parseInt(payAmount.replace(/\D/g, "")) > 0 ? parseInt(payAmount.replace(/\D/g, "")).toLocaleString("vi-VN") : ""}
                       onChange={(e) => setPayAmount(e.target.value.replace(/\D/g, ""))}
-                      className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-emerald-500 mb-3"
+                      className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-teal-500 mb-3"
                     />
                     <div className="flex gap-2 mb-5">
                       {[1000000, 3000000, 5000000].map((amt) => (
-                        <button key={amt} onClick={() => setPayAmount(String(amt))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-emerald-500 hover:text-emerald-700 transition-colors">{amt / 1000000}tr</button>
+                        <button key={amt} onClick={() => setPayAmount(String(amt))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-teal-500 hover:text-teal-700 transition-colors">{amt / 1000000}tr</button>
                       ))}
-                      <button onClick={() => setPayAmount(String(Math.min(loan.remainingAmount, WALLET_BALANCE)))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-emerald-500 hover:text-emerald-700 transition-colors">Tất toán</button>
+                      <button onClick={() => setPayAmount(String(Math.min(loan.remainingAmount, WALLET_BALANCE)))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-teal-500 hover:text-teal-700 transition-colors">Tất toán</button>
                     </div>
-                    <div className="bg-emerald-50 rounded-xl p-4 mb-5 flex items-start gap-2">
-                      <AlertCircle className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div className="bg-teal-50 rounded-xl p-4 mb-5 flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-muted-foreground">Tất toán sớm không phát sinh phí phạt. Khoản vay sẽ được đóng ngay khi hoàn tất.</p>
                     </div>
-                    <button disabled={!isValid} onClick={() => setPayStep("verify")} className="w-full bg-emerald-600 text-white py-4 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-40 mb-3">
+                    <button disabled={!isValid} onClick={() => setPayStep("verify")} className="w-full bg-teal-600 text-white py-4 rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-40 mb-3">
                       Xác nhận trả {parseInt(payAmount.replace(/\D/g, "")) > 0 ? formatCurrency(parseInt(payAmount.replace(/\D/g, ""))) : ""}
                     </button>
                     <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">Hủy bỏ</button>
@@ -454,7 +455,7 @@ export function LoanDetail() {
                             else if (i > 0) { next[i - 1] = ""; setPin(next); pinRefs.current[i - 1]?.focus(); }
                           }
                         }}
-                        className={`w-12 h-14 text-center text-xl border-2 rounded-xl focus:outline-none transition-colors ${pinError ? "border-destructive" : digit ? "border-emerald-500" : "border-border"}`}
+                        className={`w-12 h-14 text-center text-xl border-2 rounded-xl focus:outline-none transition-colors ${pinError ? "border-destructive" : digit ? "border-teal-500" : "border-border"}`}
                       />
                     ))}
                   </div>
@@ -464,20 +465,20 @@ export function LoanDetail() {
                     if (pin.join("").length < 6) return;
                     if (pin.join("") === "123456") { setPayStep("success"); }
                     else { setPinError(true); setPin(["", "", "", "", "", ""]); pinRefs.current[0]?.focus(); }
-                  }} disabled={pin.join("").length < 6} className="w-full bg-emerald-600 text-white py-4 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-40 mb-3">Xác nhận</button>
+                  }} disabled={pin.join("").length < 6} className="w-full bg-teal-600 text-white py-4 rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-40 mb-3">Xác nhận</button>
                   <button onClick={() => setPayStep("amount")} className="w-full py-3 text-muted-foreground">Quay lại</button>
                 </>
               )}
 
               {payStep === "success" && (
                 <div className="text-center py-4">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", duration: 0.5 }} className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-12 h-12 text-emerald-600" />
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", duration: 0.5 }} className="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-12 h-12 text-teal-600" />
                   </motion.div>
-                  <h3 className="text-xl mb-1 text-emerald-700">Thanh toán thành công</h3>
+                  <h3 className="text-xl mb-1 text-teal-700">Thanh toán thành công</h3>
                   <p className="text-sm text-muted-foreground mb-2">Đã trả {formatCurrency(parseInt(payAmount.replace(/\D/g, "")) || 0)} từ V-Smart Pay</p>
                   <p className="text-xs text-muted-foreground mb-8">Khoản vay của bạn đã được cập nhật</p>
-                  <button onClick={() => navigate("/manage")} className="w-full bg-emerald-600 text-white py-4 rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2 mb-3">
+                  <button onClick={() => navigate("/manage")} className="w-full bg-teal-600 text-white py-4 rounded-xl hover:bg-teal-700 transition-colors flex items-center justify-center gap-2 mb-3">
                     <span>Về trang quản lý</span><ArrowRight className="w-5 h-5" />
                   </button>
                   <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">Ở lại trang này</button>

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, CheckCircle2, ChevronRight, Shield, Bike } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronRight, Shield } from "lucide-react";
+import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 const CREDIT_LIMIT = 30000000;
 const MONTHLY_RATE = 0.008;
@@ -25,7 +26,7 @@ export function LoanDiscovery() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="bg-gradient-to-br from-teal-500 to-emerald-700 text-white px-6 pt-12 pb-16 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-cyan-600 to-teal-700 text-white px-6 pt-12 pb-16 relative overflow-hidden">
         <Link to="/" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
@@ -66,11 +67,11 @@ export function LoanDiscovery() {
                 >
                   <button
                     onClick={() => navigate("/loan/request", { state: { vehicleId: v.id } })}
-                    className="w-full bg-card rounded-2xl p-5 border border-border/50 hover:border-emerald-400 hover:shadow-md transition-all text-left"
+                    className="w-full bg-card rounded-2xl p-5 border border-border/50 hover:border-teal-400 hover:shadow-md transition-all text-left"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Bike className="w-7 h-7 text-emerald-600" />
+                      <div className="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <MotorbikeIcon className="w-7 h-7 text-teal-600" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2 mb-2">
@@ -79,7 +80,7 @@ export function LoanDiscovery() {
                             <p className="text-sm text-muted-foreground">{v.type} • {v.range}</p>
                           </div>
                           {v.tag && (
-                            <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full whitespace-nowrap">{v.tag}</span>
+                            <span className="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full whitespace-nowrap">{v.tag}</span>
                           )}
                         </div>
                         <div className="flex items-center justify-between">
@@ -89,7 +90,7 @@ export function LoanDiscovery() {
                           </div>
                           <div className="text-right">
                             <p className="text-xs text-muted-foreground">Góp mỗi ngày (~{DEFAULT_TERM}th)</p>
-                            <p className="text-lg text-emerald-600">~{formatCurrency(daily)}</p>
+                            <p className="text-lg text-teal-600">~{formatCurrency(daily)}</p>
                           </div>
                         </div>
                         {needsDown && (
@@ -107,8 +108,8 @@ export function LoanDiscovery() {
         {/* How it works */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4 flex items-center gap-2">
-            <span className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-              <Shield className="w-4 h-4 text-emerald-600" />
+            <span className="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center">
+              <Shield className="w-4 h-4 text-teal-600" />
             </span>
             Cách thức hoạt động
           </h3>
@@ -120,7 +121,7 @@ export function LoanDiscovery() {
               { step: "4", title: "Trả góp tự động mỗi ngày", desc: "Hệ thống ưu tiên trích từ doanh thu cuốc xe — phần còn thiếu tự động quét từ ví V-SmartPay lúc 23h" },
             ].map((item) => (
               <div key={item.step} className="flex gap-3">
-                <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm">
+                <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm">
                   {item.step}
                 </div>
                 <div className="flex-1">
@@ -143,8 +144,8 @@ export function LoanDiscovery() {
               "Tất toán trước bất kỳ lúc nào — không phát sinh phí phạt",
             ].map((b) => (
               <div key={b} className="flex items-start gap-3">
-                <div className="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                <div className="w-5 h-5 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <CheckCircle2 className="w-3 h-3 text-teal-600" />
                 </div>
                 <p className="text-sm text-foreground/80">{b}</p>
               </div>
@@ -153,8 +154,8 @@ export function LoanDiscovery() {
         </div>
 
         {/* Example */}
-        <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 rounded-2xl p-6 border border-emerald-500/20">
-          <h4 className="mb-4 text-emerald-700">Ví dụ minh họa</h4>
+        <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/5 rounded-2xl p-6 border border-teal-500/20">
+          <h4 className="mb-4 text-teal-700">Ví dụ minh họa</h4>
           <div className="space-y-3 text-sm">
             <p className="text-muted-foreground">Vay 24.900.000đ — kỳ hạn 24 tháng — lãi 0.8%/tháng</p>
             <div className="grid grid-cols-2 gap-3">
@@ -166,7 +167,7 @@ export function LoanDiscovery() {
               ].map((item) => (
                 <div key={item.label} className="bg-card rounded-xl p-3 border border-border/40">
                   <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
-                  <p className="text-emerald-700">{item.value}</p>
+                  <p className="text-teal-700">{item.value}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{item.sub}</p>
                 </div>
               ))}
@@ -176,7 +177,7 @@ export function LoanDiscovery() {
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
           <Link to="/loan/request">
-            <button className="w-full bg-emerald-600 text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20">
+            <button className="w-full bg-teal-600 text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-teal-700 transition-colors shadow-lg shadow-teal-500/20">
               <span className="text-lg">Chọn xe và đăng ký</span>
               <ChevronRight className="w-5 h-5" />
             </button>
