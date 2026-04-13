@@ -12,6 +12,7 @@ const RATE_OPTIONS = [
   { value: 0.1, label: "10%" },
   { value: 0.2, label: "20%" },
   { value: 0.3, label: "30%" },
+  { value: 0.4, label: "40%" },
   { value: 0.5, label: "50%" },
 ];
 
@@ -89,7 +90,7 @@ export function RBFRequest() {
             <p className="text-sm font-medium">Tỷ lệ trích mỗi chuyến</p>
             <p className="text-xs text-muted-foreground mt-0.5">Trích càng cao → hoàn trả càng nhanh → phí càng thấp</p>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-5 gap-2">
             {RATE_OPTIONS.map((opt) => (
               <button
                 key={opt.value}

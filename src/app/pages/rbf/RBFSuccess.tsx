@@ -68,7 +68,7 @@ export function RBFSuccess() {
 
           <div className="relative">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Building2 className="w-5 h-5" />
+              <Wallet className="w-5 h-5" />
               <span className="text-white/80">Số tiền giải ngân</span>
             </div>
             <p className="text-5xl mb-1">{formatCurrency(amount)}</p>

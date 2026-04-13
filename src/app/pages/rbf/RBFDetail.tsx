@@ -14,7 +14,6 @@ export function RBFDetail() {
     amount: 10000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
-    minRate: 0.2,
     revenueRate: 0.2,
     paidAmount: 5000000,
     remainingAmount: 5000000,
@@ -48,7 +47,7 @@ export function RBFDetail() {
 
   const adjustPendingRate = (delta: number) => {
     const newRate = Math.round((pendingRate + delta) * 100) / 100;
-    if (newRate >= advance.minRate && newRate <= 0.8) setPendingRate(newRate);
+    if (newRate >= advance.revenueRate && newRate <= 0.5) setPendingRate(newRate);
   };
 
   const confirmRateChange = () => {
@@ -128,7 +127,7 @@ export function RBFDetail() {
               <span className="text-destructive">+{formatCurrency(accruedFee)}</span>
             </div>
             <div className="bg-muted/40 rounded-lg px-3 py-2 text-xs text-muted-foreground">
-              Phí tính theo ngày thực tế (36%/năm). Hoàn trả nhanh hơn → ít ngày → phí cuối thấp hơn.
+              Phí tính theo ngày thực tế (36%/năm).
             </div>
           </div>
         </motion.div>
@@ -148,7 +147,7 @@ export function RBFDetail() {
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {advance.minRate * 100}% • Tăng để trả nhanh hơn, giảm phí</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {Math.round(advance.revenueRate * 100)}% (mốc ban đầu) • Tối đa 50%</p>
             </div>
             <div className="flex items-center gap-2">
               <button

@@ -291,12 +291,12 @@ export function Manage() {
                           </div>
                         </div>
 
-                        {/* Progress */}
-                        {advance.status === "active" && (
+                        {/* Progress — RBF only */}
+                        {activeTab === "rbf" && advance.status === "active" && (
                           <div className="mb-4">
                             <div className="flex justify-between text-xs text-muted-foreground mb-2">
-                              <span>{activeTab === "ewa" ? "Đã khấu trừ: " : "Đã hoàn trả: "}{formatCurrency(advance.paidAmount)}</span>
-                              <span>{activeTab === "ewa" ? "Còn khấu trừ: " : "Còn phải trả: "}{formatCurrency(advance.remainingAmount)}</span>
+                              <span>Đã hoàn trả: {formatCurrency(advance.paidAmount)}</span>
+                              <span>Còn phải trả: {formatCurrency(advance.remainingAmount)}</span>
                             </div>
                             <div className="h-2 bg-muted rounded-full overflow-hidden">
                               <motion.div
@@ -306,6 +306,14 @@ export function Manage() {
                                 className="h-full bg-primary rounded-full"
                               />
                             </div>
+                          </div>
+                        )}
+
+                        {/* EWA — show amount to be deducted */}
+                        {activeTab === "ewa" && advance.status === "active" && (
+                          <div className="mb-4 bg-muted/40 rounded-lg px-3 py-2 flex justify-between text-sm">
+                            <span className="text-muted-foreground">Số tiền sẽ khấu trừ</span>
+                            <span className="text-primary">{formatCurrency(advance.amount)}</span>
                           </div>
                         )}
 

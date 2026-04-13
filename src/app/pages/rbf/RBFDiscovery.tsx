@@ -20,7 +20,7 @@ export function RBFDiscovery() {
       icon: Percent,
       title: "Trích càng cao, phí càng thấp",
       value: "10 – 50%",
-      description: "Tự chọn tỷ lệ trích mỗi chuyến — hoàn tất nhanh hơn, ít ngày tính phí hơn",
+      description: "Chọn 10/20/30/40/50% mỗi chuyến — hoàn tất nhanh hơn, ít ngày tính phí hơn",
     },
   ];
 
@@ -148,6 +148,7 @@ export function RBFDiscovery() {
                   { rate: "10%", days: 100, fee: "98.630đ" },
                   { rate: "20%", days: 50, fee: "49.315đ" },
                   { rate: "30%", days: 34, fee: "33.534đ" },
+                  { rate: "40%", days: 25, fee: "24.658đ" },
                   { rate: "50%", days: 20, fee: "19.726đ" },
                 ].map((row) => (
                   <div key={row.rate} className="bg-card rounded-xl p-3 border border-border/40 space-y-1">

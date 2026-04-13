@@ -12,7 +12,7 @@ export function Home() {
       icon: Wallet,
       gradient: "from-cyan-400 to-cyan-600",
       link: "/ewa/discovery",
-      features: ["Ứng 50-70% thu nhập khả dụng", "Hạn mức tăng theo từng cuốc xe", "Cuối kỳ khấu trừ tự động"],
+      features: ["Ứng 50-70% thu nhập khả dụng", "Hạn mức tăng theo từng cuốc xe", "Tự động khấu trừ cuối kỳ"],
     },
     {
       id: "rbf",
@@ -22,7 +22,7 @@ export function Home() {
       icon: TrendingUp,
       gradient: "from-cyan-500 to-teal-600",
       link: "/rbf/discovery",
-      features: ["Hạn mức phê duyệt sẵn", "Trích % doanh thu mỗi chuyến"],
+      features: ["Hạn mức phê duyệt tự động", "Trích % doanh thu mỗi chuyến"],
     },
   ];
 
@@ -79,7 +79,7 @@ export function Home() {
     {
       icon: Zap,
       title: "Tự động",
-      description: "Hoàn trả tự động, không lo quên",
+      description: "Hoàn trả tự động, không kỳ hạn, không phát sinh phí",
     },
   ];
 

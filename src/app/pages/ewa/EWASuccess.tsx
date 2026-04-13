@@ -120,11 +120,10 @@ export function EWASuccess() {
               <Calendar className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế hoàn trả</h4>
+              <h4 className="mb-1 text-primary">Ngày dự kiến thanh toán</h4>
               <p className="text-2xl mb-2">{repaymentDate}</p>
               <p className="text-sm text-muted-foreground">
-                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo của bạn.
-                Hệ thống ưu tiên trích từ doanh thu cuốc xe mới rồi đến lương cứng cuối kỳ; bạn vẫn có thể tất toán sớm bất kỳ lúc nào.
+                Toàn bộ khoản ứng sẽ được khấu trừ một lần từ thu nhập cuối kỳ tháng này — không cần thao tác, không cần nhớ ngày.
               </p>
             </div>
           </div>
