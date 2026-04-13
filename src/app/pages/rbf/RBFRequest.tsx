@@ -30,7 +30,7 @@ const TERMS = [
     feeLabel: "3.0%",
     minRate: 0.3,
     maxAmount: 10000000,
-    desc: "Linh hoạt cho vận hành tháng",
+    desc: "Phù hợp vận hành 1 tháng",
   },
   {
     days: 60,
@@ -139,10 +139,13 @@ export function RBFRequest() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-3 bg-primary/5 rounded-xl p-3 flex items-center gap-2 text-sm"
+              className="mt-3 bg-primary/5 rounded-xl p-3 space-y-1 text-sm"
             >
-              <Percent className="w-4 h-4 text-primary flex-shrink-0" />
-              <span className="text-muted-foreground">{term.desc} — phí {term.feeLabel} flat, tất toán sớm không phát sinh thêm phí.</span>
+              <div className="flex items-center gap-2">
+                <Percent className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-muted-foreground">{term.desc} — phí {term.feeLabel} một lần khi giải ngân. Tất toán sớm không phát sinh thêm phí.</span>
+              </div>
+              <p className="text-xs text-destructive pl-6">Quá hạn bị phạt lãi 0.1%/ngày trên số dư còn lại.</p>
             </motion.div>
           </AnimatePresence>
         </div>

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight, Percent } from "lucide-react";
+import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight } from "lucide-react";
 
 export function RBFList() {
   const advances = [
@@ -14,7 +14,7 @@ export function RBFList() {
       paidAmount: 5000000,
       remainingAmount: 10000000,
       progress: 33,
-      estimatedCompletionDate: "2026-04-30",
+      dueDate: "2026-06-10",
     },
     {
       id: "2",
@@ -26,7 +26,7 @@ export function RBFList() {
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
-      estimatedCompletionDate: "2026-04-30",
+      dueDate: "2026-04-19",
     },
     {
       id: "3",
@@ -38,7 +38,7 @@ export function RBFList() {
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
-      estimatedCompletionDate: "2026-04-05",
+      dueDate: "2026-03-02",
     },
   ];
 
@@ -52,6 +52,12 @@ export function RBFList() {
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString("vi-VN") + "đ";
+  };
+
+  const getDaysRemaining = (dueDate: string) => {
+    const today = new Date("2026-04-13");
+    const due = new Date(dueDate);
+    return Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   };
 
   const formatDate = (dateString: string) => {
@@ -179,10 +185,12 @@ export function RBFList() {
                           <p className="text-xs text-muted-foreground">
                             Ngày ứng: {formatDate(advance.createdAt)}
                           </p>
-                          <span className="text-xs text-blue-600 flex items-center gap-1">
-                            <Percent className="w-3 h-3" />
-                            {advance.revenueRate * 100}% • {"termDays" in advance ? `${advance.termDays} ngày` : ""}
-                          </span>
+                          {advance.status === "active" && (() => {
+                            const days = getDaysRemaining(advance.dueDate);
+                            return days > 0
+                              ? <span className="text-xs text-blue-600">Còn {days} ngày</span>
+                              : <span className="text-xs text-destructive">Quá hạn {Math.abs(days)} ngày</span>;
+                          })()}
                         </div>
                       </div>
                       <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
@@ -213,12 +221,24 @@ export function RBFList() {
 
                     {/* Footer */}
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">
-                        {advance.status === "active"
-                          ? `Dự kiến: ${formatDate(advance.estimatedCompletionDate)}`
-                          : "Đã tất toán"}
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      <div>
+                        {advance.status === "active" ? (
+                          <>
+                            <span className="text-muted-foreground">
+                              Đến hạn tất toán: {formatDate(advance.dueDate)}
+                            </span>
+                            {(() => {
+                              const days = getDaysRemaining(advance.dueDate);
+                              return days <= 0
+                                ? <p className="text-xs text-destructive mt-0.5">Trễ hạn — đang tính lãi phạt 0.1%/ngày</p>
+                                : <p className="text-xs text-muted-foreground mt-0.5">Trễ hạn bị phạt 0.1%/ngày</p>;
+                            })()}
+                          </>
+                        ) : (
+                          <span className="text-muted-foreground">Đã tất toán</span>
+                        )}
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                     </div>
                   </div>
                 </Link>

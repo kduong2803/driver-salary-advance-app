@@ -56,7 +56,7 @@ export function Manage() {
       paidAmount: 5000000,
       remainingAmount: 10000000,
       progress: 33,
-      estimatedCompletionDate: "2026-04-30",
+      dueDate: "2026-06-10",
     },
     {
       id: "2",
@@ -68,7 +68,7 @@ export function Manage() {
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
-      estimatedCompletionDate: "2026-04-30",
+      dueDate: "2026-04-19",
     },
     {
       id: "3",
@@ -80,7 +80,7 @@ export function Manage() {
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
-      estimatedCompletionDate: "2026-04-05",
+      dueDate: "2026-03-02",
     },
   ];
 
@@ -114,6 +114,12 @@ export function Manage() {
       day: "2-digit",
       month: "2-digit",
     });
+  };
+
+  const getDaysRemaining = (dueDate: string) => {
+    const today = new Date("2026-04-13");
+    const due = new Date(dueDate);
+    return Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   };
 
   const getStatusConfig = (status: string) => {
@@ -278,12 +284,12 @@ export function Manage() {
                               <p className="text-xs text-muted-foreground">
                                 {activeTab === "ewa" ? "Ngày tạo ứng: " : "Ngày giải ngân: "}{formatDate(advance.createdAt)}
                               </p>
-                              {activeTab === "rbf" && "revenueRate" in advance && (
-                                <span className="text-xs text-primary flex items-center gap-1">
-                                  <Percent className="w-3 h-3" />
-                                  {advance.revenueRate * 100}% • {"termDays" in advance ? `${advance.termDays} ngày` : ""}
-                                </span>
-                              )}
+                              {activeTab === "rbf" && advance.status === "active" && "dueDate" in advance && (() => {
+                                const days = getDaysRemaining(advance.dueDate as string);
+                                return days > 0
+                                  ? <span className="text-xs text-primary">Còn {days} ngày</span>
+                                  : <span className="text-xs text-destructive">Quá hạn {Math.abs(days)} ngày</span>;
+                              })()}
                             </div>
                           </div>
                           <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
@@ -314,14 +320,30 @@ export function Manage() {
 
                         {/* Footer */}
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">
-                            {advance.status === "active"
-                              ? activeTab === "ewa"
-                                ? `Dự kiến khấu trừ xong: ${formatDate("dueDate" in advance ? advance.dueDate : "")}`
-                                : `Dự kiến hoàn tất: ${formatDate("estimatedCompletionDate" in advance ? advance.estimatedCompletionDate : "")}`
-                              : "Đã hoàn tất"}
-                          </span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            {advance.status === "active" ? (
+                              activeTab === "ewa" ? (
+                                <span className="text-muted-foreground">
+                                  Khấu trừ cuối kỳ: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
+                                </span>
+                              ) : (
+                                <div>
+                                  <span className="text-muted-foreground">
+                                    Đến hạn tất toán: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
+                                  </span>
+                                  {(() => {
+                                    const days = getDaysRemaining("dueDate" in advance ? advance.dueDate as string : "");
+                                    return days <= 0
+                                      ? <p className="text-xs text-destructive mt-0.5">Trễ hạn — đang tính lãi phạt 0.1%/ngày</p>
+                                      : <p className="text-xs text-muted-foreground mt-0.5">Trễ hạn bị phạt 0.1%/ngày</p>;
+                                  })()}
+                                </div>
+                              )
+                            ) : (
+                              <span className="text-muted-foreground">Đã hoàn tất</span>
+                            )}
+                          </div>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                         </div>
                       </div>
                     </Link>

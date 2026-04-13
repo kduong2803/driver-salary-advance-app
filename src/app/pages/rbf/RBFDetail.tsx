@@ -6,8 +6,8 @@ import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Bui
 export function RBFDetail() {
   const { id } = useParams();
   const [showPayEarly, setShowPayEarly] = useState(false);
-  const [showAdjustRate, setShowAdjustRate] = useState(false);
   const [currentRate, setCurrentRate] = useState(0.3);
+  const [pendingRate, setPendingRate] = useState(0.3);
 
   const advance = {
     id: id || "1",
@@ -49,9 +49,13 @@ export function RBFDetail() {
     return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   };
 
-  const adjustRate = (delta: number) => {
-    const newRate = Math.round((currentRate + delta) * 100) / 100;
-    if (newRate >= advance.minRate && newRate <= 0.8) setCurrentRate(newRate);
+  const adjustPendingRate = (delta: number) => {
+    const newRate = Math.round((pendingRate + delta) * 100) / 100;
+    if (newRate >= advance.minRate && newRate <= 0.8) setPendingRate(newRate);
+  };
+
+  const confirmRateChange = () => {
+    setCurrentRate(pendingRate);
   };
 
   return (
@@ -158,23 +162,23 @@ export function RBFDetail() {
 
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-sm text-muted-foreground">Tối thiểu {advance.minRate * 100}% để hoàn tất trong kỳ hạn</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tăng để trả nhanh hơn, giảm lãi ròng</p>
+              <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {advance.minRate * 100}% • Tăng để trả nhanh hơn</p>
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => adjustRate(-0.05)}
-                disabled={currentRate <= advance.minRate}
+                onClick={() => adjustPendingRate(-0.05)}
+                disabled={pendingRate <= advance.minRate}
                 className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
               >
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <span className="text-2xl font-semibold text-primary w-14 text-center">
-                {Math.round(currentRate * 100)}%
+              <span className={`text-2xl font-semibold w-14 text-center ${pendingRate !== currentRate ? "text-amber-500" : "text-primary"}`}>
+                {Math.round(pendingRate * 100)}%
               </span>
               <button
-                onClick={() => adjustRate(0.05)}
-                disabled={currentRate >= 0.8}
+                onClick={() => adjustPendingRate(0.05)}
+                disabled={pendingRate >= 0.8}
                 className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
               >
                 <ChevronUp className="w-4 h-4" />
@@ -182,7 +186,7 @@ export function RBFDetail() {
             </div>
           </div>
 
-          <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm">
+          <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm mb-3">
             <span className="text-muted-foreground">Ước tính hoàn tất:</span>
             <span className="text-primary font-medium">
               ~{estimatedDays} ngày
@@ -192,6 +196,15 @@ export function RBFDetail() {
               }
             </span>
           </div>
+
+          {pendingRate !== currentRate && (
+            <button
+              onClick={confirmRateChange}
+              className="w-full bg-primary text-white py-2.5 rounded-xl text-sm hover:bg-primary/90 transition-colors"
+            >
+              Xác nhận thay đổi — áp dụng {Math.round(pendingRate * 100)}%
+            </button>
+          )}
         </motion.div>
 
         {/* Repayment History */}
