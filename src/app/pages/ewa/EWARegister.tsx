@@ -104,14 +104,14 @@ export function EWARegister() {
                   <h4 className="mb-1">2. Cơ chế hoàn trả</h4>
                   <p className="text-muted-foreground">
                     Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo, ưu tiên từ doanh thu cuốc xe mới
-                    và phần lương cứng cuối kỳ. Bạn có thể chủ động tất toán trước từ ví VSP.
+                    và phần lương cứng cuối kỳ. Bạn có thể chủ động tất toán trước từ V-Smart Pay.
                   </p>
                 </div>
                 <div>
                   <h4 className="mb-1">3. Thu nhập khả dụng</h4>
                   <p className="text-muted-foreground">
                     Thu nhập khả dụng được tính từ lương cứng phân bổ theo ngày cộng doanh thu cuốc đã hoàn thành,
-                    sau đó trừ các khoản pending, khoản giữ lại và các điều chỉnh hệ thống nếu có.
+                    sau đó trừ các khoản chờ xử lý, khoản giữ lại và các điều chỉnh hệ thống nếu có.
                   </p>
                 </div>
                 <div>

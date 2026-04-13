@@ -179,7 +179,7 @@ export function History() {
                         <p className="font-medium">
                           {item.type === "manual"
                             ? activeTab === "ewa" ? "Tất toán sớm thủ công" : "Thanh toán trước hạn"
-                            : activeTab === "ewa" ? "Khấu trừ tự động từ thu nhập cuốc xe" : "Trích tự động từ doanh thu fleet"}
+                            : activeTab === "ewa" ? "Khấu trừ tự động từ thu nhập cuốc xe" : "Trích tự động từ doanh thu"}
                         </p>
                         <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                           <Clock className="w-3 h-3" />
@@ -247,7 +247,7 @@ export function History() {
                     {item.type === "manual" && (
                       <div className="bg-muted/50 rounded-lg p-3 text-sm">
                         <p className="text-muted-foreground">
-                          {activeTab === "ewa" ? "Tất toán sớm khoản ứng từ ví VSP" : "Thanh toán trước hạn từ ví VSP"}
+                          {activeTab === "ewa" ? "Tất toán sớm khoản ứng từ V-Smart Pay" : "Thanh toán trước hạn từ V-Smart Pay"}
                         </p>
                       </div>
                     )}

@@ -149,7 +149,7 @@ export function RBFDetail() {
               <h4 className="mb-1 text-primary">Cơ chế trích doanh thu</h4>
               <p className="text-sm text-muted-foreground">
                 {advance.revenueRate * 100}% doanh thu sẽ được tự động trích từ mỗi giao dịch phát sinh
-                của toàn fleet. Dự kiến hoàn tất vào{" "}
+                của bạn. Dự kiến hoàn tất vào{" "}
                 <span className="text-foreground font-medium">{formatDate(advance.estimatedCompletionDate)}</span>
               </p>
             </div>
@@ -208,7 +208,7 @@ export function RBFDetail() {
             onClick={() => setShowPayEarly(true)}
             className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
           >
-            Trả trước từ ví VSP
+            Trả trước từ V-Smart Pay
           </button>
         </motion.div>
       </div>
@@ -234,7 +234,7 @@ export function RBFDetail() {
 
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <div className="flex justify-between mb-2">
-                <span className="text-muted-foreground">Số dư ví VSP:</span>
+                <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
                 <span className="text-lg">{formatCurrency(95000000)}</span>
               </div>
               <div className="flex justify-between">

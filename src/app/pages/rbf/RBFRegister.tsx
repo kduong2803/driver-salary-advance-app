@@ -95,7 +95,7 @@ export function RBFRegister() {
                 <div>
                   <h4 className="mb-1">1. Phạm vi dịch vụ</h4>
                   <p className="text-muted-foreground">
-                    Dịch vụ ứng doanh thu cho phép đối tác/fleet nhận trước vốn vận hành trong hạn mức đã được phê duyệt,
+                    Dịch vụ ứng doanh thu cho phép tài xế và đối tác GSM nhận trước vốn vận hành trong hạn mức đã được phê duyệt,
                     dựa trên doanh thu, số chuyến và tần suất hoạt động gần nhất.
                   </p>
                 </div>

@@ -83,7 +83,7 @@ export function EWASuccess() {
               <span className="text-white/80">Số tiền thực nhận</span>
             </div>
             <p className="text-5xl mb-1">{formatCurrency(transactionDetails.netAmount)}</p>
-            <p className="text-white/70 text-sm">Đã chuyển vào ví VSP của bạn</p>
+            <p className="text-white/70 text-sm">Đã chuyển vào V-Smart Pay của bạn</p>
           </div>
         </motion.div>
 

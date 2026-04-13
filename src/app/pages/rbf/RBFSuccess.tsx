@@ -74,7 +74,7 @@ export function RBFSuccess() {
             </div>
             <p className="text-5xl mb-1">{formatCurrency(transactionDetails.amount)}</p>
             <p className="text-white/70 text-sm">
-              Đã chuyển vào {transactionDetails.account === "vsp" ? "ví VSP" : "tài khoản ngân hàng"}
+              Đã chuyển vào {transactionDetails.account === "vsp" ? "V-Smart Pay" : "tài khoản ngân hàng"}
             </p>
           </div>
         </motion.div>
@@ -104,7 +104,7 @@ export function RBFSuccess() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Tài khoản nhận:</span>
-              <span>{transactionDetails.account === "vsp" ? "Ví VSP" : "Ngân hàng"}</span>
+              <span>{transactionDetails.account === "vsp" ? "V-Smart Pay" : "Ngân hàng"}</span>
             </div>
           </div>
         </motion.div>
@@ -124,7 +124,7 @@ export function RBFSuccess() {
               <h4 className="mb-1 text-primary">Tiến độ hoàn trả dự kiến</h4>
               <p className="text-lg mb-2">~{transactionDetails.estimatedDays} ngày</p>
               <p className="text-sm text-muted-foreground">
-                Hệ thống sẽ tự động trích {transactionDetails.revenueRate * 100}% từ doanh thu phát sinh của fleet cho đến khi hoàn tất.
+                Hệ thống sẽ tự động trích {transactionDetails.revenueRate * 100}% từ doanh thu phát sinh của bạn cho đến khi hoàn tất.
                 Thời gian tất toán phụ thuộc trực tiếp vào hiệu suất vận hành thực tế của đối tác.
               </p>
             </div>

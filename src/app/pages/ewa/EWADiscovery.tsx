@@ -18,23 +18,23 @@ export function EWADiscovery() {
     },
     {
       icon: Clock,
-      title: "Cập nhật theo thời gian thực",
+      title: "Hạn mức cập nhật liên tục",
       value: "7-30 ngày",
-      description: "Hạn mức có thể tăng ngay sau mỗi cuốc xe hoàn thành",
+      description: "Hạn mức tăng sau mỗi cuốc xe và ngày công thực tế.",
     },
   ];
 
   const benefits = [
-    "Chỉ ứng trên phần thu nhập đã kiếm được, không tạo cảm giác vay vượt khả năng",
-    "Breakdown rõ giữa lương cứng phân bổ và thu nhập theo cuốc",
-    "Hạn mức thay đổi theo hành vi hoạt động và số cuốc hoàn thành",
-    "Tự động khấu trừ từ thu nhập cuối kỳ, không cần thao tác thủ công",
-    "Minh bạch phí và số tiền thực nhận ngay từ bước xác nhận",
+    "Cuối kỳ lương, khoản ứng tự động được trừ vào thu nhập — không cần nhớ, không cần thao tác",
+    "Chỉ ứng phần thu nhập đã có trong kỳ — lương cứng phân bổ và doanh thu từ cuốc xe đã hoàn thành",
+    "Hạn mức tăng sau mỗi cuốc xe và ngày công, ứng thêm bất cứ lúc nào trong tháng",
+    "Xem rõ lương cứng và doanh thu cuốc xe riêng biệt, minh bạch từng khoản",
+    "Biết trước phí dịch vụ và số tiền thực nhận ngay trước khi xác nhận",
   ];
 
   const howItWorks = [
     { step: "1", title: "Hệ thống tính thu nhập khả dụng", desc: "Cộng lương cứng phân bổ và cuốc đã hoàn thành" },
-    { step: "2", title: "Hiển thị phần có thể ứng", desc: "Trừ khoản giữ lại, pending và giới hạn trong 50-70%" },
+    { step: "2", title: "Hiển thị phần có thể ứng", desc: "Trừ khoản giữ lại, chờ xử lý và giới hạn trong 50-70%" },
     { step: "3", title: "Chọn số tiền cần ứng", desc: "Xem phí, số tiền thực nhận và xác nhận giao dịch" },
     { step: "4", title: "Khấu trừ tự động cuối kỳ", desc: "Trừ toàn bộ khoản ứng từ thu nhập phát sinh vào cuối kỳ thanh toán" },
   ];
@@ -77,7 +77,7 @@ export function EWADiscovery() {
               <span>10.800.000đ</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Khoản giữ lại / pending</span>
+              <span className="text-muted-foreground">Khoản giữ lại / chờ xử lý</span>
               <span className="text-destructive">-1.500.000đ</span>
             </div>
             <div className="h-px bg-border" />

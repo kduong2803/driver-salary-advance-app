@@ -178,7 +178,7 @@ export function EWADetail() {
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <p className="text-sm">
-                        {item.type === "auto" ? "Khấu trừ tự động từ thu nhập" : "Tất toán sớm từ ví VSP"}
+                        {item.type === "auto" ? "Khấu trừ tự động từ thu nhập" : "Tất toán sớm từ V-Smart Pay"}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {formatDateTime(item.date)}
@@ -207,7 +207,7 @@ export function EWADetail() {
             onClick={() => setShowPayEarly(true)}
             className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
           >
-            Trả trước từ ví VSP
+            Trả trước từ V-Smart Pay
           </button>
         </motion.div>
       </div>
@@ -233,7 +233,7 @@ export function EWADetail() {
 
             <div className="bg-muted/50 rounded-xl p-4 mb-6">
               <div className="flex justify-between mb-2">
-                <span className="text-muted-foreground">Số dư ví VSP:</span>
+                <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
                 <span className="text-lg">{formatCurrency(12000000)}</span>
               </div>
               <div className="flex justify-between">

@@ -62,7 +62,7 @@ export function EWARequest() {
         </div>
 
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-3">
-          <h3>Breakdown thu nhập khả dụng</h3>
+          <h3>Chi tiết thu nhập khả dụng</h3>
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Lương cứng phân bổ</span>
             <span>{formatCurrency(4200000)}</span>
@@ -72,7 +72,7 @@ export function EWARequest() {
             <span>{formatCurrency(earnedIncome - 4200000)}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Khoản pending / giữ lại</span>
+            <span className="text-muted-foreground">Khoản giữ lại / chờ xử lý</span>
             <span className="text-destructive">-{formatCurrency(heldAmount)}</span>
           </div>
           <div className="h-px bg-border" />
@@ -139,7 +139,7 @@ export function EWARequest() {
             <div className="bg-muted/50 rounded-lg p-3 flex items-start gap-2 mt-4">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh cuối kỳ. Bạn vẫn có thể chủ động tất toán sớm từ ví VSP nếu muốn.
+                Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh cuối kỳ. Bạn vẫn có thể chủ động tất toán sớm từ V-Smart Pay nếu muốn.
               </p>
             </div>
           </motion.div>

@@ -130,7 +130,7 @@ export function RBFRequest() {
                 <Wallet className="w-5 h-5 text-primary" />
               </div>
               <div className="flex-1">
-                <p>Ví VSP</p>
+                <p>V-Smart Pay</p>
                 <p className="text-sm text-muted-foreground">Nhận tiền ngay lập tức</p>
               </div>
             </label>
@@ -206,7 +206,7 @@ export function RBFRequest() {
             <div className="bg-muted/50 rounded-lg p-3 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-xs text-muted-foreground">
-                Hệ thống sẽ tự động trích {revenueRate * 100}% trên doanh thu phát sinh của bạn cho đến khi khoản ứng hoàn tất. Bạn vẫn có thể chủ động thanh toán trước hạn từ ví VSP.
+                Hệ thống sẽ tự động trích {revenueRate * 100}% trên doanh thu phát sinh của bạn cho đến khi khoản ứng hoàn tất. Bạn vẫn có thể chủ động thanh toán trước hạn từ V-Smart Pay.
               </p>
             </div>
           </motion.div>

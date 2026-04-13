@@ -25,11 +25,11 @@ export function RBFDiscovery() {
   ];
 
   const benefits = [
-    "Hạn mức được duyệt trước để bạn chủ động kế hoạch chi tiêu vận hành",
-    "Hoàn trả bằng tỷ lệ trích doanh thu, không cần lịch trả cố định",
-    "Theo dõi rõ số đã ứng, số còn lại và tiến độ hoàn trả theo doanh thu phát sinh",
-    "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và các chi phí vận hành",
-    "Minh bạch mức phí, tỷ lệ trích và số tiền còn phải hoàn trả",
+    "Nhận trước vốn vận hành trong hạn mức đã duyệt — chủ động với chi phí hằng ngày",
+    "Hoàn trả theo doanh thu thực tế phát sinh, không áp lịch trả cố định",
+    "Theo dõi số đã ứng, số còn lại và tiến độ hoàn trả ngay trên ứng dụng",
+    "Phù hợp bổ sung dòng tiền cho nhiên liệu, bảo dưỡng và chi phí vận hành",
+    "Biết trước tỷ lệ trích và tổng số phải hoàn trả trước khi xác nhận",
   ];
 
   const howItWorks = [
