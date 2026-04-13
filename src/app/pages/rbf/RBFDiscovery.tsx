@@ -1,42 +1,49 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Calendar, Building2 } from "lucide-react";
+import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Calendar, Building2, Zap } from "lucide-react";
+
+const TERMS = [
+  { days: 7,  fee: "0.5%", minRate: "50%", maxAmount: "3.000.000đ" },
+  { days: 14, fee: "1.2%", minRate: "40%", maxAmount: "5.000.000đ" },
+  { days: 30, fee: "2.5%", minRate: "30%", maxAmount: "10.000.000đ" },
+  { days: 60, fee: "4.0%", minRate: "20%", maxAmount: "15.000.000đ" },
+];
 
 export function RBFDiscovery() {
   const features = [
     {
       icon: TrendingUp,
       title: "Hạn mức được phê duyệt",
-      value: "15.000.000đ",
+      value: "Đến 15tr",
       description: "Dựa trên doanh thu và tần suất hoạt động 90 ngày gần nhất",
     },
     {
-      icon: Percent,
-      title: "Tỷ lệ trích doanh thu",
-      value: "15-20%",
-      description: "Tự động trích trên doanh thu phát sinh để hoàn trả khoản ứng",
+      icon: Calendar,
+      title: "Kỳ hạn linh hoạt",
+      value: "7 – 60 ngày",
+      description: "Chọn kỳ hạn phù hợp với nhu cầu dòng tiền — phí thay đổi theo kỳ",
     },
     {
-      icon: Calendar,
-      title: "Thời gian ước tính",
-      value: "60-90 ngày",
-      description: "Phụ thuộc vào mức doanh thu thực tế trong giai đoạn hoàn trả",
+      icon: Percent,
+      title: "Tỷ lệ trích / chuyến",
+      value: "20 – 50%",
+      description: "Tự điều chỉnh tăng để tất toán nhanh hơn, giảm tổng phí trả",
     },
   ];
 
   const benefits = [
-    "Nhận trước vốn vận hành trong hạn mức đã duyệt — chủ động với chi phí hằng ngày",
-    "Hoàn trả theo doanh thu thực tế phát sinh, không áp lịch trả cố định",
-    "Theo dõi số đã ứng, số còn lại và tiến độ hoàn trả ngay trên ứng dụng",
+    "Chọn kỳ hạn 7/14/30/60 ngày — phí flat cố định, biết trước trước khi xác nhận",
+    "Tất toán sớm bất kỳ lúc nào từ V-Smart Pay — không phát sinh thêm phí",
+    "Tự tăng tỷ lệ trích để trả nhanh hơn, giảm bớt số ngày chịu phí",
     "Phù hợp bổ sung dòng tiền cho nhiên liệu, bảo dưỡng và chi phí vận hành",
-    "Biết trước tỷ lệ trích và tổng số phải hoàn trả trước khi xác nhận",
+    "Hạn mức được phục hồi sau mỗi lần tất toán — có thể ứng tiếp ngay",
   ];
 
   const howItWorks = [
-    { step: "1", title: "Hệ thống đánh giá hoạt động", desc: "Xét doanh thu, số chuyến và mức độ hoạt động gần đây" },
-    { step: "2", title: "Cấp hạn mức ứng doanh thu", desc: "Hiển thị số tiền có thể ứng và tỷ lệ trích hoàn trả" },
-    { step: "3", title: "Giải ngân về ví hoặc ngân hàng", desc: "Xác nhận khoản ứng và nhận tiền ngay" },
-    { step: "4", title: "Trích doanh thu tự động", desc: "Khấu trừ một tỷ lệ phần trăm từ doanh thu phát sinh cho đến khi hoàn tất" },
+    { step: "1", title: "Hệ thống đánh giá hoạt động", desc: "Xét doanh thu, số chuyến và mức độ hoạt động 90 ngày gần nhất" },
+    { step: "2", title: "Chọn kỳ hạn và số tiền", desc: "Chọn 7/14/30/60 ngày — xem phí, tỷ lệ trích và ước tính thời gian hoàn tất" },
+    { step: "3", title: "Giải ngân về ví hoặc ngân hàng", desc: "Xác nhận và nhận tiền ngay vào V-Smart Pay hoặc tài khoản ngân hàng" },
+    { step: "4", title: "Tự động trích từ mỗi chuyến", desc: "Hệ thống trích theo tỷ lệ đã chọn cho đến khi hoàn tất — hoặc tất toán sớm bất kỳ lúc nào" },
   ];
 
   return (
@@ -52,7 +59,7 @@ export function RBFDiscovery() {
             <Building2 className="w-9 h-9" />
           </div>
           <h1 className="text-3xl mb-2">Ứng Doanh Thu</h1>
-          <p className="text-white/90 text-lg">Dành cho tài xế và đối tác GSM — ứng trước doanh thu dựa trên lịch sử hoạt động</p>
+          <p className="text-white/90 text-lg">Dành cho tài xế và đối tác GSM — chọn kỳ hạn, biết trước phí, tất toán sớm không mất thêm</p>
         </motion.div>
 
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -60,33 +67,51 @@ export function RBFDiscovery() {
       </div>
 
       <div className="max-w-lg mx-auto px-6 pt-6 pb-8 space-y-6">
+
+        {/* Term Comparison Table */}
         <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
-          <h3 className="mb-4">Hạn mức được xác định như thế nào?</h3>
-          <div className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Doanh thu 90 ngày</span>
-              <span>90.000.000đ</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Chuyến trung bình/ngày</span>
-              <span>10 chuyến</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Doanh thu trung bình/ngày</span>
-              <span>1.000.000đ</span>
-            </div>
-            <div className="h-px bg-border" />
-            <div className="flex justify-between">
-              <span>Hạn mức được duyệt</span>
-              <span className="text-primary">15.000.000đ</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Tỷ lệ trích doanh thu</span>
-              <span className="text-primary">20% / giao dịch</span>
-            </div>
+          <h3 className="mb-4">Bảng kỳ hạn & phí dịch vụ</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {TERMS.map((t) => (
+              <div key={t.days} className="bg-muted/40 rounded-xl p-3 space-y-1.5">
+                <p className="font-semibold text-primary">{t.days} ngày</p>
+                <div className="space-y-1 text-xs text-muted-foreground">
+                  <div className="flex justify-between">
+                    <span>Phí flat:</span>
+                    <span className="text-foreground">{t.fee}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Trích tối thiểu:</span>
+                    <span className="text-foreground">{t.minRate}/chuyến</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Hạn mức tối đa:</span>
+                    <span className="text-primary">{t.maxAmount}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            Phí tính một lần khi giải ngân. Tất toán sớm không phát sinh thêm phí.
+          </p>
+        </div>
+
+        {/* Early Payoff Highlight */}
+        <div className="bg-primary/10 border border-primary/30 rounded-2xl p-5 flex items-start gap-4">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+            <Zap className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="mb-1 text-primary">Tất toán sớm — tiết kiệm chi phí thực</p>
+            <p className="text-sm text-foreground/80">
+              Trả phần dư còn lại từ V-Smart Pay bất kỳ lúc nào trong kỳ hạn.
+              Phí đã được tính cố định khi giải ngân — tất toán sớm không phát sinh thêm.
+            </p>
           </div>
         </div>
 
+        {/* Key Features */}
         <div className="grid gap-3">
           {features.map((feature, index) => (
             <motion.div
@@ -110,6 +135,7 @@ export function RBFDiscovery() {
           ))}
         </div>
 
+        {/* How it works */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4 flex items-center gap-2">
             <span className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -132,6 +158,7 @@ export function RBFDiscovery() {
           </div>
         </div>
 
+        {/* Benefits */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>
           <div className="space-y-3">
@@ -146,28 +173,51 @@ export function RBFDiscovery() {
           </div>
         </div>
 
+        {/* Example */}
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-          <h4 className="mb-3 text-primary">Ví dụ minh họa</h4>
-          <div className="space-y-3 text-sm">
+          <h4 className="mb-4 text-primary">Ví dụ minh họa</h4>
+          <div className="space-y-4 text-sm">
             <div>
-              <p className="text-muted-foreground mb-1">Kịch bản:</p>
-              <p>Ứng 15.000.000đ với tỷ lệ hoàn trả 20% trên doanh thu phát sinh</p>
-            </div>
-            <div className="h-px bg-border" />
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Doanh thu 500.000đ:</span>
-                <span>Trích 100.000đ</span>
+              <p className="text-muted-foreground mb-2 font-medium">Kỳ hạn 30 ngày — ứng 10.000.000đ</p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Số tiền giải ngân:</span>
+                  <span>10.000.000đ</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Phí dịch vụ (2.5%):</span>
+                  <span>250.000đ</span>
+                </div>
+                <div className="h-px bg-border my-1" />
+                <div className="flex justify-between">
+                  <span>Tổng phải hoàn trả:</span>
+                  <span className="text-primary font-medium">10.250.000đ</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Doanh thu 1.000.000đ:</span>
-                <span>Trích 200.000đ</span>
-              </div>
             </div>
+
             <div className="h-px bg-border" />
-            <p className="text-xs text-muted-foreground">
-              Với doanh thu trung bình 1 triệu/ngày, khoản ứng dự kiến hoàn tất trong khoảng 75 ngày.
-            </p>
+
+            <div>
+              <p className="text-muted-foreground mb-2 font-medium">Tiến độ hoàn trả (doanh thu ~1tr/ngày, trích 30%)</p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Chuyến 185.000đ:</span>
+                  <span>Trích 55.500đ</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Mỗi ngày (~10 chuyến):</span>
+                  <span>Trích ~300.000đ</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Ước tính hoàn tất:</span>
+                  <span className="text-primary">~34 ngày</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Tăng tỷ lệ trích lên 40% → hoàn tất trong ~26 ngày, đúng trong kỳ hạn 30 ngày.
+              </p>
+            </div>
           </div>
         </div>
 
