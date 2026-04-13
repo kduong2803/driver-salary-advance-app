@@ -24,6 +24,16 @@ export function Home() {
       link: "/rbf/discovery",
       features: ["Hạn mức phê duyệt tự động", "Trích % doanh thu mỗi chuyến"],
     },
+    {
+      id: "loan",
+      title: "Vay Mua Xe",
+      subtitle: "Tín chấp hồi tố — duyệt ngay",
+      description: "Dành cho tài xế có lịch sử V-Smart Pay tốt, muốn mua xe điện với khoản vay tín chấp và trả góp hàng ngày từ thu nhập chạy xe",
+      icon: Car,
+      gradient: "from-violet-500 to-purple-600",
+      link: "/loan/discovery",
+      features: ["Duyệt tự động — không cần chứng minh thu nhập", "Trả góp hàng ngày từ ví", "Hạn mức đến 30tr"],
+    },
   ];
 
   const productExplainers = [
@@ -61,6 +71,24 @@ export function Home() {
         "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",
         "Theo dõi số đã ứng, tiến độ hoàn trả và lịch sử trích theo từng chuyến ngay trên ứng dụng",
         "Tỷ lệ trích càng cao, phí càng thấp — tự chủ tốc độ hoàn trả để tiết kiệm chi phí thực",
+      ],
+    },
+    {
+      id: "loan",
+      title: "Vay mua xe cho tài xế có uy tín",
+      intro: "Khoản vay tín chấp được duyệt sẵn dựa trên lịch sử dùng ví V-Smart Pay — không cần chứng minh thu nhập thêm.",
+      icon: Car,
+      accent: "text-violet-600",
+      bg: "bg-violet-500/10",
+      stats: [
+        { label: "Hạn mức được duyệt", value: "30.000.000đ", icon: Wallet },
+        { label: "Góp mỗi ngày", value: "~35.000đ", icon: CalendarDays },
+        { label: "Lãi suất", value: "0.8%/tháng", icon: Percent },
+      ],
+      bullets: [
+        "Hạn mức được duyệt tự động dựa trên lịch sử giao dịch và hành vi dùng ví",
+        "Số tiền góp hàng ngày nhỏ, phù hợp với thu nhập chạy xe — không áp lực trả theo tháng",
+        "Chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày — không cần đến đại lý làm thủ tục",
       ],
     },
   ];

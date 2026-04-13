@@ -13,6 +13,10 @@ import { RBFRegister } from "./pages/rbf/RBFRegister";
 import { RBFRequest } from "./pages/rbf/RBFRequest";
 import { RBFSuccess } from "./pages/rbf/RBFSuccess";
 import { RBFDetail } from "./pages/rbf/RBFDetail";
+import { LoanDiscovery } from "./pages/loan/LoanDiscovery";
+import { LoanRequest } from "./pages/loan/LoanRequest";
+import { LoanSuccess } from "./pages/loan/LoanSuccess";
+import { LoanDetail } from "./pages/loan/LoanDetail";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +36,10 @@ export const router = createBrowserRouter([
       { path: "rbf/request", Component: RBFRequest },
       { path: "rbf/success", Component: RBFSuccess },
       { path: "rbf/detail/:id", Component: RBFDetail },
+      { path: "loan/discovery", Component: LoanDiscovery },
+      { path: "loan/request", Component: LoanRequest },
+      { path: "loan/success", Component: LoanSuccess },
+      { path: "loan/detail/:id", Component: LoanDetail },
     ],
   },
 ]);
