@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2, ChevronUp, ChevronDown, Calendar } from "lucide-react";
+import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2, ChevronUp, ChevronDown } from "lucide-react";
+
+const DAILY_RATE = 0.36 / 365;
 
 export function RBFDetail() {
   const { id } = useParams();
@@ -12,23 +14,22 @@ export function RBFDetail() {
     amount: 10000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
-    termDays: 30,
-    feeRate: 0.03,
-    minRate: 0.3,
-    revenueRate: 0.3,
+    minRate: 0.2,
+    revenueRate: 0.2,
     paidAmount: 5000000,
     remainingAmount: 5000000,
     progress: 50,
-    dueDate: "2026-04-30",
   };
 
   const [currentRate, setCurrentRate] = useState(advance.revenueRate);
   const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
-  const feeAmount = Math.round(advance.amount * advance.feeRate);
-  const totalRepay = advance.amount + feeAmount;
   const avgDailyRevenue = 1000000;
-  const estimatedDays = Math.ceil(advance.remainingAmount / (avgDailyRevenue * currentRate));
+  const daysSinceCreation = Math.ceil(
+    (new Date("2026-04-13").getTime() - new Date(advance.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+  );
+  const accruedFee = Math.round(advance.amount * DAILY_RATE * daysSinceCreation);
+  const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (avgDailyRevenue * currentRate));
 
   const repaymentHistory = [
     { date: "2026-04-12T19:45:00", amount: 56000, tripRevenue: 185000, tripId: "T002145" },
@@ -43,11 +44,6 @@ export function RBFDetail() {
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   };
 
   const adjustPendingRate = (delta: number) => {
@@ -119,15 +115,8 @@ export function RBFDetail() {
 
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Ngày ứng:</span>
+              <span className="text-muted-foreground">Ngày giải ngân:</span>
               <span>{formatDateTime(advance.createdAt)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Kỳ hạn:</span>
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-primary" />
-                {advance.termDays} ngày (đến {formatDate(advance.dueDate)})
-              </span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
@@ -135,12 +124,11 @@ export function RBFDetail() {
               <span>{formatCurrency(advance.amount)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Phí dịch vụ ({advance.feeRate * 100}%):</span>
-              <span className="text-destructive">+{formatCurrency(feeAmount)}</span>
+              <span className="text-muted-foreground">Phí phát sinh đến nay ({daysSinceCreation} ngày):</span>
+              <span className="text-destructive">+{formatCurrency(accruedFee)}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tổng phải hoàn trả:</span>
-              <span className="font-medium">{formatCurrency(totalRepay)}</span>
+            <div className="bg-muted/40 rounded-lg px-3 py-2 text-xs text-muted-foreground">
+              Phí tính theo ngày thực tế (36%/năm). Hoàn trả nhanh hơn → ít ngày → phí cuối thấp hơn.
             </div>
           </div>
         </motion.div>
@@ -160,7 +148,7 @@ export function RBFDetail() {
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {advance.minRate * 100}% • Tăng để trả nhanh hơn</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tối thiểu {advance.minRate * 100}% • Tăng để trả nhanh hơn, giảm phí</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -185,13 +173,7 @@ export function RBFDetail() {
 
           <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm mb-3">
             <span className="text-muted-foreground">Ước tính hoàn tất:</span>
-            <span className="text-primary font-medium">
-              ~{estimatedDays} ngày
-              {estimatedDays <= advance.termDays
-                ? <span className="text-xs text-green-600 ml-1">(trong kỳ hạn)</span>
-                : <span className="text-xs text-amber-600 ml-1">(vượt kỳ hạn)</span>
-              }
-            </span>
+            <span className="text-primary font-medium">~{estimatedDaysRemaining} ngày nữa</span>
           </div>
 
           {pendingRate !== currentRate && (
@@ -272,7 +254,7 @@ export function RBFDetail() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
-            <h3 className="text-xl mb-4">Thanh toán trước hạn</h3>
+            <h3 className="text-xl mb-4">Thanh toán trước</h3>
 
             <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
               <div className="flex justify-between">

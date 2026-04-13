@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight } from "lucide-react";
+import { Plus, TrendingUp, Clock, CheckCircle, ChevronRight } from "lucide-react";
 
 export function RBFList() {
   const advances = [
@@ -9,36 +9,30 @@ export function RBFList() {
       amount: 15000000,
       status: "active" as const,
       createdAt: "2026-04-11",
-      termDays: 60,
       revenueRate: 0.2,
       paidAmount: 5000000,
       remainingAmount: 10000000,
       progress: 33,
-      dueDate: "2026-06-10",
     },
     {
       id: "2",
       amount: 10000000,
       status: "active" as const,
       createdAt: "2026-03-20",
-      termDays: 30,
       revenueRate: 0.3,
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
-      dueDate: "2026-04-19",
     },
     {
       id: "3",
       amount: 12000000,
       status: "completed" as const,
       createdAt: "2026-02-01",
-      termDays: 30,
       revenueRate: 0.3,
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
-      dueDate: "2026-03-02",
     },
   ];
 
@@ -52,12 +46,6 @@ export function RBFList() {
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString("vi-VN") + "đ";
-  };
-
-  const getDaysRemaining = (dueDate: string) => {
-    const today = new Date("2026-04-13");
-    const due = new Date(dueDate);
-    return Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   };
 
   const formatDate = (dateString: string) => {
@@ -83,13 +71,6 @@ export function RBFList() {
           icon: CheckCircle,
           color: "text-primary",
           bgColor: "bg-primary/10",
-        };
-      case "overdue":
-        return {
-          label: "Cần chú ý",
-          icon: AlertCircle,
-          color: "text-orange-600",
-          bgColor: "bg-orange-50",
         };
       default:
         return {
@@ -181,17 +162,9 @@ export function RBFList() {
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <p className="text-xl mb-1">{formatCurrency(advance.amount)}</p>
-                        <div className="flex items-center gap-2">
-                          <p className="text-xs text-muted-foreground">
-                            Ngày ứng: {formatDate(advance.createdAt)}
-                          </p>
-                          {advance.status === "active" && (() => {
-                            const days = getDaysRemaining(advance.dueDate);
-                            return days > 0
-                              ? <span className="text-xs text-blue-600">Còn {days} ngày</span>
-                              : <span className="text-xs text-destructive">Quá hạn {Math.abs(days)} ngày</span>;
-                          })()}
-                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Ngày ứng: {formatDate(advance.createdAt)}
+                        </p>
                       </div>
                       <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
                         <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
@@ -223,11 +196,9 @@ export function RBFList() {
                     <div className="flex items-center justify-between text-sm">
                       <div>
                         {advance.status === "active" ? (
-                          <>
-                            <span className="text-muted-foreground">
-                              Đến hạn tất toán: {formatDate(advance.dueDate)}
-                            </span>
-                          </>
+                          <span className="text-muted-foreground">
+                            Trích tự động: {Math.round(advance.revenueRate * 100)}%/chuyến
+                          </span>
                         ) : (
                           <span className="text-muted-foreground">Đã tất toán</span>
                         )}

@@ -12,7 +12,7 @@ export function Home() {
       icon: Wallet,
       gradient: "from-cyan-400 to-cyan-600",
       link: "/ewa/discovery",
-      features: ["Ứng 50-70% thu nhập khả dụng", "Cập nhật sau mỗi cuốc", "Khấu trừ tự động"],
+      features: ["Ứng 50-70% thu nhập khả dụng", "Hạn mức tăng theo từng cuốc xe", "Cuối kỳ khấu trừ tự động"],
     },
     {
       id: "rbf",
@@ -22,7 +22,7 @@ export function Home() {
       icon: TrendingUp,
       gradient: "from-cyan-500 to-teal-600",
       link: "/rbf/discovery",
-      features: ["Hạn mức duyệt trước", "Trích % doanh thu", "Phù hợp tài xế & đối tác GSM"],
+      features: ["Hạn mức phê duyệt sẵn", "Trích % doanh thu mỗi chuyến"],
     },
   ];
 
@@ -55,12 +55,12 @@ export function Home() {
       stats: [
         { label: "Doanh thu 90 ngày", value: "90.000.000đ", icon: TrendingUp },
         { label: "Hạn mức được duyệt", value: "15.000.000đ", icon: Wallet },
-        { label: "Tỷ lệ trích hoàn trả", value: "15-20%", icon: Percent },
+        { label: "Tỷ lệ trích hoàn trả", value: "10–100%", icon: Percent },
       ],
       bullets: [
         "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",
-        "Bạn luôn theo dõi được số đã ứng, số còn lại và phần doanh thu sẽ được trích để hoàn trả",
-        "Phù hợp khi cần thêm dòng tiền ngắn hạn cho nhiên liệu, bảo dưỡng và các chi phí vận hành",
+        "Theo dõi số đã ứng, tiến độ hoàn trả và lịch sử trích theo từng chuyến ngay trên ứng dụng",
+        "Tỷ lệ trích càng cao, phí càng thấp — tự chủ tốc độ hoàn trả để tiết kiệm chi phí thực",
       ],
     },
   ];

@@ -51,36 +51,30 @@ export function Manage() {
       amount: 15000000,
       status: "active" as const,
       createdAt: "2026-04-11",
-      termDays: 60,
       revenueRate: 0.2,
       paidAmount: 5000000,
       remainingAmount: 10000000,
       progress: 33,
-      dueDate: "2026-06-10",
     },
     {
       id: "2",
       amount: 10000000,
       status: "active" as const,
       createdAt: "2026-03-20",
-      termDays: 30,
       revenueRate: 0.3,
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
-      dueDate: "2026-04-19",
     },
     {
       id: "3",
       amount: 12000000,
       status: "completed" as const,
       createdAt: "2026-02-01",
-      termDays: 30,
       revenueRate: 0.3,
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
-      dueDate: "2026-03-02",
     },
   ];
 
@@ -282,14 +276,11 @@ export function Manage() {
                             <p className="text-xl mb-1">{formatCurrency(advance.amount)}</p>
                             <div className="flex items-center gap-2">
                               <p className="text-xs text-muted-foreground">
-                                {activeTab === "ewa" ? "Ngày tạo ứng: " : "Ngày giải ngân: "}{formatDate(advance.createdAt)}
+                                {activeTab === "ewa" ? "Ngày ứng tiền: " : "Ngày giải ngân: "}{formatDate(advance.createdAt)}
                               </p>
-                              {activeTab === "rbf" && advance.status === "active" && "dueDate" in advance && (() => {
-                                const days = getDaysRemaining(advance.dueDate as string);
-                                return days > 0
-                                  ? <span className="text-xs text-primary">Còn {days} ngày</span>
-                                  : <span className="text-xs text-destructive">Quá hạn {Math.abs(days)} ngày</span>;
-                              })()}
+                              {activeTab === "rbf" && advance.status === "active" && "revenueRate" in advance && (
+                                <span className="text-xs text-primary">Trích {Math.round((advance.revenueRate as number) * 100)}%/chuyến</span>
+                              )}
                             </div>
                           </div>
                           <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
@@ -324,14 +315,12 @@ export function Manage() {
                             {advance.status === "active" ? (
                               activeTab === "ewa" ? (
                                 <span className="text-muted-foreground">
-                                  Khấu trừ cuối kỳ: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
+                                  Ngày dự kiến thanh toán: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
                                 </span>
                               ) : (
-                                <div>
-                                  <span className="text-muted-foreground">
-                                    Đến hạn tất toán: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}
-                                  </span>
-                                </div>
+                                <span className="text-muted-foreground">
+                                  Trích tự động: {"revenueRate" in advance ? Math.round((advance.revenueRate as number) * 100) : 0}%/chuyến
+                                </span>
                               )
                             ) : (
                               <span className="text-muted-foreground">Đã hoàn tất</span>

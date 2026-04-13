@@ -1,30 +1,24 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { TrendingDown, Wallet, Building2, Clock, List, CalendarDays, MapPin } from "lucide-react";
+import { TrendingDown, Wallet, Building2, Clock, List, CalendarDays, MapPin, Calendar } from "lucide-react";
 
 export function History() {
   const [activeTab, setActiveTab] = useState<"ewa" | "rbf">("ewa");
   const [viewMode, setViewMode] = useState<"detail" | "daily">("detail");
 
-  // EWA — chi tiết theo cuốc xe (khấu trừ 50% thu nhập mỗi cuốc, cuối kỳ tất toán phần còn lại)
+  // EWA — khấu trừ cuối kỳ lương (không theo cuốc xe)
   const ewaDetailHistory = [
-    { id: "1", date: "2026-04-12T19:45:00", tripRevenue: 185000, amount: 93000, type: "auto" as const, tripId: "T001241", from: "Quận 1, TP.HCM", to: "Quận 7, TP.HCM" },
-    { id: "2", date: "2026-04-12T16:20:00", tripRevenue: 210000, amount: 105000, type: "auto" as const, tripId: "T001240", from: "Tân Bình, TP.HCM", to: "Bình Thạnh, TP.HCM" },
-    { id: "3", date: "2026-04-12T13:05:00", tripRevenue: 145000, amount: 73000, type: "auto" as const, tripId: "T001239", from: "Gò Vấp, TP.HCM", to: "Phú Nhuận, TP.HCM" },
-    { id: "4", date: "2026-04-11T20:10:00", tripRevenue: 230000, amount: 115000, type: "auto" as const, tripId: "T001238", from: "Quận 3, TP.HCM", to: "Thủ Đức, TP.HCM" },
-    { id: "5", date: "2026-04-11T17:30:00", tripRevenue: 165000, amount: 83000, type: "auto" as const, tripId: "T001237", from: "Bình Thạnh, TP.HCM", to: "Quận 4, TP.HCM" },
-    { id: "6", date: "2026-04-11T14:45:00", tripRevenue: 195000, amount: 98000, type: "auto" as const, tripId: "T001236", from: "Quận 10, TP.HCM", to: "Quận 1, TP.HCM" },
-    { id: "7", date: "2026-04-11T10:20:00", tripRevenue: 130000, amount: 65000, type: "auto" as const, tripId: "T001235", from: "Tân Phú, TP.HCM", to: "Tân Bình, TP.HCM" },
-    { id: "8", date: "2026-04-08T09:00:00", tripRevenue: 0, amount: 300000, type: "manual" as const, tripId: null },
+    { id: "1", date: "2026-03-31T08:00:00", amount: 8000000, type: "auto" as const, note: "Khấu trừ cuối kỳ tháng 03/2026 — thu nhập phát sinh 16.200.000đ" },
+    { id: "2", date: "2026-03-15T10:30:00", amount: 5000000, type: "manual" as const, note: "Tất toán sớm từ V-Smart Pay" },
+    { id: "3", date: "2026-02-28T08:00:00", amount: 10000000, type: "auto" as const, note: "Khấu trừ cuối kỳ tháng 02/2026 — thu nhập phát sinh 18.500.000đ" },
+    { id: "4", date: "2026-01-31T08:00:00", amount: 7500000, type: "auto" as const, note: "Khấu trừ cuối kỳ tháng 01/2026 — thu nhập phát sinh 14.800.000đ" },
   ];
 
-  // EWA — gộp theo ngày
+  // EWA — gộp theo tháng
   const ewaDailyHistory = [
-    { id: "1", date: "2026-04-12", amount: 271000, type: "auto" as const, tripCount: 3, tripRevenue: 540000, dayLabel: "12/04" },
-    { id: "2", date: "2026-04-11", amount: 361000, type: "auto" as const, tripCount: 4, tripRevenue: 720000, dayLabel: "11/04" },
-    { id: "3", date: "2026-04-10", amount: 295000, type: "auto" as const, tripCount: 3, tripRevenue: 590000, dayLabel: "10/04" },
-    { id: "4", date: "2026-04-09", amount: 325000, type: "auto" as const, tripCount: 4, tripRevenue: 650000, dayLabel: "09/04" },
-    { id: "5", date: "2026-04-08", amount: 300000, type: "manual" as const, dayLabel: "08/04" },
+    { id: "1", date: "2026-03-31", amount: 13000000, type: "auto" as const, dayLabel: "03/2026", note: "Khấu trừ cuối kỳ + tất toán sớm" },
+    { id: "2", date: "2026-02-28", amount: 10000000, type: "auto" as const, dayLabel: "02/2026", note: "Khấu trừ cuối kỳ" },
+    { id: "3", date: "2026-01-31", amount: 7500000, type: "auto" as const, dayLabel: "01/2026", note: "Khấu trừ cuối kỳ" },
   ];
 
   // RBF — chi tiết theo cuốc xe (trích 20% doanh thu mỗi cuốc)
@@ -114,7 +108,7 @@ export function History() {
             }`}
           >
             <CalendarDays className="w-3.5 h-3.5" />
-            Theo ngày
+            {activeTab === "ewa" ? "Theo kỳ" : "Theo ngày"}
           </button>
         </div>
 
@@ -147,9 +141,9 @@ export function History() {
                       <div>
                         <p className="font-medium">
                           {item.type === "manual"
-                            ? activeTab === "ewa" ? "Tất toán sớm từ V-Smart Pay" : "Thanh toán trước hạn"
+                            ? activeTab === "ewa" ? "Tất toán sớm từ V-Smart Pay" : "Thanh toán trước"
                             : activeTab === "ewa"
-                              ? viewMode === "detail" ? "Khấu trừ thu nhập cuốc xe" : "Khấu trừ thu nhập trong ngày"
+                              ? viewMode === "detail" ? "Khấu trừ cuối kỳ lương" : "Khấu trừ cuối kỳ"
                               : viewMode === "detail" ? "Trích doanh thu cuốc xe" : "Trích doanh thu trong ngày"}
                         </p>
                         <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
@@ -160,8 +154,18 @@ export function History() {
                       <p className="text-lg text-primary whitespace-nowrap">-{formatCurrency(item.amount)}</p>
                     </div>
 
-                    {/* Chi tiết view — per-trip */}
-                    {item.type === "auto" && viewMode === "detail" && "tripId" in item && item.tripId && (
+                    {/* EWA — note field */}
+                    {activeTab === "ewa" && "note" in item && (
+                      <div className="bg-muted/50 rounded-lg p-3 text-sm">
+                        <div className="flex items-start gap-2">
+                          <Calendar className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <p className="text-muted-foreground">{(item as any).note}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* RBF — per-trip detail */}
+                    {activeTab === "rbf" && item.type === "auto" && viewMode === "detail" && "tripId" in item && item.tripId && (
                       <div className="bg-muted/50 rounded-lg p-3 space-y-2 text-sm">
                         <div className="flex items-center justify-between">
                           <span className="text-muted-foreground">Mã chuyến:</span>
@@ -169,15 +173,13 @@ export function History() {
                         </div>
                         {"tripRevenue" in item && (item as any).tripRevenue > 0 && (
                           <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">
-                              {activeTab === "ewa" ? "Thu nhập phát sinh:" : "Doanh thu cuốc:"}
-                            </span>
+                            <span className="text-muted-foreground">Doanh thu cuốc:</span>
                             <span className="text-primary">{formatCurrency((item as any).tripRevenue)}</span>
                           </div>
                         )}
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Tỷ lệ khấu trừ:</span>
-                          <span>{activeTab === "ewa" ? "50%" : "20%"}</span>
+                          <span className="text-muted-foreground">Tỷ lệ trích:</span>
+                          <span>{"revenueRate" in item ? Math.round((item as any).revenueRate * 100) : 20}%</span>
                         </div>
                         {"from" in item && (item as any).from && (
                           <>
@@ -200,8 +202,8 @@ export function History() {
                       </div>
                     )}
 
-                    {/* Theo ngày view */}
-                    {item.type === "auto" && viewMode === "daily" && "dayLabel" in item && (
+                    {/* RBF — daily view */}
+                    {activeTab === "rbf" && item.type === "auto" && viewMode === "daily" && "dayLabel" in item && (
                       <div className="bg-muted/50 rounded-lg p-3 space-y-2 text-sm">
                         {"tripCount" in item && (
                           <div className="flex items-center justify-between">
@@ -216,18 +218,16 @@ export function History() {
                           </div>
                         )}
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Tỷ lệ khấu trừ:</span>
-                          <span>{activeTab === "ewa" ? "50%" : "20%"}</span>
+                          <span className="text-muted-foreground">Tỷ lệ trích:</span>
+                          <span>{"revenueRate" in item ? Math.round((item as any).revenueRate * 100) : 20}%</span>
                         </div>
                       </div>
                     )}
 
-                    {/* Manual */}
-                    {item.type === "manual" && (
+                    {/* RBF manual */}
+                    {activeTab === "rbf" && item.type === "manual" && (
                       <div className="bg-muted/50 rounded-lg p-3 text-sm">
-                        <p className="text-muted-foreground">
-                          {activeTab === "ewa" ? "Tất toán sớm khoản ứng từ V-Smart Pay" : "Thanh toán trước hạn từ V-Smart Pay"}
-                        </p>
+                        <p className="text-muted-foreground">Thanh toán trước từ V-Smart Pay</p>
                       </div>
                     )}
                   </div>

@@ -66,7 +66,7 @@ export function EWADiscovery() {
 
       <div className="max-w-lg mx-auto px-6 pt-6 pb-8 space-y-6">
         <div className="bg-card rounded-2xl p-5 shadow-lg border border-border/50">
-          <h3 className="mb-4">Thu nhập khả dụng được tính như thế nào?</h3>
+          <h3 className="mb-4">Ví dụ minh họa — ứng 9.000.000đ</h3>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Lương cứng phân bổ theo ngày</span>
@@ -82,12 +82,26 @@ export function EWADiscovery() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between">
-              <span>Thu nhập khả dụng</span>
-              <span className="text-primary">13.500.000đ</span>
+              <span className="text-muted-foreground">Thu nhập khả dụng</span>
+              <span>13.500.000đ</span>
             </div>
             <div className="flex justify-between">
-              <span>Có thể ứng tối đa (70%)</span>
-              <span className="text-primary">9.450.000đ</span>
+              <span className="text-muted-foreground">Có thể ứng tối đa (70%)</span>
+              <span>9.450.000đ</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Số tiền ứng</span>
+              <span>9.000.000đ</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Phí dịch vụ (1.5%)</span>
+              <span className="text-destructive">-135.000đ</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between font-medium">
+              <span>Số tiền thực nhận</span>
+              <span className="text-primary text-lg">8.865.000đ</span>
             </div>
           </div>
         </div>
@@ -138,19 +152,6 @@ export function EWADiscovery() {
           </div>
         </div>
 
-        {/* Repayment Highlight */}
-        <div className="bg-primary/10 border border-primary/30 rounded-2xl p-5 flex items-start gap-4">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-            <CalendarDays className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="mb-1 text-primary">Khấu trừ tự động cuối kỳ lương</p>
-            <p className="text-sm text-foreground/80">
-              Toàn bộ khoản ứng được trừ một lần vào cuối kỳ nhận lương tháng đó — không cần nhớ, không cần thao tác thanh toán.
-            </p>
-          </div>
-        </div>
-
         {/* Benefits */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>
@@ -163,26 +164,6 @@ export function EWADiscovery() {
                 <p className="text-sm text-foreground/80">{benefit}</p>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Example */}
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-          <h4 className="mb-3 text-primary">Ví dụ minh họa</h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Số tiền ứng:</span>
-              <span>10.000.000đ</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Phí dịch vụ (1.5%):</span>
-              <span>150.000đ</span>
-            </div>
-            <div className="h-px bg-border my-2" />
-            <div className="flex justify-between">
-              <span>Số tiền thực nhận:</span>
-              <span className="text-lg text-primary">9.850.000đ</span>
-            </div>
           </div>
         </div>
 
