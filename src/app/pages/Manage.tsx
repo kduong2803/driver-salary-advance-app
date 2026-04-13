@@ -51,6 +51,7 @@ export function Manage() {
       amount: 15000000,
       status: "active" as const,
       createdAt: "2026-04-11",
+      termDays: 60,
       revenueRate: 0.2,
       paidAmount: 5000000,
       remainingAmount: 10000000,
@@ -62,7 +63,8 @@ export function Manage() {
       amount: 10000000,
       status: "active" as const,
       createdAt: "2026-03-20",
-      revenueRate: 0.2,
+      termDays: 30,
+      revenueRate: 0.3,
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
@@ -73,7 +75,8 @@ export function Manage() {
       amount: 12000000,
       status: "completed" as const,
       createdAt: "2026-02-01",
-      revenueRate: 0.2,
+      termDays: 30,
+      revenueRate: 0.3,
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
@@ -278,7 +281,7 @@ export function Manage() {
                               {activeTab === "rbf" && "revenueRate" in advance && (
                                 <span className="text-xs text-primary flex items-center gap-1">
                                   <Percent className="w-3 h-3" />
-                                  {advance.revenueRate * 100}%
+                                  {advance.revenueRate * 100}% • {"termDays" in advance ? `${advance.termDays} ngày` : ""}
                                 </span>
                               )}
                             </div>

@@ -1,55 +1,57 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2 } from "lucide-react";
+import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2, ChevronUp, ChevronDown, Calendar } from "lucide-react";
 
 export function RBFDetail() {
   const { id } = useParams();
   const [showPayEarly, setShowPayEarly] = useState(false);
+  const [showAdjustRate, setShowAdjustRate] = useState(false);
+  const [currentRate, setCurrentRate] = useState(0.3);
 
-  // Mock data - in real app, fetch based on id
   const advance = {
     id: id || "1",
-    amount: 15000000,
+    amount: 10000000,
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
-    revenueRate: 0.2,
+    termDays: 30,
+    feeRate: 0.025,
+    minRate: 0.3,
+    revenueRate: 0.3,
     paidAmount: 5000000,
-    remainingAmount: 10000000,
-    progress: 33,
-    estimatedCompletionDate: "2026-04-30",
+    remainingAmount: 5000000,
+    progress: 50,
+    dueDate: "2026-04-30",
   };
+
+  const feeAmount = Math.round(advance.amount * advance.feeRate);
+  const totalRepay = advance.amount + feeAmount;
+  const avgDailyRevenue = 1000000;
+  const estimatedDays = Math.ceil(advance.remainingAmount / (avgDailyRevenue * currentRate));
 
   const repaymentHistory = [
-    { date: "2026-04-12T19:45:00", amount: 37000, tripRevenue: 185000, tripId: "T002145" },
-    { date: "2026-04-12T16:20:00", amount: 42000, tripRevenue: 210000, tripId: "T002144" },
-    { date: "2026-04-12T13:05:00", amount: 29000, tripRevenue: 145000, tripId: "T002143" },
-    { date: "2026-04-11T20:10:00", amount: 46000, tripRevenue: 230000, tripId: "T002142" },
-    { date: "2026-04-08T09:00:00", amount: 500000, type: "manual", tripRevenue: null, tripId: null },
+    { date: "2026-04-12T19:45:00", amount: 56000, tripRevenue: 185000, tripId: "T002145" },
+    { date: "2026-04-12T16:20:00", amount: 63000, tripRevenue: 210000, tripId: "T002144" },
+    { date: "2026-04-12T13:05:00", amount: 44000, tripRevenue: 145000, tripId: "T002143" },
+    { date: "2026-04-11T20:10:00", amount: 69000, tripRevenue: 230000, tripId: "T002142" },
+    { date: "2026-04-08T09:00:00", amount: 500000, type: "manual" as const, tripRevenue: null, tripId: null },
   ];
 
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString("vi-VN") + "đ";
-  };
+  const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return date.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
+  };
+
+  const adjustRate = (delta: number) => {
+    const newRate = Math.round((currentRate + delta) * 100) / 100;
+    if (newRate >= advance.minRate && newRate <= 0.8) setCurrentRate(newRate);
   };
 
   return (
@@ -64,7 +66,7 @@ export function RBFDetail() {
         <p className="text-white/80">Mã: #{advance.id}</p>
       </div>
 
-      <div className="max-w-lg mx-auto px-6 py-6 space-y-6">
+      <div className="max-w-lg mx-auto px-6 py-6 space-y-5">
         {/* Progress Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,7 +84,6 @@ export function RBFDetail() {
             </div>
           </div>
 
-          {/* Progress Bar */}
           <div className="space-y-2">
             <div className="h-3 bg-white/20 rounded-full overflow-hidden">
               <motion.div
@@ -104,56 +105,88 @@ export function RBFDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50"
+          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
             <Building2 className="w-5 h-5 text-primary" />
-            <h3>Thông tin khoản ứng doanh thu</h3>
+            <h3>Thông tin khoản ứng</h3>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex justify-between text-sm">
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Ngày ứng:</span>
               <span>{formatDateTime(advance.createdAt)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Ngày dự kiến hoàn tất:</span>
-              <span>{formatDate(advance.estimatedCompletionDate)}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Kỳ hạn:</span>
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-primary" />
+                {advance.termDays} ngày (đến {formatDate(advance.dueDate)})
+              </span>
             </div>
             <div className="h-px bg-border" />
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Số tiền giải ngân:</span>
-              <span className="text-lg">{formatCurrency(advance.amount)}</span>
+              <span>{formatCurrency(advance.amount)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Tỷ lệ hoàn trả:</span>
-              <span className="text-primary flex items-center gap-1">
-                <Percent className="w-4 h-4" />
-                {advance.revenueRate * 100}% mỗi chuyến
-              </span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Phí dịch vụ ({advance.feeRate * 100}%):</span>
+              <span className="text-destructive">+{formatCurrency(feeAmount)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tổng phải hoàn trả:</span>
+              <span className="font-medium">{formatCurrency(totalRepay)}</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Repayment Info */}
+        {/* Rate Adjustment Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gradient-to-r from-blue-500/10 to-blue-500/5 rounded-2xl p-5 border border-blue-500/20"
+          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="w-5 h-5 text-primary" />
+          <div className="flex items-center gap-2 mb-4">
+            <Percent className="w-5 h-5 text-primary" />
+            <h3>Tỷ lệ trích doanh thu</h3>
+          </div>
+
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <p className="text-sm text-muted-foreground">Tối thiểu {advance.minRate * 100}% để hoàn tất trong kỳ hạn</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tăng để trả nhanh hơn, giảm lãi ròng</p>
             </div>
-            <div className="flex-1">
-              <h4 className="mb-1 text-primary">Cơ chế trích doanh thu</h4>
-              <p className="text-sm text-muted-foreground">
-                {advance.revenueRate * 100}% doanh thu sẽ được tự động trích từ mỗi giao dịch phát sinh
-                của bạn. Dự kiến hoàn tất vào{" "}
-                <span className="text-foreground font-medium">{formatDate(advance.estimatedCompletionDate)}</span>
-              </p>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => adjustRate(-0.05)}
+                disabled={currentRate <= advance.minRate}
+                className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
+              >
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              <span className="text-2xl font-semibold text-primary w-14 text-center">
+                {Math.round(currentRate * 100)}%
+              </span>
+              <button
+                onClick={() => adjustRate(0.05)}
+                disabled={currentRate >= 0.8}
+                className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
+              >
+                <ChevronUp className="w-4 h-4" />
+              </button>
             </div>
+          </div>
+
+          <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm">
+            <span className="text-muted-foreground">Ước tính hoàn tất:</span>
+            <span className="text-primary font-medium">
+              ~{estimatedDays} ngày
+              {estimatedDays <= advance.termDays
+                ? <span className="text-xs text-green-600 ml-1">(trong kỳ hạn)</span>
+                : <span className="text-xs text-amber-600 ml-1">(vượt kỳ hạn)</span>
+              }
+            </span>
           </div>
         </motion.div>
 
@@ -162,7 +195,7 @@ export function RBFDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50"
+          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
             <History className="w-5 h-5 text-primary" />
@@ -172,25 +205,20 @@ export function RBFDetail() {
           <div className="space-y-3">
             {repaymentHistory.map((item, index) => (
               <div key={index} className="flex items-start gap-3 pb-3 border-b border-border last:border-0">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <TrendingDown className="w-5 h-5 text-primary" />
+                <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <TrendingDown className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
-                      <p className="text-sm">
-                        {item.type === "manual" ? "Thanh toán trước hạn" : "Trích tự động từ doanh thu"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {formatDateTime(item.date)}
-                      </p>
+                      <p className="text-sm">{item.type === "manual" ? "Thanh toán trước hạn" : "Trích tự động từ doanh thu"}</p>
+                      <p className="text-xs text-muted-foreground">{formatDateTime(item.date)}</p>
                     </div>
-                    <p className="text-sm text-primary">-{formatCurrency(item.amount)}</p>
+                    <p className="text-sm text-primary whitespace-nowrap">-{formatCurrency(item.amount)}</p>
                   </div>
                   {item.tripId && item.tripRevenue && (
                     <div className="text-xs text-muted-foreground space-y-0.5">
-                      <p>Mã chuyến: {item.tripId}</p>
-                      <p>Doanh thu: {formatCurrency(item.tripRevenue)} → Trích {advance.revenueRate * 100}%</p>
+                      <p>Mã chuyến: {item.tripId} • Doanh thu: {formatCurrency(item.tripRevenue)}</p>
                     </div>
                   )}
                 </div>
@@ -199,7 +227,7 @@ export function RBFDetail() {
           </div>
         </motion.div>
 
-        {/* Pay Early Button */}
+        {/* Actions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -230,13 +258,12 @@ export function RBFDetail() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
-
             <h3 className="text-xl mb-4">Thanh toán trước hạn</h3>
 
-            <div className="bg-muted/50 rounded-xl p-4 mb-6">
-              <div className="flex justify-between mb-2">
+            <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
-                <span className="text-lg">{formatCurrency(95000000)}</span>
+                <span className="text-lg">{formatCurrency(12000000)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Số tiền cần trả:</span>
@@ -247,19 +274,14 @@ export function RBFDetail() {
             <div className="bg-primary/10 rounded-xl p-4 mb-6 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                Sau khi trả trước, khoản ứng sẽ được đóng và hạn mức của bạn sẽ được phục hồi.
-                Việc hoàn trả sớm giúp cải thiện hạn mức cho các khoản ứng tiếp theo.
+                Tất toán sớm giúp đóng khoản ứng ngay — không phát sinh thêm phí. Hạn mức của bạn sẽ được phục hồi sau khi hoàn tất.
               </p>
             </div>
 
             <button className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors mb-3">
               Xác nhận trả {formatCurrency(advance.remainingAmount)}
             </button>
-
-            <button
-              onClick={() => setShowPayEarly(false)}
-              className="w-full py-3 text-muted-foreground"
-            >
+            <button onClick={() => setShowPayEarly(false)} className="w-full py-3 text-muted-foreground">
               Hủy bỏ
             </button>
           </motion.div>
