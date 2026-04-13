@@ -6,8 +6,6 @@ import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Bui
 export function RBFDetail() {
   const { id } = useParams();
   const [showPayEarly, setShowPayEarly] = useState(false);
-  const [currentRate, setCurrentRate] = useState(0.3);
-  const [pendingRate, setPendingRate] = useState(0.3);
 
   const advance = {
     id: id || "1",
@@ -23,6 +21,9 @@ export function RBFDetail() {
     progress: 50,
     dueDate: "2026-04-30",
   };
+
+  const [currentRate, setCurrentRate] = useState(advance.revenueRate);
+  const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
   const feeAmount = Math.round(advance.amount * advance.feeRate);
   const totalRepay = advance.amount + feeAmount;
