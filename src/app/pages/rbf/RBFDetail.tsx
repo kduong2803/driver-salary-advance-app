@@ -25,7 +25,7 @@ export function RBFDetail() {
   const feeAmount = Math.round(advance.amount * DAILY_RATE * estimatedDays);
   const feePercent = (feeAmount / advance.amount * 100).toFixed(1);
   const totalRepay = advance.amount + feeAmount;
-  const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * currentRate));
+  const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * pendingRate));
 
   const repaymentHistory = [
     { date: "2026-04-12T19:45:00", amount: Math.round(185000 * advance.revenueRate), tripRevenue: 185000, tripId: "T002145" },

@@ -25,11 +25,10 @@ export function EWADiscovery() {
   ];
 
   const benefits = [
-    "Cuối kỳ lương, khoản ứng tự động được trừ vào thu nhập — không cần nhớ, không cần thao tác",
-    "Chỉ ứng phần thu nhập đã có trong kỳ — lương cứng phân bổ và doanh thu từ cuốc xe đã hoàn thành",
-    "Hạn mức tăng sau mỗi cuốc xe và ngày công, ứng thêm bất cứ lúc nào trong tháng",
-    "Xem rõ lương cứng và doanh thu cuốc xe riêng biệt, minh bạch từng khoản",
-    "Biết trước phí dịch vụ và số tiền thực nhận ngay trước khi xác nhận",
+    "Khoản ứng được khấu trừ tự động vào cuối kỳ lương — không cần nhớ ngày, không cần thao tác thêm",
+    "Chỉ ứng trên phần thu nhập đã thực sự phát sinh — đảm bảo không vượt quá khả năng chi trả",
+    "Hạn mức cập nhật liên tục sau mỗi cuốc xe và ngày công — ứng thêm bất cứ lúc nào trong tháng",
+    "Phí dịch vụ và số tiền thực nhận hiển thị rõ ngay trước khi xác nhận — minh bạch, không phát sinh thêm",
   ];
 
   const howItWorks = [

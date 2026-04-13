@@ -131,8 +131,7 @@ export function RBFSuccess() {
               <p className="text-lg mb-2">~{estimatedDays} ngày</p>
               <p className="text-sm text-muted-foreground">
                 Hệ thống tự động trích {Math.round(deductionRate * 100)}% từ doanh thu sau mỗi chuyến cho đến khi hoàn tất.
-                Phí tính theo ngày thực tế nắm giữ — hoàn tất sớm hơn ước tính sẽ tiết kiệm thêm phí.
-                Có thể tất toán sớm bất kỳ lúc nào từ V-Smart Pay.
+                Có thể điều chỉnh % trích hoặc trả trước để hoàn thành sớm hơn, nâng mức tín dụng và thực hiện tiếp khoản vay mới.
               </p>
             </div>
           </div>
