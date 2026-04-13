@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight, Wallet, Building2, Car } from "lucide-react";
+import { Plus, TrendingUp, Clock, CheckCircle, AlertCircle, ChevronRight, Wallet, Building2, Bike, Flame, Zap } from "lucide-react";
 
 export function Manage() {
   const [activeTab, setActiveTab] = useState<"ewa" | "rbf" | "loan">("ewa");
@@ -90,10 +90,14 @@ export function Manage() {
       status: "active" as const,
       createdAt: "2026-01-11",
       termMonths: 36,
+      streak: 8,
+      missedYesterday: false,
+      rolledOver: 0,
+      streakDays: ["trip","trip","wallet","trip","trip","missed","trip","trip"] as const,
     },
     {
       id: "2",
-      vehicleName: "Selex Camel",
+      vehicleName: "VinFast Feliz S",
       loanAmount: 24900000,
       dailyPayment: 41224,
       paidAmount: 14840640,
@@ -102,6 +106,10 @@ export function Manage() {
       status: "active" as const,
       createdAt: "2025-04-14",
       termMonths: 24,
+      streak: 0,
+      missedYesterday: true,
+      rolledOver: 41224,
+      streakDays: ["trip","trip","wallet","trip","trip","trip","missed","today"] as const,
     },
     {
       id: "3",
@@ -114,6 +122,10 @@ export function Manage() {
       status: "completed" as const,
       createdAt: "2024-04-14",
       termMonths: 24,
+      streak: 720,
+      missedYesterday: false,
+      rolledOver: 0,
+      streakDays: ["trip","trip","trip","trip","trip","trip","trip","trip"] as const,
     },
   ];
 
@@ -207,7 +219,7 @@ export function Manage() {
             const config = {
               ewa: { icon: Wallet, label: "Thu nhập" },
               rbf: { icon: Building2, label: "Doanh thu" },
-              loan: { icon: Car, label: "Vay xe" },
+              loan: { icon: Bike, label: "Vay xe" },
             }[tab];
             const Icon = config.icon;
             return (
@@ -279,7 +291,7 @@ export function Manage() {
             transition={{ duration: 0.2 }}
           >
             <Link to={activeTab === "ewa" ? "/ewa/request" : activeTab === "rbf" ? "/rbf/request" : "/loan/request"}>
-              <button className={`w-full text-white py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg ${activeTab === "loan" ? "bg-violet-600 hover:bg-violet-700 shadow-violet-500/20" : "bg-primary hover:bg-primary/90 shadow-primary/20"}`}>
+              <button className={`w-full text-white py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg ${activeTab === "loan" ? "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20" : "bg-primary hover:bg-primary/90 shadow-primary/20"}`}>
                 <Plus className="w-5 h-5" />
                 <span>{activeTab === "ewa" ? "Tạo khoản ứng thu nhập" : activeTab === "rbf" ? "Tạo khoản ứng doanh thu" : "Đăng ký vay mua xe"}</span>
               </button>
@@ -371,14 +383,22 @@ export function Manage() {
               {activeTab === "loan" && loanAdvances.map((loan, index) => {
                 const statusConfig = getStatusConfig(loan.status);
                 const StatusIcon = statusConfig.icon;
+                const dayColors: Record<string, string> = {
+                  trip: "bg-green-400",
+                  wallet: "bg-blue-400",
+                  missed: "bg-red-400",
+                  today: "bg-amber-400",
+                  future: "bg-muted",
+                };
                 return (
                   <motion.div key={loan.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
                     <Link to={`/loan/detail/${loan.id}`}>
                       <div className="bg-card rounded-xl p-5 border border-border/50 hover:shadow-md transition-shadow">
-                        <div className="flex items-start justify-between mb-4">
+                        {/* Header */}
+                        <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <Car className="w-5 h-5 text-violet-600" />
+                            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <Bike className="w-5 h-5 text-emerald-600" />
                             </div>
                             <div>
                               <p className="font-medium mb-0.5">{loan.vehicleName}</p>
@@ -391,21 +411,54 @@ export function Manage() {
                           </div>
                         </div>
 
+                        {/* Missed warning */}
+                        {loan.missedYesterday && (
+                          <div className="mb-3 bg-red-50 border border-red-100 rounded-lg px-3 py-2 flex items-center gap-2">
+                            <AlertCircle className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+                            <p className="text-xs text-red-600">
+                              Hôm qua thiếu — gộp thêm <span className="font-medium">{formatCurrency(loan.rolledOver)}</span> vào hôm nay
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Progress */}
                         {loan.status === "active" && (
-                          <div className="mb-4">
+                          <div className="mb-3">
                             <div className="flex justify-between text-xs text-muted-foreground mb-2">
                               <span>Đã trả: {formatCurrency(loan.paidAmount)}</span>
                               <span>Còn lại: {formatCurrency(loan.remainingAmount)}</span>
                             </div>
                             <div className="h-2 bg-muted rounded-full overflow-hidden">
-                              <motion.div initial={{ width: 0 }} animate={{ width: `${loan.progress}%` }} transition={{ duration: 1, delay: 0.3 + index * 0.05 }} className="h-full bg-violet-500 rounded-full" />
+                              <motion.div initial={{ width: 0 }} animate={{ width: `${loan.progress}%` }} transition={{ duration: 1, delay: 0.3 + index * 0.05 }} className="h-full bg-emerald-500 rounded-full" />
                             </div>
                           </div>
                         )}
 
+                        {/* Streak strip */}
+                        {loan.status !== "completed" && (
+                          <div className="mb-3 flex items-center gap-2">
+                            <div className="flex items-center gap-1">
+                              {loan.streakDays.map((s, i) => (
+                                <div key={i} className={`w-5 h-5 rounded-full ${dayColors[s]} flex items-center justify-center`}>
+                                  {s === "wallet" && <Zap className="w-3 h-3 text-white" />}
+                                  {s === "missed" && <span className="text-white text-xs leading-none">!</span>}
+                                  {s === "today" && <span className="text-white text-xs leading-none">·</span>}
+                                </div>
+                              ))}
+                            </div>
+                            {loan.streak > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-orange-600">
+                                <Flame className="w-3.5 h-3.5" />
+                                <span>{loan.streak} ngày</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Footer */}
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
-                            {loan.status === "active" ? `Góp mỗi ngày: ${formatCurrency(loan.dailyPayment)}` : "Đã hoàn tất"}
+                            {loan.status === "active" ? `Góp mỗi ngày: ${formatCurrency(loan.dailyPayment)}` : `Hoàn tất — streak ${loan.streak} ngày`}
                           </span>
                           <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                         </div>

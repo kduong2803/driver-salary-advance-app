@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router";
-import { motion } from "motion/react";
-import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, Building2, ChevronUp, ChevronDown } from "lucide-react";
+import { useState, useRef } from "react";
+import { Link, useParams, useNavigate } from "react-router";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight } from "lucide-react";
 
 const DAILY_RATE = 0.36 / 365;
 const AVG_DAILY_REVENUE = 1000000;
@@ -12,9 +12,16 @@ const ADVANCES = [
   { id: "3", amount: 12000000, status: "completed" as const, createdAt: "2026-02-01T10:00:00", revenueRate: 0.3, paidAmount: 12000000, remainingAmount: 0, progress: 100 },
 ];
 
+const WALLET_BALANCE = 12000000;
+
 export function RBFDetail() {
   const { id } = useParams();
-  const [showPayEarly, setShowPayEarly] = useState(false);
+  const navigate = useNavigate();
+  const [payStep, setPayStep] = useState<"closed" | "amount" | "verify" | "success">("closed");
+  const [payAmount, setPayAmount] = useState("");
+  const [pin, setPin] = useState(["", "", "", "", "", ""]);
+  const [pinError, setPinError] = useState(false);
+  const pinRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const advance = ADVANCES.find((a) => a.id === id) || ADVANCES[0];
 
@@ -228,7 +235,7 @@ export function RBFDetail() {
           transition={{ delay: 0.4 }}
         >
           <button
-            onClick={() => setShowPayEarly(true)}
+            onClick={() => { setPayAmount(""); setPin(["","","","","",""]); setPinError(false); setPayStep("amount"); }}
             className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
           >
             Trả trước từ V-Smart Pay
@@ -237,50 +244,202 @@ export function RBFDetail() {
       </div>
 
       {/* Pay Early Modal */}
-      {showPayEarly && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-50"
-          onClick={() => setShowPayEarly(false)}
-        >
+      <AnimatePresence>
+        {payStep !== "closed" && (
           <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ type: "spring", damping: 25 }}
-            className="bg-card w-full max-w-lg rounded-t-3xl p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-50"
+            onClick={() => payStep !== "success" && setPayStep("closed")}
           >
-            <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
-            <h3 className="text-xl mb-4">Thanh toán trước</h3>
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25 }}
+              className="bg-card w-full max-w-lg rounded-t-3xl p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
 
-            <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
-                <span className="text-lg">{formatCurrency(12000000)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Số tiền cần trả:</span>
-                <span className="text-lg text-primary">{formatCurrency(advance.remainingAmount)}</span>
-              </div>
-            </div>
+              {/* Step 1: Chọn số tiền */}
+              {payStep === "amount" && (() => {
+                const numPayAmount = parseInt(payAmount.replace(/\D/g, "")) || 0;
+                const isValid = numPayAmount >= 100000 && numPayAmount <= Math.min(advance.remainingAmount, WALLET_BALANCE);
+                return (
+                  <>
+                    <h3 className="text-xl mb-1">Trả trước từ V-Smart Pay</h3>
+                    <p className="text-sm text-muted-foreground mb-5">Chọn số tiền muốn trả — tối thiểu 100.000đ</p>
 
-            <div className="bg-primary/10 rounded-xl p-4 mb-6 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-muted-foreground">
-                Tất toán sớm giúp đóng khoản ứng ngay — không phát sinh thêm phí. Hạn mức của bạn sẽ được phục hồi sau khi hoàn tất.
-              </p>
-            </div>
+                    <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
+                        <span>{formatCurrency(WALLET_BALANCE)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Còn phải hoàn trả:</span>
+                        <span className="text-primary">{formatCurrency(advance.remainingAmount)}</span>
+                      </div>
+                    </div>
 
-            <button className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors mb-3">
-              Xác nhận trả {formatCurrency(advance.remainingAmount)}
-            </button>
-            <button onClick={() => setShowPayEarly(false)} className="w-full py-3 text-muted-foreground">
-              Hủy bỏ
-            </button>
+                    <div className="mb-3">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="Nhập số tiền"
+                        value={numPayAmount > 0 ? numPayAmount.toLocaleString("vi-VN") : ""}
+                        onChange={(e) => {
+                          const raw = e.target.value.replace(/\D/g, "");
+                          setPayAmount(raw);
+                        }}
+                        className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-primary"
+                      />
+                    </div>
+
+                    <div className="flex gap-2 mb-5">
+                      {[1000000, 2000000, 5000000].map((amt) => (
+                        <button
+                          key={amt}
+                          onClick={() => setPayAmount(String(amt))}
+                          className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors"
+                        >
+                          {(amt / 1000000)}tr
+                        </button>
+                      ))}
+                      <button
+                        onClick={() => setPayAmount(String(Math.min(advance.remainingAmount, WALLET_BALANCE)))}
+                        className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors"
+                      >
+                        Tất toán
+                      </button>
+                    </div>
+
+                    <div className="bg-primary/10 rounded-xl p-4 mb-5 flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">
+                        Trả trước không phát sinh thêm phí. Nếu tất toán toàn bộ, hạn mức sẽ được phục hồi ngay sau khi hoàn tất.
+                      </p>
+                    </div>
+
+                    <button
+                      disabled={!isValid}
+                      onClick={() => setPayStep("verify")}
+                      className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-40 mb-3"
+                    >
+                      Xác nhận trả {numPayAmount > 0 ? formatCurrency(numPayAmount) : ""}
+                    </button>
+                    <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">
+                      Hủy bỏ
+                    </button>
+                  </>
+                );
+              })()}
+
+              {/* Step 2: Xác thực PIN */}
+              {payStep === "verify" && (
+                <>
+                  <h3 className="text-xl mb-1">Xác thực giao dịch</h3>
+                  <p className="text-sm text-muted-foreground mb-6">Nhập mã PIN V-Smart Pay để xác nhận</p>
+
+                  <div className="flex justify-center gap-3 mb-3">
+                    {pin.map((digit, i) => (
+                      <input
+                        key={i}
+                        ref={(el) => { pinRefs.current[i] = el; }}
+                        type="password"
+                        inputMode="numeric"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, "");
+                          if (!val) return;
+                          const next = [...pin];
+                          next[i] = val;
+                          setPin(next);
+                          setPinError(false);
+                          if (i < 5) pinRefs.current[i + 1]?.focus();
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Backspace") {
+                            const next = [...pin];
+                            if (pin[i]) {
+                              next[i] = "";
+                              setPin(next);
+                            } else if (i > 0) {
+                              next[i - 1] = "";
+                              setPin(next);
+                              pinRefs.current[i - 1]?.focus();
+                            }
+                          }
+                        }}
+                        className={`w-12 h-14 text-center text-xl border-2 rounded-xl focus:outline-none transition-colors ${pinError ? "border-destructive" : digit ? "border-primary" : "border-border"}`}
+                      />
+                    ))}
+                  </div>
+
+                  {pinError && (
+                    <p className="text-center text-sm text-destructive mb-3">Mã PIN không đúng. Vui lòng thử lại.</p>
+                  )}
+
+                  <p className="text-center text-xs text-muted-foreground mb-6">Trả {formatCurrency(parseInt(payAmount) || 0)} từ V-Smart Pay</p>
+
+                  <button
+                    onClick={() => {
+                      if (pin.join("").length < 6) return;
+                      if (pin.join("") === "123456") {
+                        setPayStep("success");
+                      } else {
+                        setPinError(true);
+                        setPin(["", "", "", "", "", ""]);
+                        pinRefs.current[0]?.focus();
+                      }
+                    }}
+                    disabled={pin.join("").length < 6}
+                    className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-40 mb-3"
+                  >
+                    Xác nhận
+                  </button>
+                  <button onClick={() => setPayStep("amount")} className="w-full py-3 text-muted-foreground">
+                    Quay lại
+                  </button>
+                </>
+              )}
+
+              {/* Step 3: Thành công */}
+              {payStep === "success" && (
+                <div className="text-center py-4">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", duration: 0.5 }}
+                    className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+                  >
+                    <CheckCircle2 className="w-12 h-12 text-primary" />
+                  </motion.div>
+                  <h3 className="text-xl mb-1 text-primary">Thanh toán thành công</h3>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Đã trả {formatCurrency(parseInt(payAmount) || 0)} từ V-Smart Pay
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-8">
+                    Khoản ứng của bạn đã được cập nhật
+                  </p>
+                  <button
+                    onClick={() => navigate("/manage")}
+                    className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 mb-3"
+                  >
+                    <span>Về trang quản lý</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                  <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">
+                    Ở lại trang này
+                  </button>
+                </div>
+              )}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

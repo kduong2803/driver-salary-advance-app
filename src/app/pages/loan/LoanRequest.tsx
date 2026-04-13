@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Car, ChevronRight } from "lucide-react";
+import { ArrowLeft, Bike, ChevronRight } from "lucide-react";
 
 const CREDIT_LIMIT = 30000000;
 const MONTHLY_RATE = 0.008;
@@ -9,7 +9,7 @@ const TERM_OPTIONS = [12, 18, 24, 36];
 
 const VEHICLES = [
   { id: "klara", name: "VinFast Klara S", type: "Xe máy điện", price: 32900000 },
-  { id: "selex", name: "Selex Camel", type: "Xe máy điện", price: 24900000 },
+  { id: "feliz", name: "VinFast Feliz S", type: "Xe máy điện", price: 24900000 },
   { id: "evo", name: "VinFast Evo200", type: "Xe máy điện", price: 19900000 },
 ];
 
@@ -39,7 +39,7 @@ export function LoanRequest() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="bg-gradient-to-br from-violet-500 to-purple-700 text-white px-6 pt-12 pb-8">
+      <div className="bg-gradient-to-br from-teal-500 to-emerald-700 text-white px-6 pt-12 pb-8">
         <Link to="/loan/discovery" className="inline-flex items-center gap-2 mb-6 text-white/90 hover:text-white">
           <ArrowLeft className="w-5 h-5" />
           <span>Quay lại</span>
@@ -57,7 +57,7 @@ export function LoanRequest() {
           className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Car className="w-5 h-5 text-violet-600" />
+            <Bike className="w-5 h-5 text-emerald-600" />
             <h3>Chọn xe</h3>
           </div>
           <div className="space-y-2">
@@ -66,14 +66,14 @@ export function LoanRequest() {
                 key={v.id}
                 onClick={() => { setSelectedVehicleId(v.id); setDownPaymentRaw(""); }}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border-2 transition-all text-left ${
-                  selectedVehicleId === v.id ? "border-violet-500 bg-violet-50" : "border-border hover:border-violet-300"
+                  selectedVehicleId === v.id ? "border-emerald-500 bg-emerald-50" : "border-border hover:border-emerald-300"
                 }`}
               >
                 <div>
-                  <p className={`text-sm font-medium ${selectedVehicleId === v.id ? "text-violet-700" : ""}`}>{v.name}</p>
+                  <p className={`text-sm font-medium ${selectedVehicleId === v.id ? "text-emerald-700" : ""}`}>{v.name}</p>
                   <p className="text-xs text-muted-foreground">{v.type}</p>
                 </div>
-                <p className={`text-sm ${selectedVehicleId === v.id ? "text-violet-700" : "text-muted-foreground"}`}>
+                <p className={`text-sm ${selectedVehicleId === v.id ? "text-emerald-700" : "text-muted-foreground"}`}>
                   {formatCurrency(v.price)}
                 </p>
               </button>
@@ -100,7 +100,7 @@ export function LoanRequest() {
             placeholder={minDown > 0 ? formatCurrency(minDown) : "0đ (không bắt buộc)"}
             value={downPaymentRaw ? parseInt(downPaymentRaw).toLocaleString("vi-VN") : ""}
             onChange={(e) => setDownPaymentRaw(e.target.value.replace(/\D/g, ""))}
-            className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-violet-500 mb-3"
+            className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-emerald-500 mb-3"
           />
           {quickDownOptions.length > 0 && (
             <div className="flex gap-2">
@@ -109,7 +109,7 @@ export function LoanRequest() {
                   key={amt}
                   onClick={() => setDownPaymentRaw(String(amt))}
                   className={`flex-1 py-1.5 rounded-lg border text-xs transition-colors ${
-                    downPayment === amt ? "border-violet-500 text-violet-700 bg-violet-50" : "border-border hover:border-violet-400"
+                    downPayment === amt ? "border-emerald-500 text-emerald-700 bg-emerald-50" : "border-border hover:border-emerald-400"
                   }`}
                 >
                   {amt === 0 ? "Không trả" : `${amt / 1000000}tr`}
@@ -133,7 +133,7 @@ export function LoanRequest() {
                 key={t}
                 onClick={() => setTermMonths(t)}
                 className={`py-3 rounded-xl border-2 text-sm transition-all ${
-                  termMonths === t ? "border-violet-500 bg-violet-50 text-violet-700 font-medium" : "border-border hover:border-violet-300"
+                  termMonths === t ? "border-emerald-500 bg-emerald-50 text-emerald-700 font-medium" : "border-border hover:border-emerald-300"
                 }`}
               >
                 {t} th
@@ -147,7 +147,7 @@ export function LoanRequest() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-violet-500 to-purple-700 text-white rounded-2xl p-5 shadow-xl"
+          className="bg-gradient-to-br from-teal-500 to-emerald-700 text-white rounded-2xl p-5 shadow-xl"
         >
           <div className="text-center mb-5">
             <p className="text-white/80 text-sm mb-1">Góp mỗi ngày</p>
@@ -191,7 +191,7 @@ export function LoanRequest() {
                 },
               })
             }
-            className="w-full bg-violet-600 text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/20 disabled:opacity-40"
+            className="w-full bg-emerald-600 text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-40"
           >
             <span className="text-lg">Ký hợp đồng và nhận xe</span>
             <ChevronRight className="w-5 h-5" />
