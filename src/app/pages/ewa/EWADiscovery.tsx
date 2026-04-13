@@ -138,6 +138,19 @@ export function EWADiscovery() {
           </div>
         </div>
 
+        {/* Repayment Highlight */}
+        <div className="bg-primary/10 border border-primary/30 rounded-2xl p-5 flex items-start gap-4">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+            <CalendarDays className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="mb-1 text-primary">Khấu trừ tự động cuối kỳ lương</p>
+            <p className="text-sm text-foreground/80">
+              Toàn bộ khoản ứng được trừ một lần vào cuối kỳ nhận lương tháng đó — không cần nhớ, không cần thao tác thanh toán.
+            </p>
+          </div>
+        </div>
+
         {/* Benefits */}
         <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>

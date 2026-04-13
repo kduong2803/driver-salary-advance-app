@@ -103,8 +103,8 @@ export function EWARegister() {
                 <div>
                   <h4 className="mb-1">2. Cơ chế hoàn trả</h4>
                   <p className="text-muted-foreground">
-                    Khoản ứng sẽ được tự động khấu trừ từ thu nhập phát sinh tiếp theo, ưu tiên từ doanh thu cuốc xe mới
-                    và phần lương cứng cuối kỳ. Bạn có thể chủ động tất toán trước từ V-Smart Pay.
+                    Toàn bộ khoản ứng sẽ được tự động khấu trừ một lần vào cuối kỳ nhận lương tháng đó.
+                    Bạn không cần thực hiện bất kỳ thao tác thanh toán nào. Có thể chủ động tất toán sớm từ V-Smart Pay nếu muốn.
                   </p>
                 </div>
                 <div>
