@@ -22,9 +22,11 @@ export function EWADetail() {
   };
 
   const repaymentHistory = [
-    { date: "2026-04-15", amount: 1500000, type: "auto", tripId: "T001234" },
-    { date: "2026-04-14", amount: 800000, type: "auto", tripId: "T001233" },
-    { date: "2026-04-13", amount: 700000, type: "manual", tripId: null },
+    { date: "2026-04-12T20:00:00", amount: 680000, type: "auto", dayLabel: "12/04" },
+    { date: "2026-04-11T20:00:00", amount: 720000, type: "auto", dayLabel: "11/04" },
+    { date: "2026-04-10T20:00:00", amount: 590000, type: "auto", dayLabel: "10/04" },
+    { date: "2026-04-09T20:00:00", amount: 710000, type: "auto", dayLabel: "09/04" },
+    { date: "2026-04-08T20:00:00", amount: 300000, type: "manual", dayLabel: null },
   ];
 
   const formatCurrency = (value: number) => {
@@ -179,7 +181,7 @@ export function EWADetail() {
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <p className="text-sm">
-                        {item.type === "auto" ? "Khấu trừ tự động từ thu nhập" : "Tất toán sớm từ V-Smart Pay"}
+                        {item.type === "auto" ? "Khấu trừ từ thu nhập cuốc xe" : "Tất toán sớm từ V-Smart Pay"}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {formatDateTime(item.date)}
@@ -187,9 +189,9 @@ export function EWADetail() {
                     </div>
                     <p className="text-sm text-destructive">-{formatCurrency(item.amount)}</p>
                   </div>
-                  {item.tripId && (
+                  {"dayLabel" in item && item.dayLabel && (
                     <p className="text-xs text-muted-foreground">
-                      Từ cuốc xe {item.tripId}
+                      Thu nhập tích lũy ngày {item.dayLabel}
                     </p>
                   )}
                 </div>
