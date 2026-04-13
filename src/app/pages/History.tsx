@@ -6,87 +6,19 @@ export function History() {
   const [activeTab, setActiveTab] = useState<"ewa" | "rbf">("ewa");
 
   const ewaHistory = [
-    {
-      id: "1",
-      date: "2026-04-15T14:30:00",
-      amount: 1500000,
-      type: "auto" as const,
-      tripId: "T001234",
-      tripRevenue: 8500000,
-      from: "Quận 1, TP.HCM",
-      to: "Quận 7, TP.HCM",
-      advanceId: "EWA001",
-    },
-    {
-      id: "2",
-      date: "2026-04-14T10:15:00",
-      amount: 800000,
-      type: "auto" as const,
-      tripId: "T001233",
-      tripRevenue: 4200000,
-      from: "Tân Bình, TP.HCM",
-      to: "Bình Thạnh, TP.HCM",
-      advanceId: "EWA001",
-    },
-    {
-      id: "3",
-      date: "2026-04-13T16:45:00",
-      amount: 700000,
-      type: "manual" as const,
-      advanceId: "EWA001",
-    },
+    { id: "1", date: "2026-04-12T20:00:00", amount: 680000, type: "auto" as const, dayLabel: "12/04", advanceId: "EWA001" },
+    { id: "2", date: "2026-04-11T20:00:00", amount: 720000, type: "auto" as const, dayLabel: "11/04", advanceId: "EWA001" },
+    { id: "3", date: "2026-04-10T20:00:00", amount: 590000, type: "auto" as const, dayLabel: "10/04", advanceId: "EWA001" },
+    { id: "4", date: "2026-04-09T20:00:00", amount: 710000, type: "auto" as const, dayLabel: "09/04", advanceId: "EWA001" },
+    { id: "5", date: "2026-04-08T20:00:00", amount: 300000, type: "manual" as const, advanceId: "EWA001" },
   ];
 
   const rbfHistory = [
-    {
-      id: "1",
-      date: "2026-04-15T14:30:00",
-      amount: 1200000,
-      type: "auto" as const,
-      tripId: "T005678",
-      tripRevenue: 12000000,
-      from: "Quận 1, TP.HCM",
-      to: "Quận 7, TP.HCM",
-      driverId: "D123",
-      driverName: "Nguyễn Văn A",
-      advanceId: "RBF001",
-      revenueRate: 0.1,
-    },
-    {
-      id: "2",
-      date: "2026-04-14T09:20:00",
-      amount: 800000,
-      type: "auto" as const,
-      tripId: "T005677",
-      tripRevenue: 8000000,
-      from: "Tân Bình, TP.HCM",
-      to: "Thủ Đức, TP.HCM",
-      driverId: "D124",
-      driverName: "Trần Văn B",
-      advanceId: "RBF001",
-      revenueRate: 0.1,
-    },
-    {
-      id: "3",
-      date: "2026-04-14T11:50:00",
-      amount: 1500000,
-      type: "auto" as const,
-      tripId: "T005676",
-      tripRevenue: 15000000,
-      from: "Quận 3, TP.HCM",
-      to: "Bình Dương",
-      driverId: "D125",
-      driverName: "Lê Văn C",
-      advanceId: "RBF001",
-      revenueRate: 0.1,
-    },
-    {
-      id: "4",
-      date: "2026-04-13T15:00:00",
-      amount: 2000000,
-      type: "manual" as const,
-      advanceId: "RBF001",
-    },
+    { id: "1", date: "2026-04-12T20:00:00", amount: 210000, type: "auto" as const, dayLabel: "12/04", tripRevenue: 1050000, advanceId: "RBF001", revenueRate: 0.2 },
+    { id: "2", date: "2026-04-11T20:00:00", amount: 190000, type: "auto" as const, dayLabel: "11/04", tripRevenue: 950000, advanceId: "RBF001", revenueRate: 0.2 },
+    { id: "3", date: "2026-04-10T20:00:00", amount: 220000, type: "auto" as const, dayLabel: "10/04", tripRevenue: 1100000, advanceId: "RBF001", revenueRate: 0.2 },
+    { id: "4", date: "2026-04-09T20:00:00", amount: 180000, type: "auto" as const, dayLabel: "09/04", tripRevenue: 900000, advanceId: "RBF001", revenueRate: 0.2 },
+    { id: "5", date: "2026-04-08T20:00:00", amount: 500000, type: "manual" as const, advanceId: "RBF001" },
   ];
 
   const history = activeTab === "ewa" ? ewaHistory : rbfHistory;
@@ -189,56 +121,26 @@ export function History() {
                       <p className="text-lg text-primary whitespace-nowrap">-{formatCurrency(item.amount)}</p>
                     </div>
 
-                    {/* Trip Details */}
-                    {item.type === "auto" && "tripId" in item && (
+                    {/* Deduction Details */}
+                    {item.type === "auto" && "dayLabel" in item && (
                       <div className="bg-muted/50 rounded-lg p-3 space-y-2 text-sm">
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Mã chuyến:</span>
-                          <span className="font-mono">{item.tripId}</span>
+                          <span className="text-muted-foreground">Thu nhập tích lũy ngày:</span>
+                          <span>{item.dayLabel}</span>
                         </div>
-
-                        {activeTab === "rbf" && "driverName" in item && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Tài xế:</span>
-                            <span>{item.driverName} ({item.driverId})</span>
-                          </div>
-                        )}
-
-                        {item.tripRevenue && (
+                        {"tripRevenue" in item && item.tripRevenue && (
                           <>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">
-                                {activeTab === "ewa" ? "Thu nhập phát sinh:" : "Doanh thu chuyến:"}
-                              </span>
+                              <span className="text-muted-foreground">Doanh thu trong ngày:</span>
                               <span className="text-primary">{formatCurrency(item.tripRevenue)}</span>
                             </div>
-
-                            {activeTab === "rbf" && "revenueRate" in item && (
+                            {"revenueRate" in item && (
                               <div className="flex items-center justify-between">
                                 <span className="text-muted-foreground">Tỷ lệ trích:</span>
                                 <span>{item.revenueRate * 100}%</span>
                               </div>
                             )}
                           </>
-                        )}
-
-                        {item.from && item.to && (
-                          <div className="pt-2 border-t border-border space-y-1.5">
-                            <div className="flex items-start gap-2">
-                              <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                              <div className="flex-1">
-                                <p className="text-xs text-muted-foreground">Điểm đón</p>
-                                <p>{item.from}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <MapPin className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                              <div className="flex-1">
-                                <p className="text-xs text-muted-foreground">Điểm đến</p>
-                                <p>{item.to}</p>
-                              </div>
-                            </div>
-                          </div>
                         )}
                       </div>
                     )}
