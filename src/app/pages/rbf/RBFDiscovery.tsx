@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Calendar, Building2, Zap } from "lucide-react";
 
 const TERMS = [
-  { days: 7,  fee: "0.5%", minRate: "50%", maxAmount: "3.000.000đ" },
-  { days: 14, fee: "1.2%", minRate: "40%", maxAmount: "5.000.000đ" },
-  { days: 30, fee: "2.5%", minRate: "30%", maxAmount: "10.000.000đ" },
-  { days: 60, fee: "4.0%", minRate: "20%", maxAmount: "15.000.000đ" },
+  { days: 7,  fee: "0.7%", minRate: "50%", maxAmount: "3.000.000đ" },
+  { days: 14, fee: "1.4%", minRate: "40%", maxAmount: "5.000.000đ" },
+  { days: 30, fee: "3.0%", minRate: "30%", maxAmount: "10.000.000đ" },
+  { days: 60, fee: "6.0%", minRate: "20%", maxAmount: "15.000.000đ" },
 ];
 
 export function RBFDiscovery() {
@@ -185,13 +185,13 @@ export function RBFDiscovery() {
                   <span>10.000.000đ</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Phí dịch vụ (2.5%):</span>
-                  <span>250.000đ</span>
+                  <span className="text-muted-foreground">Phí dịch vụ (3.0% ~ 36%/năm):</span>
+                  <span>300.000đ</span>
                 </div>
                 <div className="h-px bg-border my-1" />
                 <div className="flex justify-between">
                   <span>Tổng phải hoàn trả:</span>
-                  <span className="text-primary font-medium">10.250.000đ</span>
+                  <span className="text-primary font-medium">10.300.000đ</span>
                 </div>
               </div>
             </div>

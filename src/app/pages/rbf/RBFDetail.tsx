@@ -15,7 +15,7 @@ export function RBFDetail() {
     status: "active" as const,
     createdAt: "2026-04-11T14:30:00",
     termDays: 30,
-    feeRate: 0.025,
+    feeRate: 0.03,
     minRate: 0.3,
     revenueRate: 0.3,
     paidAmount: 5000000,

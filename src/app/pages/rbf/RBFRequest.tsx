@@ -8,8 +8,8 @@ const TERMS = [
   {
     days: 7,
     label: "7 ngày",
-    fee: 0.005,
-    feeLabel: "0.5%",
+    fee: 0.007,
+    feeLabel: "0.7%",
     minRate: 0.5,
     maxAmount: 3000000,
     desc: "Phù hợp vốn ngắn hạn",
@@ -17,8 +17,8 @@ const TERMS = [
   {
     days: 14,
     label: "14 ngày",
-    fee: 0.012,
-    feeLabel: "1.2%",
+    fee: 0.014,
+    feeLabel: "1.4%",
     minRate: 0.4,
     maxAmount: 5000000,
     desc: "Cân bằng phí và dòng tiền",
@@ -26,8 +26,8 @@ const TERMS = [
   {
     days: 30,
     label: "30 ngày",
-    fee: 0.025,
-    feeLabel: "2.5%",
+    fee: 0.03,
+    feeLabel: "3.0%",
     minRate: 0.3,
     maxAmount: 10000000,
     desc: "Linh hoạt cho vận hành tháng",
@@ -35,8 +35,8 @@ const TERMS = [
   {
     days: 60,
     label: "60 ngày",
-    fee: 0.04,
-    feeLabel: "4.0%",
+    fee: 0.06,
+    feeLabel: "6.0%",
     minRate: 0.2,
     maxAmount: 15000000,
     desc: "Hạn mức cao, trích nhẹ mỗi chuyến",
