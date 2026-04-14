@@ -403,7 +403,7 @@ export function Manage() {
                             </div>
                             <div>
                               <p className="font-medium mb-0.5">{loan.vehicleName}</p>
-                              <p className="text-xs text-muted-foreground">Ngày giải ngân: {formatDate(loan.createdAt)}</p>
+                              <p className="text-xs text-muted-foreground">Ngày mua xe: {formatDate(loan.createdAt)}</p>
                             </div>
                           </div>
                           <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
@@ -435,11 +435,11 @@ export function Manage() {
                           </div>
                         )}
 
-                        {/* Streak strip */}
+                        {/* Streak strip — always show last 7 days only; full history on detail page */}
                         {loan.status !== "completed" && (
                           <div className="mb-3 flex items-center gap-2">
                             <div className="flex items-center gap-1">
-                              {loan.streakDays.map((s, i) => (
+                              {loan.streakDays.slice(-7).map((s, i) => (
                                 <div key={i} className={`w-5 h-5 rounded-full ${dayColors[s]} flex items-center justify-center`}>
                                   {s === "wallet" && <Zap className="w-3 h-3 text-white" />}
                                   {s === "missed" && <span className="text-white text-xs leading-none">!</span>}
