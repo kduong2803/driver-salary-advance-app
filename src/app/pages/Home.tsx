@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Wallet, TrendingUp, Clock, Shield, ArrowRight, Zap, CalendarDays, Car, Percent, Building2 } from "lucide-react";
+import { Wallet, TrendingUp, Clock, Shield, ArrowRight, Zap, CalendarDays, Percent, Building2 } from "lucide-react";
+import { MotorbikeIcon } from "../components/MotorbikeIcon";
 
 export function Home() {
   const services = [
@@ -29,7 +30,7 @@ export function Home() {
       title: "Vay Mua Xe",
       subtitle: "Hạn mức duyệt sẵn — nhận xe ngay",
       description: "Vay mua xe điện với hạn mức được phê duyệt sẵn, trả góp hàng ngày tự động từ thu nhập chạy xe",
-      icon: Car,
+      icon: MotorbikeIcon,
       gradient: "from-cyan-600 to-teal-600",
       link: "/loan/discovery",
       features: ["Hạn mức phê duyệt sẵn", "Trả góp hàng ngày tự động", "Vay đến 100% giá trị xe"],
@@ -77,7 +78,7 @@ export function Home() {
       id: "loan",
       title: "Vay mua xe cho tài xế có uy tín",
       intro: "Vay mua xe điện với hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày.",
-      icon: Car,
+      icon: MotorbikeIcon,
       accent: "text-teal-600",
       bg: "bg-teal-500/10",
       stats: [

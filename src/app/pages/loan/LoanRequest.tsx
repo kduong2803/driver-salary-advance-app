@@ -6,7 +6,7 @@ import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 const CREDIT_LIMIT = 30000000;
 const MONTHLY_RATE = 0.008;
-const TERM_OPTIONS = [12, 18, 24, 36];
+const TERM_OPTIONS = [6, 12, 18, 24, 36];
 
 const VEHICLES = [
   { id: "klara", name: "VinFast Klara S", type: "Xe máy điện", price: 32900000 },
@@ -181,18 +181,25 @@ export function LoanRequest() {
             {/* Term */}
             <div className="bg-card rounded-2xl p-5 shadow-sm border border-border/50">
               <h3 className="mb-3">Thời hạn vay</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {TERM_OPTIONS.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTermMonths(t)}
-                    className={`py-3 rounded-xl border-2 text-sm transition-all ${
-                      termMonths === t ? "border-teal-500 bg-teal-50 text-teal-700 font-medium" : "border-border hover:border-teal-300"
-                    }`}
-                  >
-                    {t} th
-                  </button>
-                ))}
+              <div className="grid grid-cols-5 gap-2">
+                {TERM_OPTIONS.map((t) => {
+                  const totalInterestForTerm = Math.round(loanAmount * MONTHLY_RATE * t);
+                  const dailyForTerm = Math.ceil((loanAmount + totalInterestForTerm) / (t * 30));
+                  return (
+                    <button
+                      key={t}
+                      onClick={() => setTermMonths(t)}
+                      className={`py-2.5 px-1 rounded-xl border-2 text-center transition-all ${
+                        termMonths === t ? "border-teal-500 bg-teal-50 text-teal-700" : "border-border hover:border-teal-300"
+                      }`}
+                    >
+                      <p className={`text-sm font-medium ${termMonths === t ? "text-teal-700" : ""}`}>{t} th</p>
+                      <p className={`text-xs mt-0.5 ${termMonths === t ? "text-teal-600" : "text-muted-foreground"}`}>
+                        ~{Math.round(dailyForTerm / 1000)}k/ng
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

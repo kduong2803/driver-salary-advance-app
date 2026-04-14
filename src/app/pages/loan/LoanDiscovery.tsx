@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, ChevronRight, Shield } from "lucide-react";
+import { ArrowLeft, ChevronRight, Shield, CheckCircle2 } from "lucide-react";
 import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 const CREDIT_LIMIT = 30000000;
