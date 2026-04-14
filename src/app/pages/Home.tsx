@@ -47,7 +47,7 @@ export function Home() {
       bg: "bg-primary/10",
       stats: [
         { label: "Ngày công đã chạy", value: "22 ngày", icon: CalendarDays },
-        { label: "Thu nhập từ cuốc xe", value: "12.400.000đ", icon: Car },
+        { label: "Thu nhập từ cuốc xe", value: "12.400.000đ", icon: MotorbikeIcon },
         { label: "Được ứng tối đa", value: "70%", icon: Percent },
       ],
       bullets: [
