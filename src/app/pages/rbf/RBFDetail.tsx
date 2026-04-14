@@ -311,12 +311,12 @@ export function RBFDetail() {
                   return (
                     <div key={day} className="flex flex-col items-center gap-0.5">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        status === "paid" ? "bg-cyan-100"
+                        status === "paid" ? "bg-teal-100"
                         : status === "missed" ? "bg-red-100"
                         : status === "today" ? "bg-amber-100 border-2 border-amber-400"
                         : "bg-muted/30"
                       }`}>
-                        {status === "paid" && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600" />}
+                        {status === "paid" && <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />}
                         {status === "missed" && <AlertCircle className="w-3.5 h-3.5 text-red-500" />}
                         {status === "today" && <Clock className="w-3.5 h-3.5 text-amber-500" />}
                         {status === "future" && <span className="text-xs text-muted-foreground/30">{day}</span>}
@@ -332,8 +332,8 @@ export function RBFDetail() {
           })()}
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-cyan-100 rounded-full" /><span>Đã trích</span></div>
-            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Không có chuyến</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-teal-100 rounded-full" /><span>Đã trích</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Thiếu — gộp hôm sau</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-100 border border-amber-400 rounded-full" /><span>Hôm nay</span></div>
           </div>
         </motion.div>
