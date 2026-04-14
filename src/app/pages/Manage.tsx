@@ -73,7 +73,7 @@ export function Manage() {
       remainingAmount: 4000000,
       progress: 60,
       streak: 5,
-      streakDays: ["paid","missed","paid","paid","paid","paid","paid"] as const,
+      streakDays: ["paid","wallet","paid","paid","missed","paid","wallet"] as const,
     },
     {
       id: "3",
@@ -197,8 +197,8 @@ export function Manage() {
         return {
           label: "Đã hoàn tất",
           icon: CheckCircle,
-          color: "text-success",
-          bgColor: "bg-success/10",
+          color: "text-green-600",
+          bgColor: "bg-green-100",
         };
       case "overdue":
         return {
@@ -368,7 +368,8 @@ export function Manage() {
                 const statusConfig = getStatusConfig(advance.status);
                 const StatusIcon = statusConfig.icon;
                 const dayColors: Record<string, string> = {
-                  paid: "bg-cyan-400",
+                  paid: "bg-teal-400",
+                  wallet: "bg-cyan-400",
                   missed: "bg-red-400",
                   today: "bg-amber-400",
                 };
@@ -411,7 +412,11 @@ export function Manage() {
                           <div className="mb-3 flex items-center gap-2">
                             <div className="flex items-center gap-1">
                               {advance.streakDays.slice(-7).map((s, i) => (
-                                <div key={i} className={`w-5 h-5 rounded-full ${dayColors[s] ?? "bg-muted"}`} />
+                                <div key={i} className={`w-5 h-5 rounded-full ${dayColors[s] ?? "bg-muted"} flex items-center justify-center`}>
+                                  {s === "wallet" && <Zap className="w-3 h-3 text-white" />}
+                                  {s === "missed" && <span className="text-white text-xs leading-none">!</span>}
+                                  {s === "today" && <span className="text-white text-xs leading-none">·</span>}
+                                </div>
                               ))}
                             </div>
                             {advance.streak > 0 && (
