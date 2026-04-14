@@ -53,7 +53,7 @@ export function LoanSuccess() {
             />
           </div>
           <h1 className="text-3xl mb-2 text-teal-700">Phê duyệt thành công!</h1>
-          <p className="text-muted-foreground">Hợp đồng đã ký — VSP đã giải ngân cho đại lý</p>
+          <p className="text-muted-foreground">Đã xác nhận — đại lý nhận thanh toán ngay</p>
         </motion.div>
 
         {/* Vehicle + QR */}
@@ -68,7 +68,7 @@ export function LoanSuccess() {
           </div>
           <p className="text-white/80 text-sm mb-1">{vehicleType}</p>
           <p className="text-2xl mb-1">{vehicleName}</p>
-          <p className="text-white/70 text-sm">Đã giải ngân {formatCurrency(loanAmount)} cho đại lý</p>
+          <p className="text-white/70 text-sm">Đã thanh toán {formatCurrency(loanAmount)} cho đại lý</p>
           {downPayment > 0 && (
             <p className="text-white/60 text-xs mt-1">Trả trước: {formatCurrency(downPayment)} từ V-Smart Pay</p>
           )}
@@ -114,13 +114,13 @@ export function LoanSuccess() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
-              <span>Tổng hoàn trả:</span>
+              <span>Tổng phải trả:</span>
               <span className="text-teal-700">{formatCurrency(totalRepay)}</span>
             </div>
           </div>
 
           <div className="mt-4 bg-teal-50 rounded-xl p-3 text-sm text-muted-foreground">
-            Hệ thống ưu tiên trích từ doanh thu cuốc xe trong ngày. Phần còn thiếu sẽ tự động quét từ ví V-SmartPay lúc 23h. Nếu không đủ, số dư thiếu sẽ được gộp vào ngày tiếp theo.
+            Thu nhập từ cuốc xe trong ngày được tính trước. Nếu chưa đủ, phần còn lại tự động lấy từ ví lúc 23h. Nếu vẫn chưa đủ, số thiếu sẽ cộng vào ngày hôm sau.
           </div>
         </motion.div>
 

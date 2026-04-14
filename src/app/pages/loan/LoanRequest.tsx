@@ -169,7 +169,7 @@ export function LoanRequest() {
               <span>+{formatCurrency(totalInterest)}</span>
             </div>
             <div className="flex justify-between font-medium border-t border-white/20 pt-2">
-              <span>Tổng hoàn trả:</span>
+              <span>Tổng phải trả:</span>
               <span>{formatCurrency(totalRepay)}</span>
             </div>
           </div>

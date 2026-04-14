@@ -164,7 +164,7 @@ export function LoanDetail() {
               />
             </div>
             <div className="flex justify-between text-sm text-white/80">
-              <span>{loan.progress}% đã hoàn trả</span>
+              <span>{loan.progress}% đã trả</span>
               <span>{loan.termMonths} tháng</span>
             </div>
           </div>
@@ -206,7 +206,7 @@ export function LoanDetail() {
                   <div className="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
                     <MotorbikeIcon className="w-4 h-4 text-teal-600" />
                   </div>
-                  <span className="text-muted-foreground">Đã trích từ cuốc xe</span>
+                  <span className="text-muted-foreground">Thu từ cuốc xe</span>
                 </div>
                 <span className="text-teal-600">{formatCurrency(loan.todayTripPaid)}</span>
               </div>
@@ -237,7 +237,7 @@ export function LoanDetail() {
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1.5">
-              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% đã thu từ cuốc xe — phần còn lại tự động quét từ ví V-Smart Pay lúc 23h
+              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% thu từ cuốc xe — phần còn lại tự động từ ví lúc 23h
             </p>
           </motion.div>
         )}
@@ -298,7 +298,7 @@ export function LoanDetail() {
           </div>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Ngày giải ngân:</span>
+              <span className="text-muted-foreground">Ngày mua xe:</span>
               <span>{formatDate(loan.createdAt)}</span>
             </div>
             <div className="h-px bg-border" />
@@ -316,7 +316,7 @@ export function LoanDetail() {
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
-              <span>Tổng hoàn trả:</span>
+              <span>Tổng phải trả:</span>
               <span className="text-teal-700">{formatCurrency(loan.totalRepay)}</span>
             </div>
             <div className="h-px bg-border" />
@@ -425,7 +425,7 @@ export function LoanDetail() {
                     </div>
                     <div className="bg-teal-50 rounded-xl p-4 mb-5 flex items-start gap-2">
                       <AlertCircle className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-muted-foreground">Tất toán sớm không phát sinh phí phạt. Khoản vay sẽ được đóng ngay khi hoàn tất.</p>
+                      <p className="text-sm text-muted-foreground">Trả hết sớm không tính thêm phí. Khoản vay sẽ được đóng ngay sau khi thanh toán.</p>
                     </div>
                     <button disabled={!isValid} onClick={() => setPayStep("verify")} className="w-full bg-teal-600 text-white py-4 rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-40 mb-3">
                       Xác nhận trả {parseInt(payAmount.replace(/\D/g, "")) > 0 ? formatCurrency(parseInt(payAmount.replace(/\D/g, ""))) : ""}

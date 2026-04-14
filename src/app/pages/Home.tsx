@@ -27,12 +27,12 @@ export function Home() {
     {
       id: "loan",
       title: "Vay Mua Xe",
-      subtitle: "Tín chấp hồi tố — duyệt ngay",
-      description: "Dành cho tài xế có hành vi sử dụng ví V-SmartPay tốt, muốn mua xe điện với khoản vay tín chấp và trả góp hàng ngày từ thu nhập chạy xe",
+      subtitle: "Hạn mức duyệt sẵn — nhận xe ngay",
+      description: "Vay mua xe điện với hạn mức được phê duyệt sẵn, trả góp hàng ngày tự động từ thu nhập chạy xe",
       icon: Car,
       gradient: "from-cyan-600 to-teal-600",
       link: "/loan/discovery",
-      features: ["Duyệt tự động — không cần chứng minh thu nhập", "Trả góp hàng ngày từ ví", "Hạn mức đến 30tr"],
+      features: ["Hạn mức phê duyệt sẵn", "Trả góp hàng ngày tự động", "Hạn mức đến 30tr"],
     },
   ];
 
@@ -76,7 +76,7 @@ export function Home() {
     {
       id: "loan",
       title: "Vay mua xe cho tài xế có uy tín",
-      intro: "Khoản vay tín chấp được duyệt sẵn dựa trên lịch sử dùng ví V-Smart Pay — không cần chứng minh thu nhập thêm.",
+      intro: "Vay mua xe điện với hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày.",
       icon: Car,
       accent: "text-teal-600",
       bg: "bg-teal-500/10",
@@ -86,7 +86,7 @@ export function Home() {
         { label: "Lãi suất", value: "0.8%/tháng", icon: Percent },
       ],
       bullets: [
-        "Hạn mức được duyệt tự động dựa trên lịch sử giao dịch và hành vi dùng ví",
+        "Hạn mức được phê duyệt sẵn — nhận xe trong ngày, không cần làm thủ tục phức tạp",
         "Số tiền góp hàng ngày nhỏ, phù hợp với thu nhập chạy xe — không áp lực trả theo tháng",
         "Chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày — không cần đến đại lý làm thủ tục",
       ],

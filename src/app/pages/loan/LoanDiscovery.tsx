@@ -38,7 +38,7 @@ export function LoanDiscovery() {
             <span className="text-sm">Đã được duyệt sẵn</span>
           </div>
           <h1 className="text-3xl mb-2">Vay Mua Xe</h1>
-          <p className="text-white/90 text-lg mb-5">Dành cho tài xế có hành vi sử dụng ví V-SmartPay tốt — duyệt ngay, không cần chứng minh thu nhập</p>
+          <p className="text-white/90 text-lg mb-5">Hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng và nhận xe ngay trong ngày</p>
           <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 inline-block">
             <p className="text-white/80 text-sm mb-1">Hạn mức được duyệt</p>
             <p className="text-4xl">{formatCurrency(CREDIT_LIMIT)}</p>
@@ -115,10 +115,10 @@ export function LoanDiscovery() {
           </h3>
           <div className="space-y-4">
             {[
-              { step: "1", title: "Chọn xe và cấu hình khoản vay", desc: "Chọn xe, điều chỉnh trả trước và kỳ hạn — xem ngay số tiền góp hàng ngày" },
-              { step: "2", title: "Ký hợp đồng điện tử", desc: "Xác nhận thông tin và ký hợp đồng tín dụng ngay trên ứng dụng" },
-              { step: "3", title: "Giải ngân thẳng cho đại lý", desc: "VSP chuyển tiền trực tiếp cho đại lý — nhận phiếu lấy xe ngay" },
-              { step: "4", title: "Trả góp tự động mỗi ngày", desc: "Hệ thống ưu tiên trích từ doanh thu cuốc xe — phần còn thiếu tự động quét từ ví V-SmartPay lúc 23h" },
+              { step: "1", title: "Chọn xe và xem ngay số tiền góp", desc: "Chọn xe, điều chỉnh trả trước và kỳ hạn — số tiền góp hàng ngày hiển thị tức thì" },
+              { step: "2", title: "Xác nhận và ký trên ứng dụng", desc: "Xem lại thông tin khoản vay và ký xác nhận ngay trên app — không cần giấy tờ" },
+              { step: "3", title: "Nhận xe ngay trong ngày", desc: "Thanh toán được chuyển thẳng cho đại lý, bạn nhận phiếu lấy xe ngay sau đó" },
+              { step: "4", title: "Trả góp tự động mỗi ngày", desc: "Thu nhập từ cuốc xe được trích trước — phần còn lại tự động từ ví lúc 23h, không cần nhớ" },
             ].map((item) => (
               <div key={item.step} className="flex gap-3">
                 <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm">
@@ -138,10 +138,10 @@ export function LoanDiscovery() {
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>
           <div className="space-y-3">
             {[
-              "Duyệt tự động dựa trên lịch sử V-Smart Pay — không cần chứng minh thu nhập thêm",
+              "Hạn mức được phê duyệt sẵn — quy trình đơn giản, hoàn tất nhanh chóng",
               "Số tiền góp hàng ngày nhỏ, không áp lực — phù hợp với thu nhập chạy xe",
               "Trả nợ tự động mỗi ngày, không lo quên hay phát sinh phí trễ hạn",
-              "Tất toán trước bất kỳ lúc nào — không phát sinh phí phạt",
+              "Trả hết sớm bất kỳ lúc nào — không tính thêm phí",
             ].map((b) => (
               <div key={b} className="flex items-start gap-3">
                 <div className="w-5 h-5 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -161,7 +161,7 @@ export function LoanDiscovery() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: "Tổng lãi", value: "4.780.800đ", sub: "19.2% tổng khoản vay" },
-                { label: "Tổng hoàn trả", value: "29.680.800đ", sub: "Trả trong 720 ngày" },
+                { label: "Tổng phải trả", value: "29.680.800đ", sub: "Trả trong 720 ngày" },
                 { label: "Góp mỗi ngày", value: "~42.000đ", sub: "Trừ tự động lúc 23h" },
                 { label: "Thời gian vay", value: "24 tháng", sub: "Tất toán sớm miễn phí" },
               ].map((item) => (
