@@ -227,47 +227,6 @@ export function RBFDetail() {
           </motion.div>
         )}
 
-        {/* Transaction Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Building2 className="w-5 h-5 text-primary" />
-            <h3>Thông tin khoản ứng</h3>
-          </div>
-          <div className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Ngày giải ngân:</span>
-              <span>{formatDateTime(advance.createdAt)}</span>
-            </div>
-            <div className="h-px bg-border" />
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Số tiền giải ngân:</span>
-              <span>{formatCurrency(advance.amount)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
-              <span>{Math.round(advance.revenueRate * 100)}% doanh thu</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Lãi suất:</span>
-              <span>{(monthlyRate * 100).toFixed(1)}%/tháng</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tổng lãi ({interestPct}%):</span>
-              <span className="text-destructive">+{formatCurrency(totalInterest)}</span>
-            </div>
-            <div className="h-px bg-border" />
-            <div className="flex justify-between font-medium">
-              <span>Tổng hoàn trả:</span>
-              <span className="text-primary">{formatCurrency(totalRepay)}</span>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Streak Calendar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -398,6 +357,47 @@ export function RBFDetail() {
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-cyan-100 rounded-full" /><span>Từ ví</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Thiếu — gộp hôm sau</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-100 border border-amber-400 rounded-full" /><span>Hôm nay</span></div>
+          </div>
+        </motion.div>
+
+        {/* Transaction Details */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Building2 className="w-5 h-5 text-primary" />
+            <h3>Thông tin khoản ứng</h3>
+          </div>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Ngày giải ngân:</span>
+              <span>{formatDateTime(advance.createdAt)}</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Số tiền giải ngân:</span>
+              <span>{formatCurrency(advance.amount)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
+              <span>{Math.round(advance.revenueRate * 100)}% doanh thu</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Lãi suất:</span>
+              <span>{(monthlyRate * 100).toFixed(1)}%/tháng</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tổng lãi ({interestPct}%):</span>
+              <span className="text-destructive">+{formatCurrency(totalInterest)}</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between font-medium">
+              <span>Tổng hoàn trả:</span>
+              <span className="text-primary">{formatCurrency(totalRepay)}</span>
+            </div>
           </div>
         </motion.div>
 
