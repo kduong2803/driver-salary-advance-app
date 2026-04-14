@@ -27,7 +27,7 @@ const LOANS = [
     todayTripPaid: 28000,
     missedYesterday: false,
     rolledOver: 0,
-    calendarPattern: ["trip","trip","wallet","trip","trip","missed","trip","trip","trip","trip","trip","wallet","trip","today"] as DayStatus[],
+    calendarPattern: ["trip","trip","wallet","trip","trip","missed","trip","trip","trip","trip","trip","wallet","trip"] as DayStatus[],
   },
   {
     id: "2",
@@ -49,7 +49,7 @@ const LOANS = [
     todayTripPaid: 12000,
     missedYesterday: true,
     rolledOver: 41224,
-    calendarPattern: ["trip","trip","trip","wallet","trip","trip","trip","trip","wallet","trip","trip","trip","missed","today"] as DayStatus[],
+    calendarPattern: ["trip","trip","trip","wallet","trip","trip","trip","trip","wallet","trip","trip","trip","missed"] as DayStatus[],
   },
   {
     id: "3",
@@ -78,10 +78,11 @@ const LOANS = [
 const WALLET_BALANCE = 12000000;
 const TODAY = new Date("2026-04-14");
 
-function dayLabel(i: number) {
-  const d = new Date(TODAY);
-  d.setDate(d.getDate() - (13 - i));
-  return `${d.getDate()}/${d.getMonth() + 1}`;
+const WEEK_DAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+
+function getMonthOffset(date: Date) {
+  const day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  return day === 0 ? 6 : day - 1; // Mon=0 … Sun=6
 }
 
 const DAY_CONFIG: Record<DayStatus, { bg: string; icon?: string; label: string }> = {
@@ -262,24 +263,56 @@ export function LoanDetail() {
             )}
           </div>
 
-          <div className="grid grid-cols-7 gap-1.5 mb-4">
-            {loan.calendarPattern.map((status, i) => (
-              <div key={i} className="flex flex-col items-center gap-1">
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center ${DAY_CONFIG[status].bg}`}>
-                  {status === "trip" && <CheckCircle2 className="w-4 h-4 text-teal-600" />}
-                  {status === "wallet" && <Zap className="w-4 h-4 text-cyan-600" />}
-                  {status === "missed" && <AlertCircle className="w-4 h-4 text-red-500" />}
-                  {status === "today" && <Clock className="w-4 h-4 text-amber-500" />}
-                  {status === "future" && <span className="text-xs text-muted-foreground">{new Date(TODAY).getDate() + (i - 13)}</span>}
-                </div>
-                <span className="text-xs text-muted-foreground">{dayLabel(i)}</span>
-              </div>
+          {/* Month label */}
+          <p className="text-xs text-muted-foreground text-center mb-3">
+            Tháng {TODAY.getMonth() + 1}/{TODAY.getFullYear()}
+          </p>
+
+          {/* Weekday headers */}
+          <div className="grid grid-cols-7 gap-1 mb-1">
+            {WEEK_DAYS.map((d) => (
+              <div key={d} className="text-center text-xs text-muted-foreground/60 py-0.5">{d}</div>
             ))}
           </div>
 
+          {/* Full month grid */}
+          {(() => {
+            const todayDate = TODAY.getDate();
+            const daysInMonth = new Date(TODAY.getFullYear(), TODAY.getMonth() + 1, 0).getDate();
+            const offset = getMonthOffset(TODAY);
+            return (
+              <div className="grid grid-cols-7 gap-1 mb-4">
+                {Array.from({ length: offset }).map((_, i) => <div key={`e${i}`} />)}
+                {Array.from({ length: daysInMonth }).map((_, i) => {
+                  const day = i + 1;
+                  const status: DayStatus =
+                    day < todayDate ? (loan.calendarPattern[day - 1] || "trip")
+                    : day === todayDate ? "today"
+                    : "future";
+                  return (
+                    <div key={day} className="flex flex-col items-center gap-0.5">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        status === "future" ? "bg-muted/30" : DAY_CONFIG[status].bg
+                      }`}>
+                        {status === "trip" && <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />}
+                        {status === "wallet" && <Zap className="w-3.5 h-3.5 text-cyan-600" />}
+                        {status === "missed" && <AlertCircle className="w-3.5 h-3.5 text-red-500" />}
+                        {status === "today" && <Clock className="w-3.5 h-3.5 text-amber-500" />}
+                        {status === "future" && <span className="text-xs text-muted-foreground/30">{day}</span>}
+                      </div>
+                      {status !== "future" && (
+                        <span className="text-xs text-muted-foreground">{day}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-green-100 rounded-full" /><span>Từ cuốc xe</span></div>
-            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-blue-100 rounded-full" /><span>Quét ví VSP</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-teal-100 rounded-full" /><span>Từ cuốc xe</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-cyan-100 rounded-full" /><span>Từ ví</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Thiếu — gộp hôm sau</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-100 border border-amber-400 rounded-full" /><span>Hôm nay</span></div>
           </div>
