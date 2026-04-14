@@ -6,7 +6,16 @@ import { FaceAuth } from "../../components/FaceAuth";
 
 const AVG_DAILY_REVENUE = 1000000;
 const MAX_AMOUNT = 15000000;
-const DAILY_RATE = 0.36 / 365;
+
+// Lãi cố định theo kỳ hạn — tăng dần khi kỳ dài hơn (~30–46%/năm)
+const TERM_RATES: Record<number, number> = {
+  1: 0.025, // 2.5%/tháng — 30%/năm
+  2: 0.028, // 2.8%/tháng — 33.6%/năm
+  3: 0.030, // 3.0%/tháng — 36%/năm
+  4: 0.033, // 3.3%/tháng — 39.6%/năm
+  5: 0.035, // 3.5%/tháng — 42%/năm
+  6: 0.038, // 3.8%/tháng — 45.6%/năm
+};
 
 const RATE_OPTIONS = [
   { value: 0.1, label: "10%" },
@@ -17,7 +26,7 @@ const RATE_OPTIONS = [
 ];
 
 const calcMonths = (amount: number, rate: number) =>
-  amount > 0 ? Math.min(6, Math.ceil(amount / (AVG_DAILY_REVENUE * rate) / 30)) : null;
+  amount > 0 ? Math.min(6, Math.max(1, Math.ceil(amount / (AVG_DAILY_REVENUE * rate) / 30))) : null;
 
 export function RBFRequest() {
   const navigate = useNavigate();
@@ -26,11 +35,11 @@ export function RBFRequest() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const numAmount = parseInt(amount.replace(/\D/g, "")) || 0;
-  const estimatedMonths = calcMonths(numAmount, deductionRate) ?? 0;
-  const estimatedDays = estimatedMonths * 30;
-  const estimatedFee = numAmount > 0 ? Math.round(numAmount * DAILY_RATE * estimatedDays) : 0;
-  const estimatedFeeRate = numAmount > 0 ? (estimatedFee / numAmount * 100).toFixed(1) : "0";
-  const totalRepay = numAmount + estimatedFee;
+  const estimatedMonths = calcMonths(numAmount, deductionRate) ?? 1;
+  const monthlyRate = TERM_RATES[estimatedMonths] ?? 0.038;
+  const totalInterest = numAmount > 0 ? Math.round(numAmount * monthlyRate * estimatedMonths) : 0;
+  const interestPct = numAmount > 0 ? (totalInterest / numAmount * 100).toFixed(1) : "0";
+  const totalRepay = numAmount + totalInterest;
 
   const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
 
@@ -42,7 +51,7 @@ export function RBFRequest() {
   const quickAmounts = [3000000, 5000000, 8000000, 15000000];
 
   const handleConfirm = () => navigate("/rbf/success", {
-    state: { amount: numAmount, estimatedFee, totalRepay, deductionRate, estimatedMonths },
+    state: { amount: numAmount, totalInterest, totalRepay, deductionRate, estimatedMonths, monthlyRate },
   });
 
   return (
@@ -53,7 +62,7 @@ export function RBFRequest() {
           <span>Quay lại</span>
         </Link>
         <h1 className="text-2xl mb-1">Ứng doanh thu vận hành</h1>
-        <p className="text-white/80">Chọn mức trích — hệ thống tính kỳ hạn tương đương</p>
+        <p className="text-white/80">Chọn mức trích — hệ thống tính kỳ hạn và lãi tương đương</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-6 space-y-5">
@@ -92,7 +101,7 @@ export function RBFRequest() {
         <div className="bg-card rounded-2xl p-5 shadow-sm border border-border/50">
           <div className="mb-3">
             <p className="text-sm font-medium">Tỷ lệ trích mỗi chuyến</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Trích càng cao → kỳ hạn càng ngắn → phí càng thấp</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Trích càng cao → kỳ hạn càng ngắn → lãi càng thấp</p>
           </div>
           <div className="grid grid-cols-5 gap-2">
             {RATE_OPTIONS.map((opt) => {
@@ -141,7 +150,7 @@ export function RBFRequest() {
               <div className="text-center mb-5">
                 <p className="text-white/80 text-sm mb-1">Kỳ hạn tương đương</p>
                 <p className="text-4xl">{estimatedMonths} tháng</p>
-                <p className="text-white/70 text-sm mt-1">Trích {Math.round(deductionRate * 100)}% mỗi chuyến · ~{estimatedDays} ngày</p>
+                <p className="text-white/70 text-sm mt-1">Trích {Math.round(deductionRate * 100)}% mỗi chuyến · ~{estimatedMonths * 30} ngày</p>
               </div>
               <div className="space-y-2 text-sm border-t border-white/20 pt-4">
                 <div className="flex justify-between">
@@ -149,8 +158,16 @@ export function RBFRequest() {
                   <span>{formatCurrency(numAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/80">Phí ước tính ({estimatedFeeRate}%):</span>
-                  <span>+{formatCurrency(estimatedFee)}</span>
+                  <span className="text-white/80">Tỷ lệ trích mỗi chuyến:</span>
+                  <span>{Math.round(deductionRate * 100)}% doanh thu</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/80">Lãi suất:</span>
+                  <span>{(monthlyRate * 100).toFixed(1)}%/tháng</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/80">Tổng lãi ({interestPct}%):</span>
+                  <span>+{formatCurrency(totalInterest)}</span>
                 </div>
                 <div className="flex justify-between font-medium border-t border-white/20 pt-2">
                   <span>Tổng hoàn trả ước tính:</span>
@@ -159,7 +176,7 @@ export function RBFRequest() {
               </div>
               <div className="mt-3 bg-white/10 rounded-xl p-3 flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-white/70" />
-                <p className="text-xs text-white/80">Kỳ hạn tính theo doanh thu trung bình. Hoàn trả sớm hơn nếu chạy nhiều chuyến hơn — phí tính theo ngày thực tế.</p>
+                <p className="text-xs text-white/80">Lãi tính theo kỳ hạn ước lượng từ mức trích. Hoàn trả sớm hơn không giảm lãi đã cố định.</p>
               </div>
             </motion.div>
           </AnimatePresence>

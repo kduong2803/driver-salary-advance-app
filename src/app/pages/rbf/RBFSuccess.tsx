@@ -8,12 +8,14 @@ export function RBFSuccess() {
 
   const {
     amount = 10000000,
-    estimatedFee = 98630,
-    totalRepay = 10098630,
+    totalInterest = 900000,
+    totalRepay = 10900000,
     deductionRate = 0.2,
-    estimatedDays = 50,
+    estimatedMonths = 3,
+    monthlyRate = 0.030,
   } = (location.state as any) || {};
 
+  const interestPct = (totalInterest / amount * 100).toFixed(1);
   const transactionId = "RBF" + Date.now().toString().slice(-10);
 
   useEffect(() => {
@@ -27,9 +29,7 @@ export function RBFSuccess() {
     });
   }, []);
 
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString("vi-VN") + "đ";
-  };
+  const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
@@ -51,9 +51,7 @@ export function RBFSuccess() {
             />
           </div>
           <h1 className="text-3xl mb-2 text-primary">Thành công!</h1>
-          <p className="text-muted-foreground">
-            Khoản ứng doanh thu đã được giải ngân thành công
-          </p>
+          <p className="text-muted-foreground">Khoản ứng doanh thu đã được giải ngân thành công</p>
         </motion.div>
 
         {/* Amount Card */}
@@ -65,7 +63,6 @@ export function RBFSuccess() {
         >
           <div className="absolute -right-12 -top-12 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute -left-12 -bottom-12 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-
           <div className="relative">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Wallet className="w-5 h-5" />
@@ -81,34 +78,37 @@ export function RBFSuccess() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 space-y-4"
+          className="bg-card rounded-2xl p-6 shadow-sm border border-border/50"
         >
           <h3 className="mb-4">Chi tiết khoản ứng doanh thu</h3>
-
-          <div className="space-y-3">
-            <div className="flex justify-between text-sm">
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Mã giao dịch:</span>
               <span className="font-mono text-xs">{transactionId}</span>
             </div>
             <div className="h-px bg-border" />
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Số tiền giải ngân:</span>
               <span>{formatCurrency(amount)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Phí ước tính:</span>
-              <span className="text-destructive">+{formatCurrency(estimatedFee)}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
+              <span className="text-primary">{Math.round(deductionRate * 100)}% doanh thu</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Tổng hoàn trả ước tính:</span>
-              <span className="font-medium">{formatCurrency(totalRepay)}</span>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Lãi suất:</span>
+              <span>{(monthlyRate * 100).toFixed(1)}%/tháng</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tổng lãi ({interestPct}%):</span>
+              <span className="text-destructive">+{formatCurrency(totalInterest)}</span>
             </div>
             <div className="h-px bg-border" />
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
-              <span className="text-primary">{Math.round(deductionRate * 100)}%</span>
+            <div className="flex justify-between font-medium">
+              <span>Tổng hoàn trả ước tính:</span>
+              <span>{formatCurrency(totalRepay)}</span>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Tài khoản nhận:</span>
               <span className="flex items-center gap-1"><Wallet className="w-3.5 h-3.5" /> V-Smart Pay</span>
             </div>
@@ -127,11 +127,10 @@ export function RBFSuccess() {
               <TrendingDown className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="mb-1 text-primary">Hoàn trả tự động, không kỳ hạn</h4>
-              <p className="text-lg mb-2">~{estimatedDays} ngày</p>
+              <h4 className="mb-1 text-primary">Kỳ hạn tương đương ~{estimatedMonths} tháng</h4>
               <p className="text-sm text-muted-foreground">
                 Hệ thống tự động trích {Math.round(deductionRate * 100)}% từ doanh thu sau mỗi chuyến cho đến khi hoàn tất.
-                Có thể điều chỉnh % trích hoặc trả trước để hoàn thành sớm hơn, nâng mức tín dụng và thực hiện tiếp khoản vay mới.
+                Có thể điều chỉnh % trích hoặc trả trước để hoàn thành sớm hơn.
               </p>
             </div>
           </div>

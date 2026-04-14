@@ -3,8 +3,11 @@ import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2 } from "lucide-react";
 
-const DAILY_RATE = 0.36 / 365;
 const AVG_DAILY_REVENUE = 1000000;
+
+const TERM_RATES: Record<number, number> = {
+  1: 0.025, 2: 0.028, 3: 0.030, 4: 0.033, 5: 0.035, 6: 0.038,
+};
 
 type DayStatus = "paid" | "missed" | "today" | "future";
 
@@ -79,12 +82,12 @@ export function RBFDetail() {
   const [currentRate, setCurrentRate] = useState(advance.revenueRate);
   const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
-  const estimatedDays = Math.ceil(advance.amount / (AVG_DAILY_REVENUE * advance.revenueRate));
-  const feeAmount = Math.round(advance.amount * DAILY_RATE * estimatedDays);
-  const feePercent = (feeAmount / advance.amount * 100).toFixed(1);
-  const totalRepay = advance.amount + feeAmount;
+  const monthlyRate = TERM_RATES[advance.estimatedMonths] ?? 0.038;
+  const totalInterest = Math.round(advance.amount * monthlyRate * advance.estimatedMonths);
+  const interestPct = (totalInterest / advance.amount * 100).toFixed(1);
+  const totalRepay = advance.amount + totalInterest;
   const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * pendingRate));
-  const estimatedMonthsRemaining = Math.min(6, Math.ceil(estimatedDaysRemaining / 30));
+  const estimatedMonthsRemaining = Math.min(6, Math.max(1, Math.ceil(estimatedDaysRemaining / 30)));
 
   const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
   const formatDateTime = (dateString: string) => {
@@ -164,17 +167,21 @@ export function RBFDetail() {
               <span>{formatCurrency(advance.amount)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Phí dịch vụ ({feePercent}%):</span>
-              <span className="text-destructive">+{formatCurrency(feeAmount)}</span>
+              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
+              <span>{Math.round(advance.revenueRate * 100)}% doanh thu</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Lãi suất:</span>
+              <span>{(monthlyRate * 100).toFixed(1)}%/tháng</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tổng lãi ({interestPct}%):</span>
+              <span className="text-destructive">+{formatCurrency(totalInterest)}</span>
             </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
               <span>Tổng hoàn trả:</span>
               <span className="text-primary">{formatCurrency(totalRepay)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
-              <span>{Math.round(advance.revenueRate * 100)}% doanh thu</span>
             </div>
           </div>
         </motion.div>
