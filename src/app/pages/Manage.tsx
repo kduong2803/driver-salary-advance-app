@@ -53,9 +53,13 @@ export function Manage() {
       status: "active" as const,
       createdAt: "2026-04-11",
       revenueRate: 0.2,
+      estimatedMonths: 3,
+      monthlyRate: 0.030,
       paidAmount: 5000000,
       remainingAmount: 10000000,
       progress: 33,
+      streak: 3,
+      streakDays: ["paid","paid","paid"] as const,
     },
     {
       id: "2",
@@ -63,9 +67,13 @@ export function Manage() {
       status: "active" as const,
       createdAt: "2026-03-20",
       revenueRate: 0.3,
+      estimatedMonths: 2,
+      monthlyRate: 0.028,
       paidAmount: 6000000,
       remainingAmount: 4000000,
       progress: 60,
+      streak: 5,
+      streakDays: ["paid","missed","paid","paid","paid","paid","paid"] as const,
     },
     {
       id: "3",
@@ -73,9 +81,13 @@ export function Manage() {
       status: "completed" as const,
       createdAt: "2026-02-01",
       revenueRate: 0.3,
+      estimatedMonths: 2,
+      monthlyRate: 0.028,
       paidAmount: 12000000,
       remainingAmount: 0,
       progress: 100,
+      streak: 42,
+      streakDays: ["paid","paid","paid","paid","paid","paid","paid"] as const,
     },
   ];
 
@@ -315,24 +327,64 @@ export function Manage() {
               transition={{ duration: 0.2 }}
               className="space-y-3"
             >
-              {/* EWA + RBF cards */}
-              {activeTab !== "loan" && (activeTab === "ewa" ? ewaAdvances : rbfAdvances).map((advance, index) => {
+              {/* EWA cards */}
+              {activeTab === "ewa" && ewaAdvances.map((advance, index) => {
                 const statusConfig = getStatusConfig(advance.status);
                 const StatusIcon = statusConfig.icon;
                 return (
                   <motion.div key={advance.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-                    <Link to={activeTab === "ewa" ? `/ewa/detail/${advance.id}` : `/rbf/detail/${advance.id}`}>
+                    <Link to={`/ewa/detail/${advance.id}`}>
                       <div className="bg-card rounded-xl p-5 border border-border/50 hover:shadow-md transition-shadow">
                         <div className="flex items-start justify-between mb-4">
                           <div>
                             <p className="text-xl mb-1">{formatCurrency(advance.amount)}</p>
-                            <div className="flex items-center gap-2">
-                              <p className="text-xs text-muted-foreground">
-                                {activeTab === "ewa" ? "Ngày ứng tiền: " : "Ngày giải ngân: "}{formatDate(advance.createdAt)}
-                              </p>
-                              {activeTab === "rbf" && advance.status === "active" && "revenueRate" in advance && (
-                                <span className="text-xs text-primary">Trích {Math.round((advance.revenueRate as number) * 100)}%/chuyến</span>
-                              )}
+                            <p className="text-xs text-muted-foreground">Ngày ứng tiền: {formatDate(advance.createdAt)}</p>
+                          </div>
+                          <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
+                            <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
+                            <span className={`text-xs ${statusConfig.color}`}>{statusConfig.label}</span>
+                          </div>
+                        </div>
+                        {advance.status === "active" && (
+                          <div className="mb-4 bg-muted/40 rounded-lg px-3 py-2 flex justify-between text-sm">
+                            <span className="text-muted-foreground">Số tiền sẽ khấu trừ</span>
+                            <span className="text-primary">{formatCurrency(advance.amount)}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">
+                            {advance.status === "active" ? `Ngày dự kiến thanh toán: ${formatDate(advance.dueDate)}` : "Đã hoàn tất"}
+                          </span>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+
+              {/* RBF cards — same design as loan */}
+              {activeTab === "rbf" && rbfAdvances.map((advance, index) => {
+                const statusConfig = getStatusConfig(advance.status);
+                const StatusIcon = statusConfig.icon;
+                const dayColors: Record<string, string> = {
+                  paid: "bg-cyan-400",
+                  missed: "bg-red-400",
+                  today: "bg-amber-400",
+                };
+                return (
+                  <motion.div key={advance.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
+                    <Link to={`/rbf/detail/${advance.id}`}>
+                      <div className="bg-card rounded-xl p-5 border border-border/50 hover:shadow-md transition-shadow">
+                        {/* Header */}
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <Building2 className="w-5 h-5 text-primary" />
+                            </div>
+                            <div>
+                              <p className="font-medium mb-0.5">{formatCurrency(advance.amount)}</p>
+                              <p className="text-xs text-muted-foreground">Ngày giải ngân: {formatDate(advance.createdAt)}</p>
                             </div>
                           </div>
                           <div className={`flex items-center gap-1 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
@@ -341,11 +393,12 @@ export function Manage() {
                           </div>
                         </div>
 
-                        {activeTab === "rbf" && advance.status === "active" && (
-                          <div className="mb-4">
+                        {/* Progress */}
+                        {advance.status === "active" && (
+                          <div className="mb-3">
                             <div className="flex justify-between text-xs text-muted-foreground mb-2">
                               <span>Đã hoàn trả: {formatCurrency(advance.paidAmount)}</span>
-                              <span>Còn phải trả: {formatCurrency(advance.remainingAmount)}</span>
+                              <span>Còn lại: {formatCurrency(advance.remainingAmount)}</span>
                             </div>
                             <div className="h-2 bg-muted rounded-full overflow-hidden">
                               <motion.div initial={{ width: 0 }} animate={{ width: `${advance.progress}%` }} transition={{ duration: 1, delay: 0.3 + index * 0.05 }} className="h-full bg-primary rounded-full" />
@@ -353,25 +406,30 @@ export function Manage() {
                           </div>
                         )}
 
-                        {activeTab === "ewa" && advance.status === "active" && (
-                          <div className="mb-4 bg-muted/40 rounded-lg px-3 py-2 flex justify-between text-sm">
-                            <span className="text-muted-foreground">Số tiền sẽ khấu trừ</span>
-                            <span className="text-primary">{formatCurrency(advance.amount)}</span>
+                        {/* Streak strip */}
+                        {advance.status !== "completed" && (
+                          <div className="mb-3 flex items-center gap-2">
+                            <div className="flex items-center gap-1">
+                              {advance.streakDays.slice(-7).map((s, i) => (
+                                <div key={i} className={`w-5 h-5 rounded-full ${dayColors[s] ?? "bg-muted"}`} />
+                              ))}
+                            </div>
+                            {advance.streak > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-orange-600">
+                                <Flame className="w-3.5 h-3.5" />
+                                <span>{advance.streak} ngày</span>
+                              </div>
+                            )}
                           </div>
                         )}
 
+                        {/* Footer */}
                         <div className="flex items-center justify-between text-sm">
-                          <div>
-                            {advance.status === "active" ? (
-                              activeTab === "ewa" ? (
-                                <span className="text-muted-foreground">Ngày dự kiến thanh toán: {formatDate("dueDate" in advance ? advance.dueDate as string : "")}</span>
-                              ) : (
-                                <span className="text-muted-foreground">Trích tự động: {"revenueRate" in advance ? Math.round((advance.revenueRate as number) * 100) : 0}%/chuyến</span>
-                              )
-                            ) : (
-                              <span className="text-muted-foreground">Đã hoàn tất</span>
-                            )}
-                          </div>
+                          <span className="text-muted-foreground">
+                            {advance.status === "active"
+                              ? `Trích ${Math.round(advance.revenueRate * 100)}%/chuyến · kỳ ~${advance.estimatedMonths} tháng`
+                              : `Hoàn tất — streak ${advance.streak} ngày`}
+                          </span>
                           <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                         </div>
                       </div>
