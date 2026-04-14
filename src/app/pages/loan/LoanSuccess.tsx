@@ -117,6 +117,10 @@ export function LoanSuccess() {
               <span>Tổng phải trả:</span>
               <span className="text-teal-700">{formatCurrency(totalRepay)}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích ước tính:</span>
+              <span>~{Math.round((dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
+            </div>
           </div>
 
           <div className="mt-4 bg-teal-50 rounded-xl p-3 text-sm text-muted-foreground">

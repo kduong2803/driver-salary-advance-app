@@ -34,7 +34,7 @@ export function LoanDiscovery() {
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-3xl mb-2">Vay Mua Xe</h1>
-          <p className="text-white/90 text-lg mb-5">Hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng và nhận xe ngay trong ngày</p>
+          <p className="text-white/90 text-lg mb-5">Hạn mức lên đến 100% giá trị xe — chọn xe, ký hợp đồng và nhận xe ngay trong ngày</p>
           <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 inline-block">
             <p className="text-white/80 text-sm mb-1">Vay tối đa</p>
             <p className="text-4xl">100% giá trị xe</p>
@@ -134,7 +134,7 @@ export function LoanDiscovery() {
           <h3 className="mb-4">Lợi ích khi sử dụng</h3>
           <div className="space-y-3">
             {[
-              "Hạn mức được phê duyệt sẵn — quy trình đơn giản, hoàn tất nhanh chóng",
+              "Hạn mức lên đến 100% giá trị xe — quy trình đơn giản, hoàn tất nhanh chóng",
               "Số tiền góp hàng ngày nhỏ, không áp lực — phù hợp với thu nhập chạy xe",
               "Trả nợ tự động mỗi ngày, không lo quên hay phát sinh phí trễ hạn",
               "Trả hết sớm bất kỳ lúc nào — không tính thêm phí",

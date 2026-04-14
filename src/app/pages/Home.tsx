@@ -76,20 +76,20 @@ export function Home() {
     },
     {
       id: "loan",
-      title: "Vay mua xe cho tài xế có uy tín",
-      intro: "Vay mua xe điện với hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày.",
+      title: "Vay mua xe điện cho tài xế",
+      intro: "Vay lên đến 100% giá trị xe, trả góp hàng ngày tự động từ doanh thu chạy xe — không cần chứng minh thu nhập.",
       icon: MotorbikeIcon,
       accent: "text-teal-600",
       bg: "bg-teal-500/10",
       stats: [
-        { label: "Hạn mức được duyệt", value: "30.000.000đ", icon: Wallet },
+        { label: "Vay tối đa", value: "100% giá xe", icon: Wallet },
         { label: "Góp mỗi ngày", value: "~35.000đ", icon: CalendarDays },
-        { label: "Lãi suất", value: "0.8%/tháng", icon: Percent },
+        { label: "Lãi suất", value: "~0.8%/tháng", icon: Percent },
       ],
       bullets: [
-        "Hạn mức được phê duyệt sẵn — nhận xe trong ngày, không cần làm thủ tục phức tạp",
-        "Số tiền góp hàng ngày nhỏ, phù hợp với thu nhập chạy xe — không áp lực trả theo tháng",
-        "Chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày — không cần đến đại lý làm thủ tục",
+        "Hạn mức lên đến 100% giá trị xe — chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày",
+        "Trả góp hàng ngày tự động từ doanh thu cuốc xe — số tiền nhỏ, không áp lực",
+        "Tất toán sớm bất kỳ lúc nào, không phát sinh phí",
       ],
     },
   ];

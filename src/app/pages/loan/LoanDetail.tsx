@@ -202,13 +202,21 @@ export function LoanDetail() {
               <span className="ml-auto text-xs text-muted-foreground">14/04/2026</span>
             </div>
 
+            {/* Repayment flow explanation */}
+            <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+              Dư nợ hàng ngày được khấu trừ tự động từ doanh thu cuốc xe. Phần còn lại sẽ được tự động trả từ ví V-SmartPay lúc 23h55 — nếu vẫn chưa đủ, số thiếu sẽ cộng vào ngày hôm sau.
+            </p>
+
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
                     <MotorbikeIcon className="w-4 h-4 text-teal-600" />
                   </div>
-                  <span className="text-muted-foreground">Thu từ cuốc xe</span>
+                  <div>
+                    <span className="text-muted-foreground">Từ doanh thu cuốc xe</span>
+                    <p className="text-xs text-muted-foreground/60">Tự động khấu trừ</p>
+                  </div>
                 </div>
                 <span className="text-teal-600">{formatCurrency(loan.todayTripPaid)}</span>
               </div>
@@ -218,17 +226,20 @@ export function LoanDetail() {
                   <div className="w-7 h-7 bg-cyan-100 rounded-lg flex items-center justify-center">
                     <Wallet className="w-4 h-4 text-cyan-600" />
                   </div>
-                  <span className="text-muted-foreground">Còn lại dự kiến thanh toán từ ví</span>
+                  <div>
+                    <span className="text-muted-foreground">Dự kiến thanh toán từ ví V-SmartPay</span>
+                    <p className="text-xs text-muted-foreground/60">{walletSweep ? "Tự động lúc 23h55 nếu còn thiếu" : "Tính năng đang tắt"}</p>
+                  </div>
                 </div>
-                <span className="text-cyan-600">{walletSweep ? formatCurrency(todayRemaining) : "Đã tắt"}</span>
+                <span className="text-cyan-600">{walletSweep ? formatCurrency(todayRemaining) : "—"}</span>
               </div>
 
               {/* Wallet sweep toggle */}
-              <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5">
-                <div>
-                  <p className="text-xs font-medium">Tự động quét ví</p>
+              <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5 gap-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium">Tự động quét ví V-SmartPay</p>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {walletSweep ? "Bật — sẽ tự trừ phần còn thiếu từ ví" : "Tắt - mở Tự động quét để tránh trễ hạn"}
+                    {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Tắt — mở để tránh bị gộp nợ hôm sau"}
                   </p>
                 </div>
                 <button
@@ -241,7 +252,7 @@ export function LoanDetail() {
 
               <div className="h-px bg-border" />
               <div className="flex justify-between items-center font-medium">
-                <span>Cần trả hôm nay</span>
+                <span>Dư nợ hôm nay</span>
                 <span className="text-teal-700">{formatCurrency(todayTotal)}</span>
               </div>
             </div>
@@ -255,8 +266,8 @@ export function LoanDetail() {
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1.5">
-              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% thu từ cuốc xe
-              {walletSweep && " — phần còn lại tự động từ ví"}
+              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% đã thu từ cuốc xe
+              {walletSweep && todayRemaining > 0 && ` — phần còn lại sẽ được tự động trả từ ví lúc 23h55`}
             </p>
           </motion.div>
         )}
@@ -280,6 +291,53 @@ export function LoanDetail() {
               </div>
             )}
           </div>
+
+          {/* Period summary */}
+          {loan.status !== "completed" && (() => {
+            const createdDate = new Date(loan.createdAt);
+            const daysSince = Math.floor((TODAY.getTime() - createdDate.getTime()) / 86400000);
+            const periodIndex = Math.floor(daysSince / 30);
+            const periodNum = periodIndex + 1;
+            const periodStart = new Date(createdDate.getTime() + periodIndex * 30 * 86400000);
+            const periodEnd = new Date(periodStart.getTime() + 29 * 86400000);
+            const daysElapsed = Math.min(Math.floor((TODAY.getTime() - periodStart.getTime()) / 86400000) + 1, 30);
+            const monthlyTarget = loan.dailyPayment * 30;
+            const paidThisPeriod = daysElapsed * loan.dailyPayment;
+            const remainingThisPeriod = Math.max(0, monthlyTarget - paidThisPeriod);
+            const paidPct = Math.min(100, Math.round((paidThisPeriod / monthlyTarget) * 100));
+            const fmtDate = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
+            return (
+              <div className="bg-muted/30 rounded-xl p-4 mb-4 border border-border/40">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-medium">Kỳ {periodNum}</p>
+                  <p className="text-xs text-muted-foreground">{fmtDate(periodStart)} – {fmtDate(periodEnd)}/{periodEnd.getFullYear()}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center mb-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Phải trả</p>
+                    <p className="text-sm font-medium">{formatCurrency(monthlyTarget)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Đã trả</p>
+                    <p className="text-sm font-medium text-teal-600">{formatCurrency(paidThisPeriod)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Còn lại</p>
+                    <p className="text-sm font-medium text-amber-600">{formatCurrency(remainingThisPeriod)}</p>
+                  </div>
+                </div>
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-3">
+                  <div className="h-full bg-teal-500 rounded-full transition-all" style={{ width: `${paidPct}%` }} />
+                </div>
+                <button
+                  onClick={() => { setPayAmount(String(remainingThisPeriod)); setPin(["","","","","",""]); setPinError(false); setPayStep("amount"); }}
+                  className="w-full bg-teal-600 text-white py-2.5 rounded-lg text-sm hover:bg-teal-700 transition-colors"
+                >
+                  Thanh toán kỳ {periodNum} — còn {formatCurrency(remainingThisPeriod)}
+                </button>
+              </div>
+            );
+          })()}
 
           {/* Month label */}
           <p className="text-xs text-muted-foreground text-center mb-3">
@@ -374,6 +432,10 @@ export function LoanDetail() {
             <div className="flex justify-between font-medium">
               <span>Góp mỗi ngày:</span>
               <span className="text-teal-700">{formatCurrency(loan.dailyPayment)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích ước tính:</span>
+              <span>~{Math.round((loan.dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
             </div>
           </div>
         </motion.div>

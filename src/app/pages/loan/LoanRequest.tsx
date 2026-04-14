@@ -63,15 +63,9 @@ export function LoanRequest() {
   };
 
   const handleConfirm = () => {
-    if (otp.join("") === "123456") {
-      navigate("/loan/success", {
-        state: { vehicleName: vehicle.name, vehicleType: vehicle.type, loanAmount, downPayment, termMonths, dailyPayment, totalRepay, totalInterest },
-      });
-    } else {
-      setOtpError(true);
-      setOtp(["", "", "", "", "", ""]);
-      otpRefs.current[0]?.focus();
-    }
+    navigate("/loan/success", {
+      state: { vehicleName: vehicle.name, vehicleType: vehicle.type, loanAmount, downPayment, termMonths, dailyPayment, totalRepay, totalInterest },
+    });
   };
 
   return (
@@ -149,14 +143,12 @@ export function LoanRequest() {
             <div className="bg-card rounded-2xl p-5 shadow-sm border border-border/50">
               <h3 className="mb-1">Số tiền trả trước</h3>
               <p className="text-sm text-muted-foreground mb-3">
-                {minDown > 0
-                  ? `Tối thiểu ${formatCurrency(minDown)} do giá xe vượt hạn mức`
-                  : "Trả trước để giảm số tiền góp hàng ngày — không bắt buộc"}
+                Tối thiểu {formatCurrency(minDown)} — hạn mức tín dụng {formatCurrency(CREDIT_LIMIT)}
               </p>
               <input
                 type="text"
                 inputMode="numeric"
-                placeholder={minDown > 0 ? formatCurrency(minDown) : "0đ (không bắt buộc)"}
+                placeholder={formatCurrency(minDown)}
                 value={downPaymentRaw ? parseInt(downPaymentRaw).toLocaleString("vi-VN") : ""}
                 onChange={(e) => setDownPaymentRaw(e.target.value.replace(/\D/g, ""))}
                 className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-teal-500 mb-3"
@@ -226,6 +218,10 @@ export function LoanRequest() {
                 <div className="flex justify-between font-medium border-t border-white/20 pt-2">
                   <span>Tổng phải trả:</span>
                   <span>{formatCurrency(totalRepay)}</span>
+                </div>
+                <div className="flex justify-between border-t border-white/20 pt-2">
+                  <span className="text-white/80">Tỷ lệ trích ước tính:</span>
+                  <span>~{Math.round((dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
                 </div>
               </div>
             </div>
