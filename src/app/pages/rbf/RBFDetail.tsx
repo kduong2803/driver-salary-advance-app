@@ -32,6 +32,7 @@ const ADVANCES = [
     progress: 33,
     estimatedMonths: 3,
     streak: 3,
+    todayTripDeducted: 140000,
     calendarPattern: ["paid", "paid", "paid"] as DayStatus[],
   },
   {
@@ -45,6 +46,7 @@ const ADVANCES = [
     progress: 60,
     estimatedMonths: 2,
     streak: 5,
+    todayTripDeducted: 300000,
     calendarPattern: [
       "paid","paid","missed","paid","wallet","paid","paid",
       "paid","missed","paid","wallet","paid","paid","paid",
@@ -89,6 +91,10 @@ export function RBFDetail() {
   const totalRepay = advance.amount + totalInterest;
   const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * pendingRate));
   const estimatedMonthsRemaining = Math.min(6, Math.max(1, Math.ceil(estimatedDaysRemaining / 30)));
+
+  const todayDailyTarget = Math.round(AVG_DAILY_REVENUE * advance.revenueRate);
+  const todayTripDeducted = (advance as any).todayTripDeducted ?? 0;
+  const todayRemaining = Math.max(0, todayDailyTarget - todayTripDeducted);
 
   const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
   const formatDateTime = (dateString: string) => {
@@ -146,11 +152,86 @@ export function RBFDetail() {
           </div>
         </motion.div>
 
+        {/* Today's status */}
+        {advance.status === "active" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Clock className="w-5 h-5 text-primary" />
+              <h3>Trạng thái hôm nay</h3>
+              <span className="ml-auto text-xs text-muted-foreground">14/04/2026</span>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-teal-600" />
+                  </div>
+                  <span className="text-muted-foreground">Từ doanh thu chuyến xe</span>
+                </div>
+                <span className="text-teal-600">{formatCurrency(todayTripDeducted)}</span>
+              </div>
+
+              <div className={`flex justify-between items-center transition-opacity ${walletSweep ? "" : "opacity-40"}`}>
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 bg-cyan-100 rounded-lg flex items-center justify-center">
+                    <Wallet className="w-4 h-4 text-cyan-600" />
+                  </div>
+                  <span className="text-muted-foreground">Dự kiến thanh toán từ ví V-SmartPay</span>
+                </div>
+                <span className="text-cyan-600">{walletSweep ? formatCurrency(todayRemaining) : "—"}</span>
+              </div>
+
+              <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5 gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <Wallet className="w-3.5 h-3.5 text-primary" />
+                    <p className="text-xs font-medium">Tự động quét ví V-SmartPay</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Bật ngay để tránh trễ hạn dư nợ"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setWalletSweep(!walletSweep)}
+                  className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${walletSweep ? "bg-primary" : "bg-muted-foreground/30"}`}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${walletSweep ? "translate-x-5" : "translate-x-0"}`} />
+                </button>
+              </div>
+
+              <div className="h-px bg-border" />
+              <div className="flex justify-between items-center font-medium">
+                <span>Dư nợ hôm nay</span>
+                <span className="text-primary">{formatCurrency(todayDailyTarget)}</span>
+              </div>
+            </div>
+
+            <div className="mt-3 h-2 bg-muted rounded-full overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${Math.min(100, Math.round(todayTripDeducted / todayDailyTarget * 100))}%` }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-full bg-primary rounded-full"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1.5">
+              {Math.round(todayTripDeducted / todayDailyTarget * 100)}% đã trích từ chuyến xe
+              {walletSweep && todayRemaining > 0 && ` — phần còn lại sẽ được tự động trả từ ví lúc 23h55`}
+            </p>
+          </motion.div>
+        )}
+
         {/* Transaction Details */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.15 }}
           className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
           <div className="flex items-center gap-2 mb-4">
@@ -256,27 +337,6 @@ export function RBFDetail() {
             );
           })()}
 
-          {/* Wallet sweep toggle */}
-          {advance.status !== "completed" && (
-            <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5 gap-3 mb-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <Wallet className="w-3.5 h-3.5 text-primary" />
-                  <p className="text-xs font-medium">Tự động quét ví V-SmartPay</p>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Bật ngay để tránh trễ hạn dư nợ"}
-                </p>
-              </div>
-              <button
-                onClick={() => setWalletSweep(!walletSweep)}
-                className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${walletSweep ? "bg-primary" : "bg-muted-foreground/30"}`}
-              >
-                <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${walletSweep ? "translate-x-5" : "translate-x-0"}`} />
-              </button>
-            </div>
-          )}
-
           <p className="text-xs text-muted-foreground text-center mb-3">
             Tháng {TODAY.getMonth() + 1}/{TODAY.getFullYear()}
           </p>
@@ -351,7 +411,7 @@ export function RBFDetail() {
           >
             <div className="flex items-center gap-2 mb-4">
               <Percent className="w-5 h-5 text-primary" />
-              <h3>Điều chỉnh tỷ lệ trích</h3>
+              <h3>Điều chỉnh tỷ lệ trích doanh thu</h3>
             </div>
 
             <div className="flex items-center justify-between mb-3">

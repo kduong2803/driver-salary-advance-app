@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft,  Calendar, CheckCircle2, Clock, AlertCircle, Wifi, MapPin, ArrowRight, Flame, Wallet, Zap } from "lucide-react";
+import { ArrowLeft, Calendar, CheckCircle2, Clock, AlertCircle, Wifi, MapPin, ArrowRight, Flame, Wallet, Zap, ChevronUp, ChevronDown, Percent } from "lucide-react";
 import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 type DayStatus = "trip" | "wallet" | "missed" | "today" | "future";
@@ -109,6 +109,16 @@ export function LoanDetail() {
   const feePercent = ((totalInterest / loan.loanAmount) * 100).toFixed(1);
   const todayTotal = loan.rolledOver > 0 ? loan.dailyPayment + loan.rolledOver : loan.dailyPayment;
   const todayRemaining = Math.max(0, todayTotal - loan.todayTripPaid);
+
+  const LOAN_AVG_DAILY_REVENUE = 350000;
+  const baseRate = Math.round(loan.dailyPayment / LOAN_AVG_DAILY_REVENUE * 100) / 100;
+  const [currentRate, setCurrentRate] = useState(baseRate);
+  const [pendingRate, setPendingRate] = useState(baseRate);
+  const adjustPendingRate = (delta: number) => {
+    const next = Math.round((pendingRate + delta) * 100) / 100;
+    if (next >= baseRate && next <= 0.30) setPendingRate(next);
+  };
+  const estimatedMonthsRemaining = Math.ceil(loan.remainingAmount / (LOAN_AVG_DAILY_REVENUE * pendingRate * 30));
 
   const formatCurrency = (v: number) => v.toLocaleString("vi-VN") + "đ";
   const formatDate = (s: string) =>
@@ -429,6 +439,61 @@ export function LoanDetail() {
             </div>
           </div>
         </motion.div>
+
+        {/* Rate adjustment */}
+        {loan.status === "active" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Percent className="w-5 h-5 text-teal-600" />
+              <h3>Điều chỉnh tỷ lệ trích doanh thu</h3>
+            </div>
+
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/ngày</span></p>
+                <p className="text-xs text-muted-foreground mt-0.5">Tăng mức trích để hoàn trả sớm hơn</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => adjustPendingRate(-0.05)}
+                  disabled={pendingRate <= baseRate}
+                  className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-teal-500 transition-colors"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                <span className={`text-2xl font-semibold w-14 text-center ${pendingRate !== currentRate ? "text-amber-500" : "text-teal-600"}`}>
+                  {Math.round(pendingRate * 100)}%
+                </span>
+                <button
+                  onClick={() => adjustPendingRate(0.05)}
+                  disabled={pendingRate >= 0.30}
+                  className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-teal-500 transition-colors"
+                >
+                  <ChevronUp className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-teal-50 rounded-xl p-3 flex justify-between text-sm mb-3">
+              <span className="text-muted-foreground">Hoàn trả dự kiến còn:</span>
+              <span className="text-teal-700 font-medium">~{estimatedMonthsRemaining} tháng</span>
+            </div>
+
+            {pendingRate !== currentRate && (
+              <button
+                onClick={() => setCurrentRate(pendingRate)}
+                className="w-full bg-teal-600 text-white py-2.5 rounded-xl text-sm hover:bg-teal-700 transition-colors"
+              >
+                Xác nhận — áp dụng {Math.round(pendingRate * 100)}%/ngày
+              </button>
+            )}
+          </motion.div>
+        )}
 
         {/* Vehicle IoT Status */}
         <motion.div
