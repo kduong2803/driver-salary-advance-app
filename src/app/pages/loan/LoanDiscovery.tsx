@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, CheckCircle2, ChevronRight, Shield } from "lucide-react";
+import { ArrowLeft, ChevronRight, Shield } from "lucide-react";
 import { MotorbikeIcon } from "../../components/MotorbikeIcon";
 
 const CREDIT_LIMIT = 30000000;
@@ -33,15 +33,11 @@ export function LoanDiscovery() {
         </Link>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4">
-            <CheckCircle2 className="w-4 h-4" />
-            <span className="text-sm">Đã được duyệt sẵn</span>
-          </div>
           <h1 className="text-3xl mb-2">Vay Mua Xe</h1>
           <p className="text-white/90 text-lg mb-5">Hạn mức được phê duyệt sẵn — chọn xe, ký hợp đồng và nhận xe ngay trong ngày</p>
           <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 inline-block">
-            <p className="text-white/80 text-sm mb-1">Hạn mức được duyệt</p>
-            <p className="text-4xl">{formatCurrency(CREDIT_LIMIT)}</p>
+            <p className="text-white/80 text-sm mb-1">Vay tối đa</p>
+            <p className="text-4xl">100% giá trị xe</p>
           </div>
         </motion.div>
 

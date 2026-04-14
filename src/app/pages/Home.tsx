@@ -32,7 +32,7 @@ export function Home() {
       icon: Car,
       gradient: "from-cyan-600 to-teal-600",
       link: "/loan/discovery",
-      features: ["Hạn mức phê duyệt sẵn", "Trả góp hàng ngày tự động", "Hạn mức đến 30tr"],
+      features: ["Hạn mức phê duyệt sẵn", "Trả góp hàng ngày tự động", "Vay đến 100% giá trị xe"],
     },
   ];
 

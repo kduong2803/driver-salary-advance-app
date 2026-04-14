@@ -103,6 +103,7 @@ export function LoanDetail() {
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
   const [pinError, setPinError] = useState(false);
   const pinRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [walletSweep, setWalletSweep] = useState(true);
 
   const totalInterest = Math.round(loan.loanAmount * loan.monthlyRate * loan.termMonths);
   const feePercent = ((totalInterest / loan.loanAmount) * 100).toFixed(1);
@@ -212,14 +213,30 @@ export function LoanDetail() {
                 <span className="text-teal-600">{formatCurrency(loan.todayTripPaid)}</span>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className={`flex justify-between items-center transition-opacity ${walletSweep ? "" : "opacity-40"}`}>
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 bg-cyan-100 rounded-lg flex items-center justify-center">
                     <Wallet className="w-4 h-4 text-cyan-600" />
                   </div>
-                  <span className="text-muted-foreground">Sẽ quét từ ví lúc 23h</span>
+                  <span className="text-muted-foreground">Quét ví lúc 23h</span>
                 </div>
-                <span className="text-cyan-600">{formatCurrency(todayRemaining)}</span>
+                <span className="text-cyan-600">{walletSweep ? formatCurrency(todayRemaining) : "Đã tắt"}</span>
+              </div>
+
+              {/* Wallet sweep toggle */}
+              <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5">
+                <div>
+                  <p className="text-xs font-medium">Tự động quét ví lúc 23h</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {walletSweep ? "Bật — sẽ tự trừ phần còn thiếu từ ví" : "Tắt — cần trả thủ công trước 23h"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setWalletSweep(!walletSweep)}
+                  className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${walletSweep ? "bg-teal-500" : "bg-muted-foreground/30"}`}
+                >
+                  <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${walletSweep ? "translate-x-5" : "translate-x-0.5"}`} />
+                </button>
               </div>
 
               <div className="h-px bg-border" />
@@ -238,7 +255,10 @@ export function LoanDetail() {
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1.5">
-              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% thu từ cuốc xe — phần còn lại tự động từ ví lúc 23h
+              {Math.round((loan.todayTripPaid / todayTotal) * 100)}% thu từ cuốc xe
+              {walletSweep
+                ? " — phần còn lại tự động từ ví lúc 23h"
+                : " — quét ví đang tắt, nhớ trả thủ công phần còn lại"}
             </p>
           </motion.div>
         )}
