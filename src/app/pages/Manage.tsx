@@ -448,8 +448,8 @@ export function Manage() {
                 const statusConfig = getStatusConfig(loan.status);
                 const StatusIcon = statusConfig.icon;
                 const dayColors: Record<string, string> = {
-                  trip: "bg-green-400",
-                  wallet: "bg-blue-400",
+                  trip: "bg-teal-400",
+                  wallet: "bg-cyan-400",
                   missed: "bg-red-400",
                   today: "bg-amber-400",
                   future: "bg-muted",

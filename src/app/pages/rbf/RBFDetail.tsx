@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2, Wallet } from "lucide-react";
+import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2, Wallet, Zap } from "lucide-react";
 
 const AVG_DAILY_REVENUE = 1000000;
 
@@ -9,7 +9,7 @@ const TERM_RATES: Record<number, number> = {
   1: 0.025, 2: 0.028, 3: 0.030, 4: 0.033, 5: 0.035, 6: 0.038,
 };
 
-type DayStatus = "paid" | "missed" | "today" | "future";
+type DayStatus = "paid" | "wallet" | "missed" | "today" | "future";
 
 const WEEK_DAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
@@ -46,10 +46,10 @@ const ADVANCES = [
     estimatedMonths: 2,
     streak: 5,
     calendarPattern: [
-      "paid","paid","missed","paid","paid","paid","paid",
-      "paid","missed","paid","paid","paid","paid","paid",
-      "paid","paid","paid","missed","paid","paid","paid",
-      "paid","paid","paid","paid","missed",
+      "paid","paid","missed","paid","wallet","paid","paid",
+      "paid","missed","paid","wallet","paid","paid","paid",
+      "paid","paid","wallet","missed","paid","paid","paid",
+      "paid","wallet","paid","paid","missed",
     ] as DayStatus[],
   },
   {
@@ -312,11 +312,13 @@ export function RBFDetail() {
                     <div key={day} className="flex flex-col items-center gap-0.5">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                         status === "paid" ? "bg-teal-100"
+                        : status === "wallet" ? "bg-cyan-100"
                         : status === "missed" ? "bg-red-100"
                         : status === "today" ? "bg-amber-100 border-2 border-amber-400"
                         : "bg-muted/30"
                       }`}>
                         {status === "paid" && <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />}
+                        {status === "wallet" && <Zap className="w-3.5 h-3.5 text-cyan-600" />}
                         {status === "missed" && <AlertCircle className="w-3.5 h-3.5 text-red-500" />}
                         {status === "today" && <Clock className="w-3.5 h-3.5 text-amber-500" />}
                         {status === "future" && <span className="text-xs text-muted-foreground/30">{day}</span>}
@@ -333,6 +335,7 @@ export function RBFDetail() {
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-teal-100 rounded-full" /><span>Đã trích</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-cyan-100 rounded-full" /><span>Từ ví</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Thiếu — gộp hôm sau</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-100 border border-amber-400 rounded-full" /><span>Hôm nay</span></div>
           </div>
