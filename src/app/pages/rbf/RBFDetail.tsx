@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2 } from "lucide-react";
+import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2, Wallet } from "lucide-react";
 
 const AVG_DAILY_REVENUE = 1000000;
 
@@ -79,6 +79,7 @@ export function RBFDetail() {
   const pinRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const advance = ADVANCES.find((a) => a.id === id) || ADVANCES[0];
+  const [walletSweep, setWalletSweep] = useState(true);
   const [currentRate, setCurrentRate] = useState(advance.revenueRate);
   const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
@@ -205,6 +206,76 @@ export function RBFDetail() {
               </div>
             )}
           </div>
+
+          {/* Period summary */}
+          {advance.status !== "completed" && (() => {
+            const createdDate = new Date(advance.createdAt);
+            const daysSince = Math.floor((TODAY.getTime() - createdDate.getTime()) / 86400000);
+            const periodIndex = Math.floor(daysSince / 30);
+            const periodNum = periodIndex + 1;
+            const periodStart = new Date(createdDate.getTime() + periodIndex * 30 * 86400000);
+            const periodEnd = new Date(periodStart.getTime() + 29 * 86400000);
+            const daysElapsed = Math.min(Math.floor((TODAY.getTime() - periodStart.getTime()) / 86400000) + 1, 30);
+            // Ước tính trích trong kỳ = daysElapsed × (doanh thu tb × tỷ lệ trích)
+            const dailyDeduction = Math.round(AVG_DAILY_REVENUE * advance.revenueRate);
+            const monthlyTarget = dailyDeduction * 30;
+            const paidThisPeriod = Math.min(daysElapsed * dailyDeduction, advance.paidAmount);
+            const remainingThisPeriod = Math.max(0, monthlyTarget - paidThisPeriod);
+            const paidPct = Math.min(100, Math.round((paidThisPeriod / monthlyTarget) * 100));
+            const fmtDate = (d: Date) => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
+            return (
+              <div className="bg-muted/30 rounded-xl p-4 mb-4 border border-border/40">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-medium">Kỳ {periodNum}</p>
+                  <p className="text-xs text-muted-foreground">{fmtDate(periodStart)} – {fmtDate(periodEnd)}/{periodEnd.getFullYear()}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center mb-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Phải trích</p>
+                    <p className="text-sm font-medium">{formatCurrency(monthlyTarget)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Đã trích</p>
+                    <p className="text-sm font-medium text-primary">{formatCurrency(paidThisPeriod)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Còn lại</p>
+                    <p className="text-sm font-medium text-amber-600">{formatCurrency(remainingThisPeriod)}</p>
+                  </div>
+                </div>
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-3">
+                  <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${paidPct}%` }} />
+                </div>
+                <button
+                  onClick={() => { setPayAmount(String(remainingThisPeriod)); setPin(["","","","","",""]); setPinError(false); setPayStep("amount"); }}
+                  className="w-full bg-primary text-white py-2.5 rounded-lg text-sm hover:bg-primary/90 transition-colors"
+                >
+                  Thanh toán kỳ {periodNum} — còn {formatCurrency(remainingThisPeriod)}
+                </button>
+              </div>
+            );
+          })()}
+
+          {/* Wallet sweep toggle */}
+          {advance.status !== "completed" && (
+            <div className="flex items-center justify-between bg-muted/40 rounded-xl px-3 py-2.5 gap-3 mb-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <Wallet className="w-3.5 h-3.5 text-primary" />
+                  <p className="text-xs font-medium">Tự động quét ví V-SmartPay</p>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Bật ngay để tránh trễ hạn dư nợ"}
+                </p>
+              </div>
+              <button
+                onClick={() => setWalletSweep(!walletSweep)}
+                className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${walletSweep ? "bg-primary" : "bg-muted-foreground/30"}`}
+              >
+                <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${walletSweep ? "translate-x-5" : "translate-x-0"}`} />
+              </button>
+            </div>
+          )}
 
           <p className="text-xs text-muted-foreground text-center mb-3">
             Tháng {TODAY.getMonth() + 1}/{TODAY.getFullYear()}
