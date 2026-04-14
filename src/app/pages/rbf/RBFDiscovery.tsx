@@ -1,43 +1,68 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Building2, Zap } from "lucide-react";
+import { ArrowLeft, TrendingUp, Shield, Check, ChevronRight, Percent, Building2, Calendar } from "lucide-react";
+
+const TERM_RATES: Record<number, number> = {
+  1: 0.025, 2: 0.028, 3: 0.030, 4: 0.033, 5: 0.035, 6: 0.038,
+};
+
+const AVG_DAILY_REVENUE = 1000000;
+const EXAMPLE_AMOUNT = 10000000;
+
+const calcExample = (rate: number) => {
+  const days = Math.ceil(EXAMPLE_AMOUNT / (AVG_DAILY_REVENUE * rate));
+  const months = Math.min(6, Math.max(1, Math.ceil(days / 30)));
+  const monthlyRate = TERM_RATES[months];
+  const interest = Math.round(EXAMPLE_AMOUNT * monthlyRate * months);
+  return { months, monthlyRate, interest, total: EXAMPLE_AMOUNT + interest };
+};
 
 export function RBFDiscovery() {
   const features = [
     {
       icon: TrendingUp,
-      title: "Hạn mức được phê duyệt",
+      title: "Hạn mức được duyệt",
       value: "Đến 15tr",
       description: "Dựa trên doanh thu và tần suất hoạt động 90 ngày gần nhất",
     },
     {
-      icon: Zap,
-      title: "Không kỳ hạn cố định",
-      value: "Tự động",
-      description: "Hệ thống trích theo từng chuyến — không deadline, không áp lực tất toán đúng hạn",
+      icon: Calendar,
+      title: "Kỳ hạn tương đương",
+      value: "1 – 6 tháng",
+      description: "Tỷ lệ trích mỗi chuyến quy ra kỳ hạn tương đương — lãi cố định theo kỳ",
     },
     {
       icon: Percent,
-      title: "Trích càng cao, phí càng thấp",
+      title: "Trích càng cao, lãi càng thấp",
       value: "10 – 50%",
-      description: "Chọn 10/20/30/40/50% mỗi chuyến — hoàn tất sớm hơn, phí thấp hơn",
+      description: "Chọn mức trích mỗi chuyến — kỳ ngắn hơn, lãi suất thấp hơn",
     },
   ];
 
   const benefits = [
-    "Không kỳ hạn — hệ thống trích tự động sau mỗi chuyến cho đến khi hoàn tất",
-    "Tỷ lệ trích càng cao, hoàn tất càng nhanh và tổng phí thực tế càng thấp",
-    "Tất toán sớm bất kỳ lúc nào từ V-Smart Pay — không phát sinh thêm phí",
-    "Theo dõi tiến độ hoàn trả và lịch sử trích từng chuyến ngay trên ứng dụng",
-    "Hạn mức được phục hồi sau mỗi lần tất toán — có thể ứng tiếp ngay",
+    "Tỷ lệ trích mỗi chuyến được quy ra kỳ hạn tương đương — lãi suất cố định theo kỳ, không phát sinh thêm",
+    "Trích càng cao → kỳ hạn càng ngắn → lãi suất càng thấp",
+    "Tất toán sớm bất kỳ lúc nào từ V-Smart Pay",
+    "Theo dõi lịch trích, kỳ hạn và tiến độ hoàn trả ngay trên ứng dụng",
+    "Hạn mức được phục hồi sau tất toán — có thể ứng tiếp ngay",
   ];
 
   const howItWorks = [
     { step: "1", title: "Hệ thống đánh giá hoạt động", desc: "Xét doanh thu, số chuyến và mức độ hoạt động 90 ngày gần nhất để phê duyệt hạn mức" },
-    { step: "2", title: "Chọn số tiền và tỷ lệ trích", desc: "Chọn số tiền cần ứng và tỷ lệ trích mỗi chuyến — xem ước tính phí và số ngày hoàn tất" },
+    { step: "2", title: "Chọn số tiền và tỷ lệ trích", desc: "Chọn số tiền cần ứng và tỷ lệ trích — hệ thống tính ngay kỳ hạn tương đương và lãi suất áp dụng" },
     { step: "3", title: "Giải ngân vào V-Smart Pay", desc: "Xác nhận và nhận tiền ngay vào ví V-Smart Pay — không cần chờ xét duyệt thêm" },
-    { step: "4", title: "Trích tự động sau mỗi chuyến", desc: "Hệ thống tự trích theo tỷ lệ đã chọn cho đến khi hoàn tất — có thể điều chỉnh hoặc tất toán sớm bất kỳ lúc nào" },
+    { step: "4", title: "Trích tự động sau mỗi chuyến", desc: "Hệ thống tự trích theo tỷ lệ đã chọn cho đến khi hoàn tất kỳ hạn — có thể điều chỉnh % trích hoặc tất toán sớm" },
   ];
+
+  const examples = [
+    { rate: 0.1, label: "10%" },
+    { rate: 0.2, label: "20%" },
+    { rate: 0.3, label: "30%" },
+    { rate: 0.4, label: "40%" },
+    { rate: 0.5, label: "50%" },
+  ];
+
+  const formatCurrency = (v: number) => v.toLocaleString("vi-VN") + "đ";
 
   return (
     <div className="min-h-screen bg-background">
@@ -52,7 +77,7 @@ export function RBFDiscovery() {
             <Building2 className="w-9 h-9" />
           </div>
           <h1 className="text-3xl mb-2">Ứng Doanh Thu</h1>
-          <p className="text-white/90 text-lg">Hoàn trả tự động, không kỳ hạn — trích càng cao, phí càng thấp</p>
+          <p className="text-white/90 text-lg">Chọn mức trích — kỳ hạn và lãi được tính tự động</p>
         </motion.div>
 
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -125,34 +150,31 @@ export function RBFDiscovery() {
 
         {/* Example */}
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-          <h4 className="mb-4 text-primary">Ví dụ minh họa</h4>
-          <div className="space-y-4 text-sm">
-            <div>
-              <p className="text-muted-foreground mb-2 font-medium">Ứng 10.000.000đ — doanh thu ~1tr/ngày</p>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { rate: "10%", days: 100, fee: "98.630đ" },
-                  { rate: "20%", days: 50, fee: "49.315đ" },
-                  { rate: "30%", days: 34, fee: "33.534đ" },
-                  { rate: "40%", days: 25, fee: "24.658đ" },
-                  { rate: "50%", days: 20, fee: "19.726đ" },
-                ].map((row) => (
-                  <div key={row.rate} className="bg-card rounded-xl p-3 border border-border/40 space-y-1">
-                    <p className="text-primary font-semibold">Trích {row.rate}/chuyến</p>
-                    <div className="text-xs text-muted-foreground space-y-0.5">
-                      <div className="flex justify-between">
-                        <span>Hoàn tất:</span>
-                        <span className="text-foreground">~{row.days} ngày</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Phí ước tính:</span>
-                        <span className="text-destructive">{row.fee}</span>
-                      </div>
+          <h4 className="mb-1 text-primary">Ví dụ minh họa</h4>
+          <p className="text-sm text-muted-foreground mb-4">Ứng 10.000.000đ — doanh thu ~1tr/ngày</p>
+          <div className="grid grid-cols-2 gap-3">
+            {examples.map(({ rate, label }) => {
+              const { months, monthlyRate, interest } = calcExample(rate);
+              return (
+                <div key={label} className="bg-card rounded-xl p-3 border border-border/40 space-y-1.5">
+                  <p className="text-primary font-semibold text-sm">Trích {label}/chuyến</p>
+                  <div className="text-xs text-muted-foreground space-y-0.5">
+                    <div className="flex justify-between">
+                      <span>Kỳ hạn:</span>
+                      <span className="text-foreground">~{months} tháng</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Lãi suất:</span>
+                      <span className="text-foreground">{(monthlyRate * 100).toFixed(1)}%/tháng</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Tổng lãi:</span>
+                      <span className="text-destructive">+{formatCurrency(interest)}</span>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
