@@ -65,7 +65,7 @@ export function LoanSuccess() {
           className="bg-gradient-to-br from-cyan-600 to-teal-700 text-white rounded-2xl p-6 shadow-xl text-center"
         >
           <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <MotorbikeIcon className="w-9 h-9" />
+            <MotorbikeIcon className="w-9 h-9 text-white" />
           </div>
           <p className="text-white/80 text-sm mb-1">{vehicleType}</p>
           <p className="text-2xl mb-1">{vehicleName}</p>

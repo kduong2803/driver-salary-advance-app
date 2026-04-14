@@ -136,7 +136,7 @@ export function LoanDetail() {
         >
           <div className="flex items-start gap-3 mb-5">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-              <MotorbikeIcon className="w-7 h-7" />
+              <MotorbikeIcon className="w-7 h-7 text-white" />
             </div>
             <div>
               <p className="text-white/80 text-sm">{loan.vehicleType}</p>
