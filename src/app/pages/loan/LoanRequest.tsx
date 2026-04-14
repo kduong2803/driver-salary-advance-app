@@ -185,9 +185,9 @@ export function LoanRequest() {
                         termMonths === t ? "border-teal-500 bg-teal-50 text-teal-700" : "border-border hover:border-teal-300"
                       }`}
                     >
-                      <p className={`text-sm font-medium ${termMonths === t ? "text-teal-700" : ""}`}>{t} th</p>
+                      <p className={`text-sm font-medium ${termMonths === t ? "text-teal-700" : ""}`}>{t} tháng</p>
                       <p className={`text-xs mt-0.5 ${termMonths === t ? "text-teal-600" : "text-muted-foreground"}`}>
-                        ~{Math.round(dailyForTerm / 1000)}k/ng
+                        ~{Math.round(dailyForTerm / 1000)}k/ngày
                       </p>
                     </button>
                   );
@@ -215,13 +215,13 @@ export function LoanRequest() {
                   <span className="text-white/80">Tổng lãi ({feePercent}%):</span>
                   <span>+{formatCurrency(totalInterest)}</span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-white/80">Tỷ lệ trích ước tính:</span>
+                  <span>~{Math.round((dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
+                </div>
                 <div className="flex justify-between font-medium border-t border-white/20 pt-2">
                   <span>Tổng phải trả:</span>
                   <span>{formatCurrency(totalRepay)}</span>
-                </div>
-                <div className="flex justify-between border-t border-white/20 pt-2">
-                  <span className="text-white/80">Tỷ lệ trích ước tính:</span>
-                  <span>~{Math.round((dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
                 </div>
               </div>
             </div>

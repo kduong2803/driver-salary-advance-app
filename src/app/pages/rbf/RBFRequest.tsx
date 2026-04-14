@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, AlertCircle, Wallet, TrendingDown } from "lucide-react";
+import { ArrowLeft, AlertCircle, Wallet } from "lucide-react";
 import { FaceAuth } from "../../components/FaceAuth";
 
-const DAILY_RATE = 0.36 / 365; // 36%/năm
 const AVG_DAILY_REVENUE = 1000000;
 const MAX_AMOUNT = 15000000;
+const DAILY_RATE = 0.36 / 365;
 
 const RATE_OPTIONS = [
   { value: 0.1, label: "10%" },
@@ -16,6 +16,9 @@ const RATE_OPTIONS = [
   { value: 0.5, label: "50%" },
 ];
 
+const calcMonths = (amount: number, rate: number) =>
+  amount > 0 ? Math.min(6, Math.ceil(amount / (AVG_DAILY_REVENUE * rate) / 30)) : null;
+
 export function RBFRequest() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
@@ -23,7 +26,8 @@ export function RBFRequest() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const numAmount = parseInt(amount.replace(/\D/g, "")) || 0;
-  const estimatedDays = numAmount > 0 ? Math.ceil(numAmount / (AVG_DAILY_REVENUE * deductionRate)) : 0;
+  const estimatedMonths = calcMonths(numAmount, deductionRate) ?? 0;
+  const estimatedDays = estimatedMonths * 30;
   const estimatedFee = numAmount > 0 ? Math.round(numAmount * DAILY_RATE * estimatedDays) : 0;
   const estimatedFeeRate = numAmount > 0 ? (estimatedFee / numAmount * 100).toFixed(1) : "0";
   const totalRepay = numAmount + estimatedFee;
@@ -38,7 +42,7 @@ export function RBFRequest() {
   const quickAmounts = [3000000, 5000000, 8000000, 15000000];
 
   const handleConfirm = () => navigate("/rbf/success", {
-    state: { amount: numAmount, estimatedFee, totalRepay, deductionRate, estimatedDays },
+    state: { amount: numAmount, estimatedFee, totalRepay, deductionRate, estimatedMonths },
   });
 
   return (
@@ -49,7 +53,7 @@ export function RBFRequest() {
           <span>Quay lại</span>
         </Link>
         <h1 className="text-2xl mb-1">Ứng doanh thu vận hành</h1>
-        <p className="text-white/80">Hoàn trả tự động theo chuyến — trích càng cao, phí càng thấp</p>
+        <p className="text-white/80">Chọn mức trích — hệ thống tính kỳ hạn tương đương</p>
       </div>
 
       <div className="max-w-lg mx-auto px-6 py-6 space-y-5">
@@ -88,26 +92,30 @@ export function RBFRequest() {
         <div className="bg-card rounded-2xl p-5 shadow-sm border border-border/50">
           <div className="mb-3">
             <p className="text-sm font-medium">Tỷ lệ trích mỗi chuyến</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Trích càng cao → hoàn trả càng nhanh → phí càng thấp</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Trích càng cao → kỳ hạn càng ngắn → phí càng thấp</p>
           </div>
           <div className="grid grid-cols-5 gap-2">
-            {RATE_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => setDeductionRate(opt.value)}
-                className={`py-3 rounded-xl border-2 text-sm font-semibold transition-all ${
-                  deductionRate === opt.value
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border text-muted-foreground hover:border-primary/40"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-            <TrendingDown className="w-3.5 h-3.5 text-green-600 flex-shrink-0" />
-            <span>Hoàn trả tự động sau mỗi chuyến — không cần thao tác, không kỳ hạn cố định</span>
+            {RATE_OPTIONS.map((opt) => {
+              const months = calcMonths(numAmount, opt.value);
+              return (
+                <button
+                  key={opt.value}
+                  onClick={() => setDeductionRate(opt.value)}
+                  className={`py-2.5 px-1 rounded-xl border-2 text-center transition-all ${
+                    deductionRate === opt.value
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-border text-muted-foreground hover:border-primary/40"
+                  }`}
+                >
+                  <p className="text-sm font-semibold">{opt.label}</p>
+                  {months !== null && (
+                    <p className={`text-xs mt-0.5 ${deductionRate === opt.value ? "text-primary" : "text-muted-foreground"}`}>
+                      ~{months} tháng
+                    </p>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -128,39 +136,30 @@ export function RBFRequest() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-card rounded-2xl p-5 shadow-sm border border-border/50 space-y-3"
+              className="bg-gradient-to-br from-cyan-400 to-cyan-600 text-white rounded-2xl p-5 shadow-xl"
             >
-              <h3 className="text-sm font-medium">Ước tính khoản ứng</h3>
-
-              <div className="space-y-2.5 text-sm">
+              <div className="text-center mb-5">
+                <p className="text-white/80 text-sm mb-1">Kỳ hạn tương đương</p>
+                <p className="text-4xl">{estimatedMonths} tháng</p>
+                <p className="text-white/70 text-sm mt-1">Trích {Math.round(deductionRate * 100)}% mỗi chuyến · ~{estimatedDays} ngày</p>
+              </div>
+              <div className="space-y-2 text-sm border-t border-white/20 pt-4">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Số tiền giải ngân:</span>
+                  <span className="text-white/80">Số tiền giải ngân:</span>
                   <span>{formatCurrency(numAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Ước tính hoàn tất:</span>
-                  <span>~{estimatedDays} ngày</span>
+                  <span className="text-white/80">Phí ước tính ({estimatedFeeRate}%):</span>
+                  <span>+{formatCurrency(estimatedFee)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Phí ước tính ({estimatedFeeRate}%):</span>
-                  <span className="text-destructive">+{formatCurrency(estimatedFee)}</span>
-                </div>
-                <div className="h-px bg-border" />
-                <div className="flex justify-between font-medium">
+                <div className="flex justify-between font-medium border-t border-white/20 pt-2">
                   <span>Tổng hoàn trả ước tính:</span>
-                  <span className="text-primary">{formatCurrency(totalRepay)}</span>
+                  <span>{formatCurrency(totalRepay)}</span>
                 </div>
               </div>
-
-              <div className="bg-muted/40 rounded-xl p-3 text-xs text-muted-foreground">
-                Phí tính theo ngày thực tế nắm giữ khoản ứng (36%/năm). Hoàn trả nhanh hơn = ít ngày = phí thấp hơn.
-              </div>
-
-              <div className="flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-muted-foreground">
-                  Có thể tất toán sớm từ V-Smart Pay bất kỳ lúc nào. Phí tính đến ngày tất toán thực tế.
-                </p>
+              <div className="mt-3 bg-white/10 rounded-xl p-3 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-white/70" />
+                <p className="text-xs text-white/80">Kỳ hạn tính theo doanh thu trung bình. Hoàn trả sớm hơn nếu chạy nhiều chuyến hơn — phí tính theo ngày thực tế.</p>
               </div>
             </motion.div>
           </AnimatePresence>

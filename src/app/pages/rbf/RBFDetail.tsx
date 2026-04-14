@@ -1,15 +1,67 @@
 import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Percent, TrendingUp, TrendingDown, History, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowLeft, Percent, TrendingDown, AlertCircle, ChevronUp, ChevronDown, CheckCircle2, ArrowRight, Calendar, Flame, Clock, Building2 } from "lucide-react";
 
 const DAILY_RATE = 0.36 / 365;
 const AVG_DAILY_REVENUE = 1000000;
 
+type DayStatus = "paid" | "missed" | "today" | "future";
+
+const WEEK_DAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+
+function getMonthOffset(date: Date) {
+  const day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  return day === 0 ? 6 : day - 1;
+}
+
+const TODAY = new Date("2026-04-14");
+
 const ADVANCES = [
-  { id: "1", amount: 15000000, status: "active" as const, createdAt: "2026-04-11T14:30:00", revenueRate: 0.2, paidAmount: 5000000, remainingAmount: 10000000, progress: 33 },
-  { id: "2", amount: 10000000, status: "active" as const, createdAt: "2026-03-20T09:00:00", revenueRate: 0.3, paidAmount: 6000000, remainingAmount: 4000000, progress: 60 },
-  { id: "3", amount: 12000000, status: "completed" as const, createdAt: "2026-02-01T10:00:00", revenueRate: 0.3, paidAmount: 12000000, remainingAmount: 0, progress: 100 },
+  {
+    id: "1",
+    amount: 15000000,
+    status: "active" as const,
+    createdAt: "2026-04-11T14:30:00",
+    revenueRate: 0.2,
+    paidAmount: 5000000,
+    remainingAmount: 10000000,
+    progress: 33,
+    estimatedMonths: 3,
+    streak: 3,
+    calendarPattern: ["paid", "paid", "paid"] as DayStatus[],
+  },
+  {
+    id: "2",
+    amount: 10000000,
+    status: "active" as const,
+    createdAt: "2026-03-20T09:00:00",
+    revenueRate: 0.3,
+    paidAmount: 6000000,
+    remainingAmount: 4000000,
+    progress: 60,
+    estimatedMonths: 2,
+    streak: 5,
+    calendarPattern: [
+      "paid","paid","missed","paid","paid","paid","paid",
+      "paid","missed","paid","paid","paid","paid","paid",
+      "paid","paid","paid","missed","paid","paid","paid",
+      "paid","paid","paid","paid","missed",
+    ] as DayStatus[],
+  },
+  {
+    id: "3",
+    amount: 12000000,
+    status: "completed" as const,
+    createdAt: "2026-02-01T10:00:00",
+    revenueRate: 0.3,
+    paidAmount: 12000000,
+    remainingAmount: 0,
+    progress: 100,
+    estimatedMonths: 2,
+    streak: 42,
+    calendarPattern: [] as DayStatus[],
+  },
 ];
 
 const WALLET_BALANCE = 12000000;
@@ -24,7 +76,6 @@ export function RBFDetail() {
   const pinRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const advance = ADVANCES.find((a) => a.id === id) || ADVANCES[0];
-
   const [currentRate, setCurrentRate] = useState(advance.revenueRate);
   const [pendingRate, setPendingRate] = useState(advance.revenueRate);
 
@@ -33,17 +84,9 @@ export function RBFDetail() {
   const feePercent = (feeAmount / advance.amount * 100).toFixed(1);
   const totalRepay = advance.amount + feeAmount;
   const estimatedDaysRemaining = Math.ceil(advance.remainingAmount / (AVG_DAILY_REVENUE * pendingRate));
-
-  const repaymentHistory = [
-    { date: "2026-04-12T19:45:00", amount: Math.round(185000 * advance.revenueRate), tripRevenue: 185000, tripId: "T002145" },
-    { date: "2026-04-12T16:20:00", amount: Math.round(210000 * advance.revenueRate), tripRevenue: 210000, tripId: "T002144" },
-    { date: "2026-04-12T13:05:00", amount: Math.round(145000 * advance.revenueRate), tripRevenue: 145000, tripId: "T002143" },
-    { date: "2026-04-11T20:10:00", amount: Math.round(230000 * advance.revenueRate), tripRevenue: 230000, tripId: "T002142" },
-    { date: "2026-04-08T09:00:00", amount: 500000, type: "manual" as const, tripRevenue: null, tripId: null },
-  ];
+  const estimatedMonthsRemaining = Math.min(6, Math.ceil(estimatedDaysRemaining / 30));
 
   const formatCurrency = (value: number) => value.toLocaleString("vi-VN") + "đ";
-
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -52,10 +95,6 @@ export function RBFDetail() {
   const adjustPendingRate = (delta: number) => {
     const newRate = Math.round((pendingRate + delta) * 100) / 100;
     if (newRate >= advance.revenueRate && newRate <= 0.5) setPendingRate(newRate);
-  };
-
-  const confirmRateChange = () => {
-    setCurrentRate(pendingRate);
   };
 
   return (
@@ -87,7 +126,6 @@ export function RBFDetail() {
               <p className="text-xl">{formatCurrency(advance.paidAmount)}</p>
             </div>
           </div>
-
           <div className="space-y-2">
             <div className="h-3 bg-white/20 rounded-full overflow-hidden">
               <motion.div
@@ -99,7 +137,7 @@ export function RBFDetail() {
             </div>
             <div className="flex justify-between text-sm text-white/80">
               <span>{advance.progress}% đã hoàn trả</span>
-              <span>{100 - advance.progress}% còn lại</span>
+              <span>Kỳ hạn ~{advance.estimatedMonths} tháng</span>
             </div>
           </div>
         </motion.div>
@@ -115,7 +153,6 @@ export function RBFDetail() {
             <Building2 className="w-5 h-5 text-primary" />
             <h3>Thông tin khoản ứng</h3>
           </div>
-
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Ngày giải ngân:</span>
@@ -135,112 +172,160 @@ export function RBFDetail() {
               <span>Tổng hoàn trả:</span>
               <span className="text-primary">{formatCurrency(totalRepay)}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích mỗi chuyến:</span>
+              <span>{Math.round(advance.revenueRate * 100)}% doanh thu</span>
+            </div>
           </div>
         </motion.div>
 
-        {/* Rate Adjustment Card */}
+        {/* Streak Calendar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <Percent className="w-5 h-5 text-primary" />
-            <h3>Tỷ lệ trích doanh thu</h3>
-          </div>
-
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tăng mức khấu trừ để hoàn trả sớm hơn, nâng điểm tín dụng và tiếp cận khoản vay mới nhanh hơn</p>
-            </div>
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <button
-                onClick={() => adjustPendingRate(-0.05)}
-                disabled={pendingRate <= advance.revenueRate}
-                className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
-              >
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              <span className={`text-2xl font-semibold w-14 text-center ${pendingRate !== currentRate ? "text-amber-500" : "text-primary"}`}>
-                {Math.round(pendingRate * 100)}%
-              </span>
-              <button
-                onClick={() => adjustPendingRate(0.05)}
-                disabled={pendingRate >= 0.5}
-                className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
-              >
-                <ChevronUp className="w-4 h-4" />
-              </button>
+              <Calendar className="w-5 h-5 text-primary" />
+              <h3>Lịch trích hoàn trả</h3>
             </div>
-          </div>
-
-          <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm mb-3">
-            <span className="text-muted-foreground">Ước tính hoàn tất:</span>
-            <span className="text-primary font-medium">~{estimatedDaysRemaining} ngày nữa</span>
-          </div>
-
-          {pendingRate !== currentRate && (
-            <button
-              onClick={confirmRateChange}
-              className="w-full bg-primary text-white py-2.5 rounded-xl text-sm hover:bg-primary/90 transition-colors"
-            >
-              Xác nhận thay đổi — áp dụng {Math.round(pendingRate * 100)}%
-            </button>
-          )}
-        </motion.div>
-
-        {/* Repayment History */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <History className="w-5 h-5 text-primary" />
-            <h3>Lịch sử trích hoàn trả</h3>
-          </div>
-
-          <div className="space-y-3">
-            {repaymentHistory.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 pb-3 border-b border-border last:border-0">
-                <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <TrendingDown className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <div>
-                      <p className="text-sm">{item.type === "manual" ? "Thanh toán trước hạn" : "Trích tự động từ doanh thu"}</p>
-                      <p className="text-xs text-muted-foreground">{formatDateTime(item.date)}</p>
-                    </div>
-                    <p className="text-sm text-primary whitespace-nowrap">-{formatCurrency(item.amount)}</p>
-                  </div>
-                  {item.tripId && item.tripRevenue && (
-                    <div className="text-xs text-muted-foreground space-y-0.5">
-                      <p>Mã chuyến: {item.tripId} • Doanh thu: {formatCurrency(item.tripRevenue)}</p>
-                    </div>
-                  )}
-                </div>
+            {advance.status !== "completed" && (
+              <div className="flex items-center gap-1.5 bg-orange-50 border border-orange-200 rounded-full px-3 py-1">
+                <Flame className="w-4 h-4 text-orange-500" />
+                <span className="text-sm text-orange-600">{advance.streak} ngày liên tiếp</span>
               </div>
+            )}
+          </div>
+
+          <p className="text-xs text-muted-foreground text-center mb-3">
+            Tháng {TODAY.getMonth() + 1}/{TODAY.getFullYear()}
+          </p>
+
+          <div className="grid grid-cols-7 gap-1 mb-1">
+            {WEEK_DAYS.map((d) => (
+              <div key={d} className="text-center text-xs text-muted-foreground/60 py-0.5">{d}</div>
             ))}
           </div>
+
+          {(() => {
+            const todayDate = TODAY.getDate();
+            const daysInMonth = new Date(TODAY.getFullYear(), TODAY.getMonth() + 1, 0).getDate();
+            const offset = getMonthOffset(TODAY);
+            const createdDate = new Date(advance.createdAt);
+            const startOfMonth = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
+            const daysSinceCreated = Math.floor((startOfMonth.getTime() - createdDate.getTime()) / 86400000);
+
+            return (
+              <div className="grid grid-cols-7 gap-1 mb-4">
+                {Array.from({ length: offset }).map((_, i) => <div key={`e${i}`} />)}
+                {Array.from({ length: daysInMonth }).map((_, i) => {
+                  const day = i + 1;
+                  const patternIdx = daysSinceCreated + i;
+                  const beforeCreation = new Date(TODAY.getFullYear(), TODAY.getMonth(), day) < new Date(createdDate.getFullYear(), createdDate.getMonth(), createdDate.getDate());
+                  const status: DayStatus =
+                    beforeCreation ? "future"
+                    : day < todayDate ? (advance.calendarPattern[patternIdx] || "paid")
+                    : day === todayDate ? "today"
+                    : "future";
+
+                  return (
+                    <div key={day} className="flex flex-col items-center gap-0.5">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        status === "paid" ? "bg-cyan-100"
+                        : status === "missed" ? "bg-red-100"
+                        : status === "today" ? "bg-amber-100 border-2 border-amber-400"
+                        : "bg-muted/30"
+                      }`}>
+                        {status === "paid" && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600" />}
+                        {status === "missed" && <AlertCircle className="w-3.5 h-3.5 text-red-500" />}
+                        {status === "today" && <Clock className="w-3.5 h-3.5 text-amber-500" />}
+                        {status === "future" && <span className="text-xs text-muted-foreground/30">{day}</span>}
+                      </div>
+                      {status !== "future" && (
+                        <span className="text-xs text-muted-foreground">{day}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-cyan-100 rounded-full" /><span>Đã trích</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-red-100 rounded-full" /><span>Không có chuyến</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 bg-amber-100 border border-amber-400 rounded-full" /><span>Hôm nay</span></div>
+          </div>
         </motion.div>
 
-        {/* Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <button
-            onClick={() => { setPayAmount(""); setPin(["","","","","",""]); setPinError(false); setPayStep("amount"); }}
-            className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
+        {/* Rate Adjustment Card */}
+        {advance.status === "active" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="bg-card rounded-2xl p-5 shadow-sm border border-border/50"
           >
-            Trả trước từ V-Smart Pay
-          </button>
-        </motion.div>
+            <div className="flex items-center gap-2 mb-4">
+              <Percent className="w-5 h-5 text-primary" />
+              <h3>Điều chỉnh tỷ lệ trích</h3>
+            </div>
+
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Đang áp dụng: <span className="text-foreground font-medium">{Math.round(currentRate * 100)}%/chuyến</span></p>
+                <p className="text-xs text-muted-foreground mt-0.5">Tăng mức trích để hoàn trả sớm hơn và giảm phí</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => adjustPendingRate(-0.05)}
+                  disabled={pendingRate <= advance.revenueRate}
+                  className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                <span className={`text-2xl font-semibold w-14 text-center ${pendingRate !== currentRate ? "text-amber-500" : "text-primary"}`}>
+                  {Math.round(pendingRate * 100)}%
+                </span>
+                <button
+                  onClick={() => adjustPendingRate(0.05)}
+                  disabled={pendingRate >= 0.5}
+                  className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center disabled:opacity-30 hover:border-primary transition-colors"
+                >
+                  <ChevronUp className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-primary/5 rounded-xl p-3 flex justify-between text-sm mb-3">
+              <span className="text-muted-foreground">Kỳ hạn còn lại ước tính:</span>
+              <span className="text-primary font-medium">~{estimatedMonthsRemaining} tháng ({estimatedDaysRemaining} ngày)</span>
+            </div>
+
+            {pendingRate !== currentRate && (
+              <button
+                onClick={() => setCurrentRate(pendingRate)}
+                className="w-full bg-primary text-white py-2.5 rounded-xl text-sm hover:bg-primary/90 transition-colors"
+              >
+                Xác nhận thay đổi — áp dụng {Math.round(pendingRate * 100)}%
+              </button>
+            )}
+          </motion.div>
+        )}
+
+        {/* Actions */}
+        {advance.status === "active" && (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+            <button
+              onClick={() => { setPayAmount(""); setPin(["","","","","",""]); setPinError(false); setPayStep("amount"); }}
+              className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors"
+            >
+              Trả trước từ V-Smart Pay
+            </button>
+          </motion.div>
+        )}
       </div>
 
       {/* Pay Early Modal */}
@@ -263,7 +348,6 @@ export function RBFDetail() {
             >
               <div className="w-12 h-1 bg-muted rounded-full mx-auto mb-6" />
 
-              {/* Step 1: Chọn số tiền */}
               {payStep === "amount" && (() => {
                 const numPayAmount = parseInt(payAmount.replace(/\D/g, "")) || 0;
                 const isValid = numPayAmount >= 100000 && numPayAmount <= Math.min(advance.remainingAmount, WALLET_BALANCE);
@@ -271,7 +355,6 @@ export function RBFDetail() {
                   <>
                     <h3 className="text-xl mb-1">Trả trước từ V-Smart Pay</h3>
                     <p className="text-sm text-muted-foreground mb-5">Chọn số tiền muốn trả — tối thiểu 100.000đ</p>
-
                     <div className="bg-muted/50 rounded-xl p-4 mb-4 space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Số dư V-Smart Pay:</span>
@@ -282,158 +365,88 @@ export function RBFDetail() {
                         <span className="text-primary">{formatCurrency(advance.remainingAmount)}</span>
                       </div>
                     </div>
-
-                    <div className="mb-3">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        placeholder="Nhập số tiền"
-                        value={numPayAmount > 0 ? numPayAmount.toLocaleString("vi-VN") : ""}
-                        onChange={(e) => {
-                          const raw = e.target.value.replace(/\D/g, "");
-                          setPayAmount(raw);
-                        }}
-                        className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-primary"
-                      />
-                    </div>
-
+                    <input
+                      type="text" inputMode="numeric" placeholder="Nhập số tiền"
+                      value={numPayAmount > 0 ? numPayAmount.toLocaleString("vi-VN") : ""}
+                      onChange={(e) => setPayAmount(e.target.value.replace(/\D/g, ""))}
+                      className="w-full border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-primary mb-3"
+                    />
                     <div className="flex gap-2 mb-5">
                       {[1000000, 2000000, 5000000].map((amt) => (
-                        <button
-                          key={amt}
-                          onClick={() => setPayAmount(String(amt))}
-                          className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors"
-                        >
-                          {(amt / 1000000)}tr
+                        <button key={amt} onClick={() => setPayAmount(String(amt))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors">
+                          {amt / 1000000}tr
                         </button>
                       ))}
-                      <button
-                        onClick={() => setPayAmount(String(Math.min(advance.remainingAmount, WALLET_BALANCE)))}
-                        className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors"
-                      >
+                      <button onClick={() => setPayAmount(String(Math.min(advance.remainingAmount, WALLET_BALANCE)))} className="flex-1 py-2 rounded-lg border border-border text-sm hover:border-primary hover:text-primary transition-colors">
                         Tất toán
                       </button>
                     </div>
-
                     <div className="bg-primary/10 rounded-xl p-4 mb-5 flex items-start gap-2">
                       <AlertCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-muted-foreground">
-                        Trả trước không phát sinh thêm phí. Nếu tất toán toàn bộ, hạn mức sẽ được phục hồi ngay sau khi hoàn tất.
-                      </p>
+                      <p className="text-sm text-muted-foreground">Trả trước không phát sinh thêm phí. Tất toán toàn bộ, hạn mức phục hồi ngay.</p>
                     </div>
-
-                    <button
-                      disabled={!isValid}
-                      onClick={() => setPayStep("verify")}
-                      className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-40 mb-3"
-                    >
+                    <button disabled={!isValid} onClick={() => setPayStep("verify")} className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-40 mb-3">
                       Xác nhận trả {numPayAmount > 0 ? formatCurrency(numPayAmount) : ""}
                     </button>
-                    <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">
-                      Hủy bỏ
-                    </button>
+                    <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">Hủy bỏ</button>
                   </>
                 );
               })()}
 
-              {/* Step 2: Xác thực PIN */}
               {payStep === "verify" && (
                 <>
                   <h3 className="text-xl mb-1">Xác thực giao dịch</h3>
                   <p className="text-sm text-muted-foreground mb-6">Nhập mã PIN V-Smart Pay để xác nhận</p>
-
                   <div className="flex justify-center gap-3 mb-3">
                     {pin.map((digit, i) => (
-                      <input
-                        key={i}
-                        ref={(el) => { pinRefs.current[i] = el; }}
-                        type="password"
-                        inputMode="numeric"
-                        maxLength={1}
-                        value={digit}
+                      <input key={i} ref={(el) => { pinRefs.current[i] = el; }}
+                        type="password" inputMode="numeric" maxLength={1} value={digit}
                         onChange={(e) => {
-                          const val = e.target.value.replace(/\D/g, "");
-                          if (!val) return;
-                          const next = [...pin];
-                          next[i] = val;
-                          setPin(next);
-                          setPinError(false);
+                          const val = e.target.value.replace(/\D/g, ""); if (!val) return;
+                          const next = [...pin]; next[i] = val; setPin(next); setPinError(false);
                           if (i < 5) pinRefs.current[i + 1]?.focus();
                         }}
                         onKeyDown={(e) => {
                           if (e.key === "Backspace") {
                             const next = [...pin];
-                            if (pin[i]) {
-                              next[i] = "";
-                              setPin(next);
-                            } else if (i > 0) {
-                              next[i - 1] = "";
-                              setPin(next);
-                              pinRefs.current[i - 1]?.focus();
-                            }
+                            if (pin[i]) { next[i] = ""; setPin(next); }
+                            else if (i > 0) { next[i - 1] = ""; setPin(next); pinRefs.current[i - 1]?.focus(); }
                           }
                         }}
                         className={`w-12 h-14 text-center text-xl border-2 rounded-xl focus:outline-none transition-colors ${pinError ? "border-destructive" : digit ? "border-primary" : "border-border"}`}
                       />
                     ))}
                   </div>
-
-                  {pinError && (
-                    <p className="text-center text-sm text-destructive mb-3">Mã PIN không đúng. Vui lòng thử lại.</p>
-                  )}
-
+                  {pinError && <p className="text-center text-sm text-destructive mb-3">Mã PIN không đúng. Vui lòng thử lại.</p>}
                   <p className="text-center text-xs text-muted-foreground mb-6">Trả {formatCurrency(parseInt(payAmount) || 0)} từ V-Smart Pay</p>
-
                   <button
                     onClick={() => {
                       if (pin.join("").length < 6) return;
-                      if (pin.join("") === "123456") {
-                        setPayStep("success");
-                      } else {
-                        setPinError(true);
-                        setPin(["", "", "", "", "", ""]);
-                        pinRefs.current[0]?.focus();
-                      }
+                      setPayStep("success");
                     }}
                     disabled={pin.join("").length < 6}
                     className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-40 mb-3"
                   >
                     Xác nhận
                   </button>
-                  <button onClick={() => setPayStep("amount")} className="w-full py-3 text-muted-foreground">
-                    Quay lại
-                  </button>
+                  <button onClick={() => setPayStep("amount")} className="w-full py-3 text-muted-foreground">Quay lại</button>
                 </>
               )}
 
-              {/* Step 3: Thành công */}
               {payStep === "success" && (
                 <div className="text-center py-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", duration: 0.5 }}
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", duration: 0.5 }}
                     className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
                   >
                     <CheckCircle2 className="w-12 h-12 text-primary" />
                   </motion.div>
                   <h3 className="text-xl mb-1 text-primary">Thanh toán thành công</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Đã trả {formatCurrency(parseInt(payAmount) || 0)} từ V-Smart Pay
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-8">
-                    Khoản ứng của bạn đã được cập nhật
-                  </p>
-                  <button
-                    onClick={() => navigate("/manage")}
-                    className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 mb-3"
-                  >
-                    <span>Về trang quản lý</span>
-                    <ArrowRight className="w-5 h-5" />
+                  <p className="text-sm text-muted-foreground mb-2">Đã trả {formatCurrency(parseInt(payAmount) || 0)} từ V-Smart Pay</p>
+                  <p className="text-xs text-muted-foreground mb-8">Khoản ứng của bạn đã được cập nhật</p>
+                  <button onClick={() => navigate("/manage")} className="w-full bg-primary text-white py-4 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 mb-3">
+                    <span>Về trang quản lý</span><ArrowRight className="w-5 h-5" />
                   </button>
-                  <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">
-                    Ở lại trang này
-                  </button>
+                  <button onClick={() => setPayStep("closed")} className="w-full py-3 text-muted-foreground">Ở lại trang này</button>
                 </div>
               )}
             </motion.div>

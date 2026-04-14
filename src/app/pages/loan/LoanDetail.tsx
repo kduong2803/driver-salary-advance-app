@@ -202,10 +202,6 @@ export function LoanDetail() {
               <span className="ml-auto text-xs text-muted-foreground">14/04/2026</span>
             </div>
 
-            {/* Repayment flow explanation */}
-            <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-              Dư nợ hàng ngày được khấu trừ tự động từ doanh thu cuốc xe. Phần còn lại sẽ được tự động trả từ ví V-SmartPay lúc 23h55 — nếu vẫn chưa đủ, số thiếu sẽ cộng vào ngày hôm sau.
-            </p>
 
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center">
@@ -213,10 +209,7 @@ export function LoanDetail() {
                   <div className="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
                     <MotorbikeIcon className="w-4 h-4 text-teal-600" />
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">Từ doanh thu cuốc xe</span>
-                    <p className="text-xs text-muted-foreground/60">Tự động khấu trừ</p>
-                  </div>
+                  <span className="text-muted-foreground">Từ doanh thu cuốc xe</span>
                 </div>
                 <span className="text-teal-600">{formatCurrency(loan.todayTripPaid)}</span>
               </div>
@@ -226,10 +219,7 @@ export function LoanDetail() {
                   <div className="w-7 h-7 bg-cyan-100 rounded-lg flex items-center justify-center">
                     <Wallet className="w-4 h-4 text-cyan-600" />
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">Dự kiến thanh toán từ ví V-SmartPay</span>
-                    <p className="text-xs text-muted-foreground/60">{walletSweep ? "Tự động lúc 23h55 nếu còn thiếu" : "Tính năng đang tắt"}</p>
-                  </div>
+                  <span className="text-muted-foreground">Dự kiến thanh toán từ ví V-SmartPay</span>
                 </div>
                 <span className="text-cyan-600">{walletSweep ? formatCurrency(todayRemaining) : "—"}</span>
               </div>
@@ -239,7 +229,7 @@ export function LoanDetail() {
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-medium">Tự động quét ví V-SmartPay</p>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Tắt — mở để tránh bị gộp nợ hôm sau"}
+                    {walletSweep ? "Bật — số tiền còn thiếu trong ngày sẽ được tự động thanh toán vào 23h55" : "Bật ngay để tránh trễ hạn dư nợ"}
                   </p>
                 </div>
                 <button
@@ -423,6 +413,10 @@ export function LoanDetail() {
               <span className="text-muted-foreground">Tổng lãi ({feePercent}%):</span>
               <span className="text-destructive">+{formatCurrency(totalInterest)}</span>
             </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Tỷ lệ trích ước tính:</span>
+              <span>~{Math.round((loan.dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
+            </div>
             <div className="h-px bg-border" />
             <div className="flex justify-between font-medium">
               <span>Tổng phải trả:</span>
@@ -432,10 +426,6 @@ export function LoanDetail() {
             <div className="flex justify-between font-medium">
               <span>Góp mỗi ngày:</span>
               <span className="text-teal-700">{formatCurrency(loan.dailyPayment)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Tỷ lệ trích ước tính:</span>
-              <span>~{Math.round((loan.dailyPayment / 350000) * 100)}% doanh thu/ngày</span>
             </div>
           </div>
         </motion.div>
