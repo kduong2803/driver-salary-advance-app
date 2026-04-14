@@ -85,8 +85,8 @@ function dayLabel(i: number) {
 }
 
 const DAY_CONFIG: Record<DayStatus, { bg: string; icon?: string; label: string }> = {
-  trip: { bg: "bg-green-100", label: "Cuốc xe" },
-  wallet: { bg: "bg-blue-100", label: "Ví VSP" },
+  trip: { bg: "bg-teal-100", label: "Cuốc xe" },
+  wallet: { bg: "bg-cyan-100", label: "Ví VSP" },
   missed: { bg: "bg-red-100", label: "Thiếu" },
   today: { bg: "bg-amber-100 border-2 border-amber-400", label: "Hôm nay" },
   future: { bg: "bg-muted", label: "" },
@@ -203,22 +203,22 @@ export function LoanDetail() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center">
-                    <MotorbikeIcon className="w-4 h-4 text-green-600" />
+                  <div className="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
+                    <MotorbikeIcon className="w-4 h-4 text-teal-600" />
                   </div>
                   <span className="text-muted-foreground">Đã trích từ cuốc xe</span>
                 </div>
-                <span className="text-green-600">{formatCurrency(loan.todayTripPaid)}</span>
+                <span className="text-teal-600">{formatCurrency(loan.todayTripPaid)}</span>
               </div>
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Wallet className="w-4 h-4 text-blue-600" />
+                  <div className="w-7 h-7 bg-cyan-100 rounded-lg flex items-center justify-center">
+                    <Wallet className="w-4 h-4 text-cyan-600" />
                   </div>
                   <span className="text-muted-foreground">Sẽ quét từ ví lúc 23h</span>
                 </div>
-                <span className="text-blue-600">{formatCurrency(todayRemaining)}</span>
+                <span className="text-cyan-600">{formatCurrency(todayRemaining)}</span>
               </div>
 
               <div className="h-px bg-border" />
@@ -266,8 +266,8 @@ export function LoanDetail() {
             {loan.calendarPattern.map((status, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center ${DAY_CONFIG[status].bg}`}>
-                  {status === "trip" && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-                  {status === "wallet" && <Zap className="w-4 h-4 text-blue-500" />}
+                  {status === "trip" && <CheckCircle2 className="w-4 h-4 text-teal-600" />}
+                  {status === "wallet" && <Zap className="w-4 h-4 text-cyan-600" />}
                   {status === "missed" && <AlertCircle className="w-4 h-4 text-red-500" />}
                   {status === "today" && <Clock className="w-4 h-4 text-amber-500" />}
                   {status === "future" && <span className="text-xs text-muted-foreground">{new Date(TODAY).getDate() + (i - 13)}</span>}
@@ -339,8 +339,8 @@ export function LoanDetail() {
               <Wifi className="w-5 h-5 text-teal-600" />
               <h3>Trạng thái phương tiện</h3>
             </div>
-            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full flex items-center gap-1">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full flex items-center gap-1">
+              <div className="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse" />
               Đang kết nối
             </span>
           </div>
@@ -358,7 +358,7 @@ export function LoanDetail() {
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Trạng thái khóa</span>
-              <span className="text-green-600">Đang mở khóa</span>
+              <span className="text-teal-600">Đang mở khóa</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Cập nhật lúc</span>
