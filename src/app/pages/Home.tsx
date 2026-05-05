@@ -1,248 +1,209 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Wallet, TrendingUp, Clock, Shield, ArrowRight, Zap, CalendarDays, Percent, Building2 } from "lucide-react";
-import { MotorbikeIcon } from "../components/MotorbikeIcon";
+import {
+  ArrowRight,
+  BadgeDollarSign,
+  Bike,
+  Car,
+  Coins,
+  Leaf,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
+import { formatCurrency, formatNumber, useFinanceStore } from "../data/financeStore";
+
+const categories = [
+  {
+    title: "Bảo hiểm",
+    description: "Mua bảo vệ theo ca, theo tháng hoặc theo từng đơn nhỏ.",
+    href: "/insurance",
+    icon: ShieldCheck,
+    tone: "from-primary to-cyan-600",
+    stat: "5 sản phẩm",
+  },
+  {
+    title: "Tín dụng",
+    description: "Ứng thu nhập, ứng doanh thu và vay mua xe trong một nhánh.",
+    href: "/credit",
+    icon: BadgeDollarSign,
+    tone: "from-primary to-cyan-600",
+    stat: "3 flow hiện tại",
+  },
+  {
+    title: "Sinh lời",
+    description: "Số dư ví tự sinh lãi mỗi ngày, rút bất cứ lúc nào.",
+    href: "/yield",
+    icon: Coins,
+    tone: "from-primary to-cyan-600",
+    stat: "5,75%/năm",
+  },
+  {
+    title: "Đầu tư CCQ",
+    description: "Trích tiền nhỏ sau mỗi chuyến để tích lũy dài hạn.",
+    href: "/investment",
+    icon: TrendingUp,
+    tone: "from-primary to-cyan-600",
+    stat: "Setup tự động",
+  },
+];
 
 export function Home() {
-  const services = [
-    {
-      id: "ewa",
-      title: "Ứng Thu Nhập Tài Xế",
-      subtitle: "Ứng trên phần thu nhập đã phát sinh",
-      description: "Dành cho tài xế đã ký hợp đồng muốn ứng trước phần thu nhập gồm lương cứng và doanh thu đã phát sinh trong kỳ",
-      icon: Wallet,
-      gradient: "from-cyan-400 to-cyan-600",
-      link: "/ewa/discovery",
-      features: ["Ứng 50-70% thu nhập khả dụng", "Hạn mức tăng theo từng cuốc xe", "Tự động khấu trừ cuối kỳ"],
-    },
-    {
-      id: "rbf",
-      title: "Ứng Doanh Thu",
-      subtitle: "Ứng theo hạn mức đã phê duyệt",
-      description: "Dành cho tài xế và đối tác GSM muốn ứng trước doanh thu theo lịch sử hoạt động và hoàn trả bằng tỷ lệ trích trên doanh thu",
-      icon: TrendingUp,
-      gradient: "from-cyan-500 to-teal-600",
-      link: "/rbf/discovery",
-      features: ["Hạn mức phê duyệt tự động", "Trích % doanh thu mỗi chuyến"],
-    },
-    {
-      id: "loan",
-      title: "Vay Mua Xe",
-      subtitle: "Hạn mức duyệt sẵn — nhận xe ngay",
-      description: "Vay mua xe điện với hạn mức được phê duyệt sẵn, trả góp hàng ngày tự động từ thu nhập chạy xe",
-      icon: MotorbikeIcon,
-      gradient: "from-cyan-600 to-teal-600",
-      link: "/loan/discovery",
-      features: ["Hạn mức phê duyệt sẵn", "Trả góp hàng ngày tự động", "Vay đến 100% giá trị xe"],
-    },
-  ];
-
-  const productExplainers = [
-    {
-      id: "ewa",
-      title: "Ứng thu nhập cho tài xế có hợp đồng",
-      intro: "Ứng trước phần thu nhập đã phát sinh trong kỳ, gồm lương cứng phân bổ và doanh thu từ các cuốc đã hoàn thành.",
-      icon: Wallet,
-      accent: "text-primary",
-      bg: "bg-primary/10",
-      stats: [
-        { label: "Ngày công đã chạy", value: "22 ngày", icon: CalendarDays },
-        { label: "Thu nhập từ cuốc xe", value: "12.400.000đ", icon: MotorbikeIcon },
-        { label: "Được ứng tối đa", value: "70%", icon: Percent },
-      ],
-      bullets: [
-        "Số tiền có thể ứng được tính từ lương cứng phân bổ và thu nhập từ cuốc xe đã hoàn thành",
-        "Hạn mức ứng được cập nhật sau mỗi cuốc xe, nên bạn luôn thấy phần thu nhập đã sẵn sàng để rút",
-        "Khoản ứng được khấu trừ tự động từ thu nhập cuối kỳ, không cần thao tác thủ công",
-      ],
-    },
-    {
-      id: "rbf",
-      title: "Ứng doanh thu cho tài xế và đối tác GSM",
-      intro: "Ứng trước doanh thu dựa trên lịch sử hoạt động, dành cho cả tài xế lẫn đối tác cá nhân hợp tác với GSM.",
-      icon: Building2,
-      accent: "text-cyan-700",
-      bg: "bg-cyan-500/10",
-      stats: [
-        { label: "Doanh thu 90 ngày", value: "90.000.000đ", icon: TrendingUp },
-        { label: "Hạn mức được duyệt", value: "15.000.000đ", icon: Wallet },
-        { label: "Tỷ lệ trích hoàn trả", value: "10–50%", icon: Percent },
-      ],
-      bullets: [
-        "Hạn mức được duyệt trước dựa trên doanh thu và tần suất hoạt động gần đây",
-        "Theo dõi số đã ứng, tiến độ hoàn trả và lịch sử trích theo từng chuyến ngay trên ứng dụng",
-        "Tỷ lệ trích càng cao, phí càng thấp — tự chủ tốc độ hoàn trả để tiết kiệm chi phí thực",
-      ],
-    },
-    {
-      id: "loan",
-      title: "Vay mua xe điện cho tài xế",
-      intro: "Vay lên đến 100% giá trị xe, trả góp hàng ngày tự động từ doanh thu chạy xe — không cần chứng minh thu nhập.",
-      icon: MotorbikeIcon,
-      accent: "text-teal-600",
-      bg: "bg-teal-500/10",
-      stats: [
-        { label: "Vay tối đa", value: "100% giá xe", icon: Wallet },
-        { label: "Góp mỗi ngày", value: "~35.000đ", icon: CalendarDays },
-        { label: "Lãi suất", value: "~0.8%/tháng", icon: Percent },
-      ],
-      bullets: [
-        "Hạn mức lên đến 100% giá trị xe — chọn xe, ký hợp đồng điện tử và nhận xe ngay trong ngày",
-        "Trả góp hàng ngày tự động từ doanh thu cuốc xe — số tiền nhỏ, không áp lực",
-        "Tất toán sớm bất kỳ lúc nào, không phát sinh phí",
-      ],
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: Clock,
-      title: "Nhanh chóng",
-      description: "Duyệt trong 5 phút, tiền về tức thì",
-    },
-    {
-      icon: Shield,
-      title: "An toàn",
-      description: "Bảo mật thông tin, minh bạch phí",
-    },
-    {
-      icon: Zap,
-      title: "Tự động",
-      description: "Hoàn trả tự động, không kỳ hạn, không phát sinh phí",
-    },
-  ];
+  const { state, metrics, setVehicle } = useFinanceStore();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-primary text-white px-6 pt-12 pb-8 rounded-b-3xl shadow-lg"
-      >
-        <h1 className="text-3xl mb-2">XanhSM</h1>
-        <p className="text-primary-foreground/80">Giải pháp tài chính thông minh cho tài xế</p>
-      </motion.div>
+    <div className="min-h-screen bg-background">
+      <div className="relative overflow-hidden bg-primary px-6 pb-10 pt-12 text-white">
+        <div className="absolute -right-16 top-4 h-44 w-44 rounded-full bg-cyan-300/20 blur-2xl" />
+        <div className="absolute -left-14 bottom-0 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl" />
 
-      <div className="max-w-lg mx-auto px-6 py-8 space-y-8">
-        {/* Services */}
-        <div className="space-y-4">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+        <div className="relative z-10 space-y-6">
+          <div>
+            <p className="mb-2 text-sm text-white/80">GSM Financial Services</p>
+            <h1 className="text-3xl leading-tight">Tài chính trong một ví cho tài xế GSM</h1>
+            <p className="mt-2 text-sm text-white/80">
+              V-Smart Pay là trung tâm nhận thu nhập, ứng tiền, mua bảo hiểm, sinh lời và tích lũy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 rounded-2xl bg-white/10 p-1.5 backdrop-blur">
+            <button
+              onClick={() => setVehicle("car")}
+              className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm transition ${
+                state.vehicle === "car" ? "bg-white text-primary shadow-lg" : "text-white/75"
+              }`}
             >
-              <Link to={service.link}>
-                <div className="bg-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border border-border/50">
-                  <div className="flex items-start gap-4">
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center flex-shrink-0`}>
-                      <service.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="mb-1">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{service.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.features.map((feature) => (
-                          <span
-                            key={feature}
-                            className="text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-1" />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="space-y-4">
-          <h2 className="text-xl px-1">Hiểu nhanh từng sản phẩm</h2>
-          <div className="space-y-4">
-            {productExplainers.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + index * 0.1 }}
-                className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm"
-              >
-                <div className="flex items-start gap-4 mb-5">
-                  <div className={`w-12 h-12 rounded-xl ${product.bg} flex items-center justify-center flex-shrink-0`}>
-                    <product.icon className={`w-6 h-6 ${product.accent}`} />
-                  </div>
-                  <div>
-                    <h3 className="mb-1">{product.title}</h3>
-                    <p className="text-sm text-muted-foreground">{product.intro}</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-3 mb-5">
-                  {product.stats.map((stat) => (
-                    <div key={stat.label} className="rounded-xl bg-muted/40 p-3 border border-border/40">
-                      <stat.icon className={`w-4 h-4 mb-2 ${product.accent}`} />
-                      <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
-                      <p className="text-sm">{stat.value}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="space-y-2">
-                  {product.bullets.map((bullet) => (
-                    <div key={bullet} className="flex items-start gap-3">
-                      <div className={`w-5 h-5 rounded-full ${product.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                        <div className={`w-2 h-2 rounded-full ${product.id === "ewa" ? "bg-primary" : "bg-cyan-700"}`} />
-                      </div>
-                      <p className="text-sm text-foreground/80">{bullet}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+              <Car className="h-4 w-4" />
+              Ô tô điện
+            </button>
+            <button
+              onClick={() => setVehicle("bike")}
+              className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm transition ${
+                state.vehicle === "bike" ? "bg-white text-primary shadow-lg" : "text-white/75"
+              }`}
+            >
+              <Bike className="h-4 w-4" />
+              Xe máy điện
+            </button>
           </div>
         </div>
+      </div>
 
-        {/* Benefits */}
-        <div className="space-y-4">
-          <h2 className="text-xl px-1">Tại sao chọn chúng tôi?</h2>
-          <div className="grid grid-cols-3 gap-3">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                className="bg-card rounded-xl p-4 text-center border border-border/50"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-sm mb-1">{benefit.title}</h4>
-                <p className="text-xs text-muted-foreground">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Info */}
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
-          <div className="flex items-start gap-3">
-            <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+      <div className="mx-auto max-w-lg space-y-6 px-6 py-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-[28px] border border-white/70 bg-white p-5 shadow-[0_18px_50px_rgba(12,74,110,0.18)]"
+        >
+          <div className="mb-5 flex items-start justify-between">
             <div>
-              <h4 className="mb-1 text-primary">Cam kết bảo mật</h4>
-              <p className="text-sm text-foreground/70">
-                Thông tin của bạn được mã hóa và bảo vệ theo tiêu chuẩn ngân hàng.
-                Chúng tôi không chia sẻ dữ liệu với bên thứ ba.
-              </p>
+              <p className="text-sm text-slate-500">Số dư V-Smart Pay</p>
+              <p className="mt-1 text-3xl text-primary">{formatCurrency(state.walletBalance)}</p>
+            </div>
+            <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+              <Wallet className="h-6 w-6" />
             </div>
           </div>
-        </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-slate-50 p-3">
+              <p className="text-xs text-slate-500">Thu nhập hôm nay</p>
+              <p className="mt-1 text-lg text-slate-900">{formatCurrency(state.todayIncome)}</p>
+            </div>
+            <div className="rounded-2xl bg-primary/10 p-3">
+              <p className="text-xs text-slate-500">Có thể ứng</p>
+              <p className="mt-1 text-lg text-primary">{formatCurrency(state.availableAdvance)}</p>
+            </div>
+            <div className="rounded-2xl bg-primary/10 p-3">
+              <p className="text-xs text-slate-500">Tiền lời V-SmartSave</p>
+              <p className="mt-1 text-lg text-primary">{formatCurrency(state.monthYield)}</p>
+            </div>
+            <Link to="/green-points" className="rounded-2xl bg-primary/10 p-3 transition active:scale-[0.98]">
+              <p className="text-xs text-slate-500">Tín chỉ Xanh</p>
+              <p className="mt-1 text-lg text-primary">{formatNumber(state.greenPoints)}</p>
+            </Link>
+          </div>
+        </motion.div>
+
+        <section className="rounded-[24px] border border-primary/20 bg-white p-5 shadow-sm">
+          <div className="mb-4 flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm text-slate-500">Chấm điểm tài xế</p>
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-3xl text-primary">{state.driverRating.toFixed(2)}</p>
+                <Star className="h-6 w-6 fill-primary text-primary" />
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Dựa trên {formatNumber(state.customerReviewCount)} đánh giá khách hàng
+              </p>
+            </div>
+            <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+              <Star className="h-6 w-6" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-primary/10 p-3">
+              <p className="text-xs text-slate-500">Tỷ lệ hoàn thành</p>
+              <p className="mt-1 text-lg text-primary">{state.completionRate}%</p>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-3">
+              <p className="text-xs text-slate-500">Gợi ý cải thiện</p>
+              <p className="mt-1 text-sm text-slate-700">Giữ đánh giá trên 4,8 để mở ưu đãi tốt hơn</p>
+            </div>
+          </div>
+        </section>
+
+        <Link
+          to="/green-points"
+          className="block rounded-[24px] border border-primary/20 bg-gradient-to-br from-primary to-cyan-600 p-5 text-white shadow-lg shadow-cyan-900/10"
+        >
+          <div className="flex items-start gap-4">
+            <div className="rounded-2xl bg-white/15 p-3">
+              <Leaf className="h-6 w-6" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-cyan-50/80">Bạn đã chạy {formatNumber(metrics.monthKm)} km tháng này</p>
+              <h2 className="mt-1 text-xl">Giảm khoảng {metrics.co2Kg} kg CO2</h2>
+              <p className="mt-1 text-sm text-cyan-50/80">
+                Tương đương trồng khoảng {metrics.treeEquivalent} cây xanh, quy đổi {formatCurrency(state.greenSavings)} ưu đãi.
+              </p>
+            </div>
+            <ArrowRight className="mt-1 h-5 w-5" />
+          </div>
+        </Link>
+
+        <section className="space-y-3">
+          <div className="flex items-center justify-between px-1">
+            <h2 className="text-xl text-primary">Danh mục tài chính</h2>
+            <Sparkles className="h-5 w-5 text-primary" />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08 * index }}
+              >
+                <Link
+                  to={category.href}
+                  className="block min-h-[180px] rounded-[26px] border border-white bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
+                >
+                  <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${category.tone} text-white shadow-lg`}>
+                    <category.icon className="h-6 w-6" />
+                  </div>
+                  <p className="mb-1 text-lg text-slate-950">{category.title}</p>
+                  <p className="mb-3 text-xs leading-relaxed text-slate-500">{category.description}</p>
+                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">{category.stat}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

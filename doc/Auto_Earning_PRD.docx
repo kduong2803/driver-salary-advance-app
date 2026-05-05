@@ -1,0 +1,3740 @@
+Skip to:
+Top Bar
+Sidebar
+Main Content
+
+
+
+Search Confluence, Jira, Figma and other apps
+
+Create
+
+Ask Rovo
+
+9+
+
+
+
+
+[Đầu tư] V-Smart Save - Sinh lời tự động
+Edited Apr 29
+
+
+
+
+4
+
+Share
+
+
+
+
+
+Remove emoji
+
+Status
+
+Header image
+
+Suggest title
+
+
+
+[Đầu tư] V-Smart Save - Sinh lời tự động
+
+
+By Đinh Khánh Dương
+
+43 min
+
+Listen
+
+25
+
+Add a reaction
+App IconMarkdown Editor
+
+
+
+
+Floating toolbar controls have been opened
+
+
+
+0. Document Setting
+Product Name:
+
+Sinh lời tự động V-Smart Save trên Ví V-Smart Pay
+
+Version: 
+
+v1.0
+
+Author(s): 
+
+​@Đinh Khánh Dương​ 
+
+Last Updated: 
+
+​6 Apr 2026
+
+Status: 
+
+Draft
+
+1. Executive Summary
+V-Smart Pay (VSP) triển khai tính năng V-Smart Save (VSS) - Sinh lời tự động, cho phép người dùng gia tăng giá trị từ số dư nhàn rỗi trong ví thông qua việc hợp tác với đối tác tài chính. Người dùng có thể đăng ký tham gia trực tiếp trên ứng dụng, sau đó phần tiền tham gia sẽ được đối tác quản lý và vận hành để tạo lợi nhuận theo cơ chế của sản phẩm.
+
+Trong mô hình này:
+
+VSP đóng vai trò nền tảng phân phối và quản lý trải nghiệm người dùng;
+
+Đối tác tài chính chịu trách nhiệm quản lý dòng tiền, đầu tư và tạo lợi nhuận.
+
+VSP không trực tiếp sử dụng số tiền của người dùng cho mục đích đầu tư, mà đóng vai trò trung gian kết nối và hiển thị thông tin.
+
+Sản phẩm được thiết kế hướng tới:
+
+Trải nghiệm đơn giản, dễ tiếp cận;
+
+Khả năng tham gia và rút tiền linh hoạt;
+
+Minh bạch thông tin về lợi nhuận, rủi ro và cơ chế vận hành.
+
+***Note: V-Smart Save (VSS) là tên tạm, sẽ được cập nhật sau khi được lãnh đạo phê duyệt.
+
+Background
+Tổng tiền gửi dân cư đạt ~7,83 triệu tỷ VNĐ; tỉ lệ tiền gửi không kỳ hạn ~22% → ước tính ~1,72 triệu tỷ VNĐ đang hưởng lãi suất chỉ 0,1–0,2%/năm. (Nguồn: Báo chính phủ,Hiệp hội ngân hàng Việt Nam);
+
+Tổng số dư ví điện tử toàn hệ thống chỉ ~2.800 tỷ VNĐ / 30,27 triệu ví hoạt động → ~92.500 VNĐ/ví → cho thấy người dùng chỉ nạp tiền khi cần thanh toán, không duy trì số dư lớn tại ví điện tử. (Nguồn: Bảo hiểm tiền gửi Việt Nam);
+
+Sản phẩm sinh lời tự động đã vượt ngưỡng bùng phát 15% theo lý thuyết Khuếch tán Đổi mới (Everett Rogers): Techcombank ~31%, LPBank ~17%, MoMo ~17,7%, ZaloPay ~17,5%, TPBank ~12,1% (nguồn: Techcombank, VPBank, MoMo Press, ZaloPay Blog, TPBank IR, LPBank);
+
+~45 triệu người dùng ứng dụng tài chính ; trong đó ~18,1 triệu đã dùng SLTĐ (ước tính tổng hợp từ MoMo, ZaloPay, Techcombank, VPBank, TPBank, LPBank — chưa loại trừ trùng lặp) → còn ~26,9 triệu người dùng là dư địa chưa khai thác.(nguồn: VOV, T5/2025);
+
+VSP chưa có sản phẩm tương đương → đang bỏ trống cơ hội trong khi đối thủ tăng tốc chiếm lĩnh thị phần.
+
+direct hit
+Phạm vi sản phẩm (Product Scope)
+Trải nghiệm VSS được thiết kế tối giản với các bước chính:
+
+Đăng ký tham gia sản phẩm sinh lời trực tiếp trên ứng dụng VSP;
+
+Nạp tiền từ ví VSP vào sản phẩm sinh lời;
+
+Theo dõi số dư, lợi nhuận và lịch sử giao dịch sinh lời;
+
+Rút tiền từ sản phẩm sinh lời về ví VSP;
+
+Hủy đăng ký sản phẩm sinh lời.
+
+trophy
+Mục tiêu sản phẩm (Product Goals)
+Gia tăng số dư trung bình và thời gian giữ tiền trong hệ sinh thái VSP;
+
+Chuyển đổi ví VSP từ công cụ thanh toán thuần túy thành nền tảng tài chính cá nhân — nơi người dùng vừa chi tiêu vừa sinh lời từ số dư nhàn rỗi;
+
+Mang lại giá trị thực cho người dùng với lợi suất cạnh tranh, trải nghiệm đơn giản, minh bạch và dễ hiểu nhưng vẫn đảm bảo cân bằng giữa lợi suất, thanh khoản và rủi ro.
+
+Red Star
+Mục tiêu kinh doanh (Business Goals)
+Tạo nguồn doanh thu mới & bền vững từ việc chia sẻ lợi nhuận với đối tác tài chính dựa trên AUM của người dùng;
+
+Tăng mức độ gắn bó và giảm tỷ lệ người dùng rời bỏ ví;
+
+Mở rộng tệp người dùng tài chính số một cách có chọn lọc (có khả năng duy trì số dư, chi tiêu thường xuyên trong hệ sinh thái,…).
+
+puzzle piece
+Tác động chiến lược (Strategy Impact)
+Đặt nền móng trong lộ trình phát triển dịch vụ tài chính số của VSP;
+
+Xây dựng các năng lực cốt lõi (core capabilities) phục vụ mở rộng hệ sinh thái tài chính: sản phẩm tiết kiệm, đầu tư, bảo hiểm,...;
+
+Tạo tiền đề phát triển các mô hình doanh thu mới dựa trên dịch vụ tài chính (VD: mô hình gói thành viên subscription);
+
+Tăng năng lực cạnh tranh của VSP thông qua việc mở rộng giá trị trên mỗi người dùng.
+
+2. The Customer Problem 
+2.1 Problem Statement
+Hiện nay, phần lớn người dùng ví điện tử thường duy trì một lượng tiền nhàn rỗi trong ví để phục vụ thanh toán hàng ngày. Tuy nhiên, số dư này không tạo ra giá trị gia tăng trong thời gian chưa được sử dụng. Điều này khiến người dùng có xu hướng không giữ số dư lớn trong ví hoặc rút tiền về tài khoản ngân hàng, làm giảm mức độ gắn bó và tần suất sử dụng ví điện tử.
+
+Vấn đề không chỉ nằm ở việc “tiền không sinh lời”, mà còn đến từ các rào cản sâu hơn:
+
+Thiếu niềm tin khi giữ số dư lớn trong ví điện tử: người dùng thường ưu tiên chuyển tiền về tài khoản ngân hàng do cảm nhận an toàn cao hơn;
+
+Tâm lý ưu tiên thanh khoản tuyệt đối: người dùng lo ngại việc tiền bị “khóa” hoặc không thể sử dụng ngay khi cần, đặc biệt với các nhu cầu chi tiêu đột xuất;
+
+Khoảng cách giữa thanh toán và đầu tư: người dùng không coi mình là nhà đầu tư, và không sẵn sàng thực hiện các hành vi như chọn sản phẩm, chọn kỳ hạn hoặc chấp nhận rủi ro;
+
+Chi phí chuyển đổi cao khi muốn sinh lời: để tối ưu tiền nhàn rỗi, người dùng phải chuyển tiền sang ngân hàng hoặc nền tảng khác, gây gián đoạn trải nghiệm và tăng friction;
+
+Thiếu giải pháp tích hợp giữa chi tiêu và gia tăng tài sản: hiện chưa có một trải nghiệm liền mạch cho phép người dùng vừa sử dụng tiền cho thanh toán hằng ngày, vừa tối ưu giá trị của số dư trong cùng một nền tảng.
+
+Do đó, bài toán cần giải quyết là: Làm thế nào để giúp người dùng duy trì số dư trong ví và tối ưu giá trị của khoản tiền ngắn hạn, trong khi vẫn đảm bảo:
+
+Khả năng sử dụng tức thời khi cần;
+
+Trải nghiệm đơn giản, không yêu cầu kiến thức đầu tư;
+
+Mức độ tin cậy đủ cao để người dùng sẵn sàng giữ tiền trong ví.
+
+2.2 Customer Evidence
+Info
+Market Research - Tham chiếu thêm qua tài liệu Phân tích và xây dựng gói Sinh lời tự động
+Việt Nam hiện có khoảng 30,27 triệu ví điện tử đang hoạt động, cho thấy mức độ phổ cập cao của các nền tảng thanh toán số (Nguồn: Bảo hiểm tiền gửi Việt Nam);
+
+Tổng tiền gửi dân cư đạt mức kỷ lục khoảng 7,83 triệu tỷ VNĐ, trong đó phần lớn là tiền gửi ngắn hạn hoặc tiền chờ sử dụng (Nguồn: Báo chính phủ,Hiệp hội ngân hàng Việt Nam);
+
+Tuy nhiên, tỷ lệ người Việt tham gia đầu tư tài chính vẫn còn thấp (~16% dân số) (Nguồn: VnEconomy).
+
+→ Điều này cho thấy một lượng lớn tiền nhàn rỗi vẫn đang nằm trong các kênh thanh toán hoặc tài khoản không tối ưu lợi suất, bao gồm ví điện tử.
+
+Info
+Competitors Analysis - Tham chiếu thêm qua Bảng so sánh các sản phẩm SLTĐ tại Việt Nam
+Sản phẩm SLTĐ tại Việt Nam đã trở nên phổ biến ở cả ngân hàng lẫn ví điện tử. Các sản phẩm từ ngân hàng (Techcombank, VPBank, VIB, ...) có một số khác biệt so với ví điện tử về điều kiện số dư CASA tối thiểu cần duy trì và cơ chế lãi suất bậc thang theo phân khúc khách hàng. Trong phân khúc ví điện tử — thị trường trực tiếp của VSP — MoMo và ZaloPay đã phát triển sản phẩm này ở mức trưởng thành.
+
+Những gì đối thủ đã làm tốt:
+
+Biến ví sinh lời thành tài khoản chính: tiền nhận qua QR, thanh toán, nạp rút đều từ số dư sinh lời — không cần chuyển tiền qua lại.
+
+Trải nghiệm nhanh mượt như ví thường: lãi tính theo ngày, rút tiền tức thì, không lock tiền.
+
+Ngưỡng tham gia thấp: ZaloPay từ 10.000 ₫, MoMo từ 20.000 ₫ → dễ activation với mọi phân khúc.
+
+Lợi suất cạnh tranh: MoMo ~4%/năm, ZaloPay 4.5%/năm.
+
+ZaloPay có chương trình làm nhiệm vụ để đổi lãi thưởng — cơ chế duy nhất trên thị trường cho phép người dùng chủ động tăng lợi suất qua hành vi.
+
+MoMo có bán gói Subscription hoặc làm nhiệm vụ để nâng cấp Túi+ — mở rộng hệ sinh thái sản phẩm tài chính từ nền tảng sinh lời nhằm gia tăng lợi nhuận.
+
+Điểm yếu chung chưa ai giải quyết tốt:
+
+Không có cơ chế tạo thói quen mở app hàng ngày bền vững (streak, gamification dài hạn).
+
+Insight: Thị trường ví điện tử đã chuẩn hóa về tính năng cơ bản. Cạnh tranh bây giờ nằm ở cơ chế tạo thói quen gắn bó dài hạn — đây là khoảng trắng VSP có thể khai thác.
+
+Info
+Behavior Insight
+Phân tích hành vi sử dụng ví điện tử trên thị trường cho thấy người dùng thường giữ tiền trong ví với các mục đích:
+
+Nạp tiền trước các kỳ thanh toán hóa đơn (điện, nước, internet…);
+
+Chuẩn bị cho các khoản chi tiêu trong vài ngày hoặc cuối tuần/cuối tháng;
+
+Duy trì một khoản quỹ dự phòng nhỏ để thanh toán nhanh.
+
+Đặc điểm của số tiền này:
+
+Thời gian giữ tiền: ngắn hạn, thường từ vài ngày đến dưới 30 ngày;
+
+Giá trị khoản tiền: không đủ lớn để chủ động đầu tư;
+
+Tính chất: có thể được sử dụng bất kỳ lúc nào, không đủ dài để gửi tiết kiệm truyền thống.
+
+→ Khoảng “thời gian chờ chi tiêu” này hiện chưa được khai thác về mặt sinh lời, có quy mô lớn về tổng thể, nhưng phân tán theo từng người dùng và chưa được khai thác hiệu quả.
+
+Ngoài yếu tố hành vi, người dùng còn gặp các rào cản tâm lý quan trọng:
+
+Không coi mình là “nhà đầu tư”, do đó không chủ động tìm kiếm sản phẩm tài chính;
+
+Ưu tiên sự an toàn và khả năng kiểm soát tiền, tránh các sản phẩm có cảm giác rủi ro;
+
+Không hiểu rõ cơ chế vận hành của các sản phẩm sinh lời, dẫn đến e ngại khi tham gia;
+
+Không muốn tiền bị “khóa” hoặc mất khả năng sử dụng ngay khi cần;
+
+Thiếu niềm tin vào việc giữ số dư lớn trong ví điện tử so với tài khoản ngân hàng.
+
+Yếu tố quan trọng nhất ảnh hưởng đến quyết định tham gia là niềm tin và khả năng rút tiền nhanh khi cần.
+
+Info
+Key insights
+Người dùng không chủ động tìm kiếm sản phẩm sinh lời, nhưng sẵn sàng tham gia nếu giải pháp được tích hợp sẵn và không làm thay đổi hành vi hiện tại:
+
+Thanh khoản là yếu tố quan trọng nhất: người dùng chỉ chấp nhận tham gia nếu có thể rút tiền nhanh và sử dụng ngay khi cần;
+
+Niềm tin là rào cản lớn hơn lợi suất: người dùng cần hiểu rõ tiền được quản lý như thế nào và ai chịu trách nhiệm;
+
+Khoảng “tiền chờ chi tiêu” là cơ hội lớn, nhưng chỉ có thể khai thác nếu:
+
+Không tạo thêm bước thao tác;
+
+Không tạo cảm giác rủi ro.
+
+Ví điện tử có lợi thế về tần suất sử dụng và dữ liệu hành vi, nhưng cần bổ sung lớp giá trị tài chính để chuyển từ “công cụ thanh toán” sang “nơi giữ tiền”.
+
+3. Target Customers
+3.1 Primary Persona
+
+
+Persona 1 – Gen Z
+
+Persona 2 – Người trẻ đi làm ổn định
+
+Persona 3 – Trung niên, hộ gia đình
+
+Persona 4 – Chủ hộ kinh doanh nhỏ
+
+Phân khúc
+
+Activation
+
+Core AUM
+
+Trust-driven
+
+Merchant
+
+Độ tuổi
+
+18–25
+
+25–35
+
+35–50
+
+28–50
+
+Thu nhập
+
+3–8 triệu VNĐ/tháng (nguồn: TalentnetGroup, Dân Trí )
+
+10–20 triệu VNĐ/tháng (nguồn: JobsGO, 2025)
+
+15–30 triệu VNĐ/tháng (hộ gia đình) (TalentnetGroup)
+
+Doanh thu biến động theo ngày
+
+Số dư ví thực tế
+
+100K – 1 triệu VNĐ
+
+1–5 triệu VNĐ
+
+2–10 triệu VNĐ
+
+Cao nhưng biến động liên tục
+
+Hành vi
+
+Dùng ví làm tài khoản thanh toán chính
+
+Tần suất giao dịch cao (QR, ecom)
+
+Nạp → tiêu → hết tiền
+
+Nhận lương vào bank → chuyển sang ví để tiêu
+
+Giữ tiền trong ví vài ngày đến 1–2 tuần trước khi chi tiêu
+
+Ít tham gia sản phẩm đầu tư
+
+Dùng ví cho thanh toán tiện ích gia đình (điện, nước, học phí)
+
+Giữ tiền lâu hơn nhưng vẫn ưu tiên bank
+
+Thận trọng với sản phẩm tài chính mới
+
+Nhận tiền qua ví từ khách hàng
+
+Cuối ngày có tiền tạm thời chưa dùng
+
+Ít thời gian quản lý tài chính
+
+Chu kỳ tiền nhàn rỗi
+
+1–3 ngày / số tiền nhỏ
+
+3–14 ngày / số tiền trung bình
+
+7–30 ngày / số tiền ổn định
+
+<24h – 3 ngày / số tiền lớn nhưng rất ngắn hạn
+
+Pain Points
+
+Không thấy lợi ích rõ ràng vì số tiền nhỏ
+
+Sợ bị khóa tiền khi cần tiêu ngay
+
+Tiền trong ví không sinh lời
+
+Không muốn gửi tiết kiệm vì thiếu linh hoạt
+
+Không tin fintech
+
+Sợ mất vốn
+
+Lo ngại sản phẩm rủi ro hoặc khó hiểu
+
+Không có thời gian quản lý tiền
+
+Sợ delay khi rút
+
+Bất kỳ friction nào trong rút tiền đều là barrier
+
+Mức độ chấp nhận rủi ro
+
+Thấp nhưng dễ thử nếu UX đơn giản
+
+Trung bình thấp
+
+Rất thấp
+
+Thấp (liquidity-sensitive)
+
+Insight quan trọng
+
+Không quan tâm lãi suất, quan tâm trải nghiệm + reward
+
+Muốn sinh lời tự động nhưng không thay đổi hành vi
+
+Niềm tin > Lãi suất
+
+Thanh khoản là yếu tố ưu tiên hàng đầu
+
+Trigger tham gia
+
+UX đơn giản
+
+Có động lực (bonus, streak, gamification)
+
+"Không cần làm gì vẫn có lãi"
+
+Rút tiền dễ, tức thì
+
+Thấy rõ đối tác uy tín
+
+Minh bạch dòng tiền và nơi lưu ký
+
+Rút tiền gần như tức thì
+
+Không ảnh hưởng dòng tiền kinh doanh
+
+Barrier
+
+Không thấy lợi ích rõ ràng với số tiền nhỏ
+
+Không tin ví là nơi giữ tiền lâu
+
+"Ví không phải nơi giữ tiền"
+
+Bất kỳ delay nào trong rút tiền
+
+Giá trị kinh doanh
+
+❌ Không phải nguồn tạo AUM chính
+✅ Tạo thói quen & adoption sớm
+
+✅ Core AUM driver
+
+✅ AUM ổn định dài hạn
+
+✅ Thúc đẩy GMV 
+⚠️ AUM không ổn định
+
+Bảng tóm tắt Conversion Priority:
+
+Persona
+
+Segment Type
+
+Độ tuổi
+
+Thu nhập
+
+Số dư ví thực tế
+
+Idle Duration
+
+AUM Potential
+
+Conversion Priority
+
+Gen Z Spenders
+
+Activation
+
+18–25
+
+3–8M
+
+100K–2M
+
+1–3 ngày
+
+❌ Thấp
+
+P3
+
+Salary Earners
+
+Core AUM
+
+25–35
+
+10–20M
+
+1–5M
+
+3–14 ngày
+
+✅ Cao
+
+P1
+
+Stability Seekers
+
+Trust-driven
+
+35–50
+
+15–30M (hộ)
+
+2–10M
+
+7–30 ngày
+
+✅ Ổn định
+
+P2
+
+Cashflow Operators
+
+Merchant
+
+28–50
+
+Biến động
+
+Cao, không ổn định
+
+<24h–3 ngày
+
+⚠️ Không ổn định
+
+P4
+
+3.2 Potential Market Size
+Chỉ số
+
+Định nghĩa
+
+Quy mô ước tính
+
+TAM (Total Addressable Market)
+
+Tổng quy mô lý thuyết của thị trường tiền nhàn rỗi có thể tham gia các sản phẩm sinh lời ngắn hạn tại Việt Nam.
+
+~1,72 triệu tỷ VNĐ (Nguồn: Báo chính phủ,Hiệp hội ngân hàng Việt Nam)
+
+SAM (Serviceable Available Market)
+
+Phần thị trường có khả năng tiếp cận thông qua các nền tảng thanh toán số và ví điện tử.
+
+Tổng số dư ví điện tử toàn hệ thống ~2.800 tỷ VNĐ. (Nguồn: Bảo hiểm tiền gửi Việt Nam). Tuy nhiên, hiện tại số dư trung bình của ví chỉ ~92.500 VNĐ. Kỳ vọng con số này sẽ tăng nhiều hơn khi sản phẩm tài chính số trở nên phổ biến.
+
+SOM (Serviceable Obtainable Market)
+
+Phần thị trường V-Smart Pay có thể tiếp cận và chuyển đổi trong giai đoạn đầu triển khai (sau 1 năm) dựa trên tệp người dùng ví và tỷ lệ kích hoạt sản phẩm sinh lời (theo số liệu dự phóng từ KDVH).
+
+~220 tỷ (550K users x 25% conversion rate x 1,6 triệu VNĐ tiền nhàn rỗi)
+
+Phần thị trường V-Smart Pay có thể tiếp cận và chuyển đổi trong giai đoạn đầu triển khai (sau 3 năm) dựa trên tệp người dùng ví và tỷ lệ kích hoạt sản phẩm sinh lời (theo số liệu dự phóng từ KDVH).
+
+~8.750 tỷ (10M users x 35% conversion rate x 2,5 triệu VNĐ tiền nhàn rỗi)
+
+Sản phẩm sinh lời tự động có lợi thế phù hợp với hệ sinh thái ví điện tử vì tận dụng lượng tiền nhàn rỗi ngắn hạn của người dùng, đồng thời không yêu cầu người dùng phải ra quyết định đầu tư phức tạp. Điều này giúp sản phẩm trở thành dịch vụ tài chính có giá trị gia tăng quan trọng, góp phần tăng AUM, tăng mức độ gắn bó của người dùng và mở rộng sang các dịch vụ tài chính khác trong tương lai.
+
+3.3 Customer Journey
+Hành trình A – Khám phá & Đăng ký (Người dùng chưa tham gia sản phẩm)
+
+
+Nhận thức
+
+Cân nhắc
+
+Đăng ký
+
+Kích hoạt thành công
+
+Stage
+
+Chưa biết đến tính năng Sinh lời tự động
+
+Tìm hiểu và cân nhắc tham gia
+
+Xác nhận thông tin và hoàn tất đăng ký
+
+Hoàn tất đăng ký, quyết định bước tiếp theo
+
+User Action
+
+Tình cờ thấy về tính năng sinh lời khi đang dùng ví
+
+Tìm hiểu: lợi suất, nơi lưu tiền, rủi ro, có bị khóa tiền không
+
+Kiểm tra thông tin cá nhân, đọc điều khoản, xác nhận đăng ký
+
+Vừa đăng ký xong, chưa biết làm gì tiếp theo để bắt đầu sinh lời
+
+Touchpoints
+
+Trang chủ VSP
+
+Push notification
+
+Banner theo ngữ cảnh
+
+Màn hình giới thiệu sản phẩm
+
+Màn hình đăng ký: thông tin KH, tóm tắt sản phẩm, checkbox điều khoản
+
+Màn hình đăng ký thành công
+
+Pain Points
+
+Không biết VSP có tính năng sinh lời
+
+Nghi ngờ "lãi cao = rủi ro cao"
+
+Không rõ khác gì tiết kiệm ngân hàng
+
+Không biết tiền được bảo vệ thế nào
+
+Sợ mất vốn
+
+Không hiểu cơ chế tiền lời
+
+Không rõ điều kiện áp dụng lợi suất
+
+Chưa đọc hết điều khoản nhưng phải tick đồng ý
+
+Không rõ tiền sinh lời ngay sau đăng ký không
+
+Không biết bước tiếp theo
+
+Không rõ tiền sinh lời từ khi nào
+
+Dễ thoát app trước khi nạp tiền
+
+VSP Solution
+
+Gắn nhãn "Sinh lời tự động" tại entry point trang chủ
+
+USP ngắn gọn: lãi cao, linh hoạt, an toàn
+
+Trigger banner theo số dư nhàn rỗi hoặc trạng thái idle lâu
+
+3 USP ngắn gọn kèm icon trực quan
+
+Footnote rõ điều kiện lợi suất và hạn mức
+
+Mô phỏng so sánh giữa việc không có và có sinh lời 
+
+Hiển thị thông tin cơ chế nhận lãi, ngày nhận, đối tác và nơi lưu ký
+
+Pre-fill thông tin KH từ eKYC
+
+Tóm tắt sản phẩm ngắn gọn 3 dòng
+
+Link hợp đồng đầy đủ cho người muốn đọc kỹ
+
+CTA "Nạp tiền ngay" dẫn thẳng vào luồng nạp
+
+CTA phụ "Chi tiết sinh lời"
+
+Hiển thị tóm tắt thông tin sản phẩm
+
+Priority
+
+High — Gắn nhãn vào CTA có trong MVP này. 
+
+Medium - Banner, Message USP phụ thuộc MKT nên chưa có trong MVP này
+
+High — Có trong MVP này
+
+High — Có trong MVP này
+
+High — Có trong MVP này
+
+Medium - Reminder nếu chưa nạp - Chưa có  trong MVP này 
+
+Lý do
+
+Entry point quyết định tỉ lệ người dùng biết đến và bắt đầu tìm hiểu. Banner và USP cần phối hợp MKT
+
+Giai đoạn xây dựng niềm tin — thiếu thông tin minh bạch người dùng sẽ không tiếp tục
+
+Pre-fill và quy trình đơn giản là yếu tố quyết định tỷ lệ chuyển đổi
+
+Màn hình thành công là cơ hội activation — CTA rõ ràng giúp người dùng nạp tiền ngay thay vì thoát app
+
+Hành trình B – Giao dịch (Nạp tiền / Rút tiền / Thanh toán từ số dư sinh lời)
+
+
+Nạp tiền
+
+Rút tiền
+
+Dùng tiền sinh lời để thanh toán
+
+Stage
+
+Nạp tiền vào sản phẩm sinh lời
+
+Rút tiền về ví khi có nhu cầu
+
+Thanh toán trực tiếp từ số dư sinh lời
+
+User Action
+
+Chọn số tiền nạp từ ví VSP và xác nhận
+
+Chọn số tiền rút về ví và xác nhận
+
+Thanh toán hóa đơn, mua sắm trực tiếp từ số dư sinh lời mà không cần rút về ví
+
+Touchpoints
+
+Nút Nạp/Rút → toggle Nạp/Rút
+
+Màn hình nhập số tiền nạp
+
+Màn hình xác nhận
+
+Màn hình nạp thành công
+
+Nút Nạp/Rút → toggle Nạp/Rút
+
+Màn hình nhập số tiền rút
+
+Màn hình xác nhận
+
+Màn hình rút thành công
+
+Luồng thanh toán VSP
+
+Màn hình chọn nguồn tiền
+
+Pain Points
+
+Không biết số tiền tối thiểu
+
+Lo ngại tiền bị khóa sau khi nạp
+
+Không rõ tiền sinh lời từ khi nào
+
+Không hiểu vì sao tiền bị khóa một phần
+
+Sợ mất lãi khi rút
+
+Không rõ tiền về trong bao lâu
+
+Phải rút về ví trước mới thanh toán được
+
+Lo ngại mất lãi nếu rút ra để thanh toán
+
+VSP Solution
+
+Hiển thị số tiền tối thiểu rõ ràng
+
+Gợi ý số tiền nạp theo số dư ví
+
+Thông báo: tiền sinh lời từ ngày hôm nay
+
+Phân tách rõ số tiền có thể rút và tiền lời chưa nhận
+
+Thông báo: tiền về ngay lập tức
+
+Xác nhận không mất lãi đã tích lũy
+
+Cho phép thanh toán trực tiếp từ số dư sinh lời
+
+Hiển thị rõ số tiền có thể dùng để thanh toán
+
+Priority
+
+High — Có trong MVP này
+
+High — Có trong MVP này
+
+Medium — Chưa có trong MVP này
+
+Lý do
+
+Điểm kích hoạt — nạp tiền thành công mới thực sự bắt đầu trải nghiệm sản phẩm
+
+Rút tiền thuận tiện và minh bạch quyết định người dùng có dám nạp thêm hay không
+
+Giúp tăng doanh số giao dịch và giữ tiền trong hệ sinh thái VSP. Cần giải pháp xử lý luồng tiền, chưa kịp tiến độ MVP này
+
+Hành trình C – Tra cứu, Quản lý & Tìm hiểu thêm (Theo dõi lợi nhuận / Quản lý & Tra cứu / Tìm hiểu sản phẩm tài chính khác)
+Nội dung
+
+Theo dõi lợi nhuận
+
+Tra cứu lịch sử giao dịch
+
+Quản lý
+
+Tìm hiểu sản phẩm khác
+
+Stage
+
+Theo dõi số dư và lợi nhuận tích lũy
+
+Tra cứu dòng tiền và biến động số dư
+
+Quản lý hợp đồng và hỗ trợ giải đáp
+
+Tìm hiểu sản phẩm tài chính từ tiền lời
+
+User Action
+
+Mở app xem số dư, lãi tích lũy, streak và lợi nhuận tạm tính
+
+Xem lịch sử nạp/rút, chi tiết giao dịch trên ví và tiền lời nhận được
+
+Đọc FAQ, xem/tải hợp đồng và thực hiện lệnh hủy sinh lời khi cần
+
+Tìm hiểu cách tối ưu tiền hoặc tham gia sản phẩm khác trong hệ sinh thái
+
+Touchpoints
+
+Tab Sản phẩm: Số dư, streak, lãi tạm tính
+
+Push thông báo lãi định kỳ
+
+Tab Lịch sử: Danh sách & chi tiết giao dịch (Nạp/Rút/Lãi)
+
+tab Cài đặt: FAQ, Hợp đồng, Nút hủy đăng ký sinh lời
+
+Banner gợi ý
+
+Màn hình giới thiệu sản phẩm tài chính mới
+
+Pain Points
+
+Lãi không đều gây lo lắng
+
+Không rõ lãi tạm tính với thực nhận
+
+Khó theo dõi dòng tiền cụ thể 
+
+Không biết tiền lời từ giao dịch nào
+
+Sợ rủi ro ẩn 
+
+Khó tìm lại cam kết pháp lý
+
+Lo ngại khó dừng dịch vụ
+
+Không có điểm so sánh
+
+Không biết sản phẩm nào phù hợp với số tiền hiện có
+
+VSP Solution
+
+Tách biệt vốn gốc và lãi
+
+Thống kê chi tiết
+
+Streak tạo thói quen mở app
+
+Giải thích cơ chế tính lãi và ngày nhận lãi
+
+Chi tiết biến động số dư ví song song tiền lãi
+
+Hệ thống FAQ trực quan
+
+Truy cập hợp đồng nhanh
+
+Nút hủy minh bạch
+
+Gợi ý theo số dư và hành vi
+
+So sánh giữa các sản phẩm, tối ưu danh mục
+
+Priority
+
+High — Có trong MVP này
+
+High — Có trong MVP này
+
+High — Có trong MVP này
+
+Low — Chưa có trong MVP này
+
+Lý do
+
+Minh bạch lợi nhuận là yếu tố cốt lõi để giữ chân người dùng
+
+Tạo sự tin tưởng thông qua việc kiểm soát dòng tiền rõ ràng
+
+Đảm bảo tính pháp lý và cung cấp "lối thoát" an toàn giúp người dùng an tâm
+
+Bán chéo (cross-sell) để tăng doanh thu trên mỗi người dùng dài hạn
+
+4. Solution Overview
+4.1 Product Vision
+V-Smart Save được định vị là động cơ tăng trưởng giá trị tài sản cho người dùng ngay trong hệ sinh thái V-Smart Pay, giúp người dùng tối ưu giá trị từ số dư nhàn rỗi ngay trong ví một cách minh bạch, đơn giản và linh hoạt.
+
+Mục tiêu cốt lõi của sản phẩm là chuyển đổi trạng thái “tiền chờ chi tiêu” thành “tiền đang sinh lời”, đồng thời vẫn đảm bảo khả năng sử dụng tức thời cho các nhu cầu thanh toán hàng ngày.
+
+VSS đóng vai trò chiến lược trong việc mở rộng VSP từ một công cụ thanh toán sang nền tảng quản lý tài chính cá nhân, trong đó lấy sản phẩm đầu tư làm trọng tâm, nhằm tối ưu hóa dòng tiền ngắn hạn và gia tăng giá trị vòng đời người dùng (LTV).
+
+Trụ cột phát triển (Product Principles)
+Để đạt được tầm nhìn này, sản phẩm tuân thủ chặt chẽ 3 nguyên tắc vận hành:
+
+Tài chính vô hình: Khả năng sinh lời được tích hợp sâu vào luồng thanh toán hằng ngày. Người dùng không cần thay đổi hành vi sử dụng, không có sự tách biệt giữa ví thanh toán và tài khoản tích lũy;
+
+Tiếp cận không rào cản: Đơn giản hóa toàn bộ quy trình đầu tư phức tạp thành trải nghiệm "Self-serve" 100%. VSS loại bỏ mọi yêu cầu về kỳ hạn, vốn tối thiểu hay kiến thức chuyên sâu để bất kỳ người dùng nào cũng có thể bắt đầu;
+
+Thanh khoản tuyệt đối: Đảm bảo dòng tiền luôn ở trạng thái sẵn sàng. Ưu tiên số một là không làm gián đoạn nhu cầu chi tiêu tức thời của người dùng, duy trì sự linh hoạt tương đương tiền mặt.
+
+Giá trị mục tiêu
+V-Smart Save hướng tới việc thay đổi bản chất của ví điện tử:
+
+Từ nơi trung chuyển sang nơi giữ tiền: Tạo động lực để người dùng tự nguyện duy trì số dư cao hơn trong hệ sinh thái nhờ lợi ích kinh tế trực tiếp;
+
+Tối ưu hóa giá trị thặng dư: Hợp tác cùng các đối tác tài chính uy tín để chuyển hóa số dư ngắn hạn thành lợi nhuận minh bạch, an toàn và ổn định;
+
+Tăng cường sự gắn kết (Stickiness): Khi ví điện tử không chỉ để tiêu mà còn để "ra tiền", VSP sẽ trở thành ứng dụng tài chính không thể thiếu trong đời sống hằng ngày.
+
+Người dùng có thể tham gia sản phẩm với trải nghiệm đơn giản ngay trên ứng dụng:
+
+Khám phá → Đăng ký → Nạp tiền → Bắt đầu sinh lời → Theo dõi → Rút tiền bất kỳ lúc nào.
+
+Trong mô hình này:
+
+VSP đóng vai trò nền tảng phân phối và quản lý trải nghiệm người dùng, bao gồm đăng ký, hiển thị thông tin và điều hướng giao dịch;
+
+Đối tác tài chính chịu trách nhiệm quản lý dòng tiền, đầu tư và tạo lợi nhuận, đồng thời đảm bảo tuân thủ các quy định pháp lý liên quan.
+
+4.2 Key Benefits (Customer Value)
+1 One Square Blue
+ Đối với Người dùng
+
+Tận dụng tiền nhàn rỗi ngắn hạn để tạo lợi nhuận mà không cần thay đổi hành vi chi tiêu;
+
+Trải nghiệm tham gia đơn giản trực tiếp trong ứng dụng ví, không cần tìm hiểu hoặc lựa chọn các sản phẩm đầu tư phức tạp;
+
+Thanh khoản linh hoạt, tiền có thể được rút về ví linh hoạt để phục vụ nhu cầu thanh toán hoặc chi tiêu khi cần;
+
+Minh bạch và dễ theo dõi, thông tin về đối tác tài chính, sản phẩm đầu tư, cơ chế quản lý dòng tiền và tạo ra lợi nhuận giúp người dùng cảm nhận rõ giá trị tích lũy.
+
+2 Two Square Blue
+Đối với Ví VSP
+
+Tăng số dư trung bình và thời gian giữ tiền trong hệ sinh thái;
+
+Tăng AUM thông qua việc chuyển đổi idle balance thành tài sản sinh lời => tạo nguồn doanh thu mới thông qua cơ chế chia sẻ lợi nhuận với đối tác tài chính;
+
+Tăng mức độ gắn bó sử dụng Ví;
+
+Tạo nền tảng để mở rộng sang các sản phẩm tài chính khác (tiết kiệm, đầu tư, bảo hiểm).
+
+5. User Stories & Requirements
+5.1 Must-Have (MVP)
+5.1.1 Epic 1 – Đăng ký sinh lời 
+Epic này mô tả toàn bộ luồng cho phép người dùng khám phá, tìm hiểu và kích hoạt tính năng sinh lời trên ứng dụng V-SmartPay.
+
+Người dùng có thể truy cập tính năng sinh lời từ entry point tại Homepage VSP. Trước khi kích hoạt, người dùng được cung cấp thông tin tổng quan về sản phẩm và có thể thử tính lợi nhuận dự kiến.
+
+Sau khi xác nhận thông tin và đồng ý với điều khoản, người dùng thực hiện xác thực để hoàn tất việc kích hoạt và bắt đầu sử dụng tính năng sinh lời.
+
+User flow
+image-20260423-031030.png
+US List
+US_ID
+
+User Story
+
+Priority
+
+Effort
+
+US_ACT_01
+
+Là người dùng đã đăng nhập vào VSP, tôi muốn truy cập tính năng sinh lời từ Home page của VSP, để tôi có thể khám phá và bắt đầu tìm hiểu về sản phẩm.
+
+P0
+
+S
+
+US_ACT_02
+
+Là người dùng đã truy cập sinh lời, tôi muốn xem thông tin tổng quan về sản phẩm để tôi hiểu cách hoạt động, lợi suất và điều kiện trước khi đăng ký.
+
+P0
+
+M
+
+US_ACT_03
+
+Là người dùng đang đăng ký sinh lời, tôi muốn xem thông tin và hợp đồng sản phẩm để đảm bảo hiểu trước khi xác nhận.
+
+P0
+
+M
+
+US_ACT_04
+
+Là người dùng đang đăng ký sinh lời, tôi muốn xác thực đăng ký để hệ thống xác nhận tôi là chủ tài khoản và hoàn tất yêu cầu đăng ký.
+
+P0
+
+S
+
+US_ACT_05
+
+Là người dùng đã xác thực đăng ký sinh lời, tôi muốn xem kết quả để biết trạng thái đăng ký của mình.
+
+P0
+
+S
+
+US Detail
+
+US_ACT_01 – Khám phá sinh lời từ Homepage
+
+US_ACT_02 – Xem trang thông tin sản phẩm sinh lời
+
+US_ACT_03 – Xác nhận thông tin đăng ký sinh lời
+
+US_ACT_04 – Xác thực khi đăng ký sinh lời
+
+US_ACT_05 – Hiển thị kết quả đăng ký sinh lời
+5.1.2 Epic 2 – Quản lý sinh lời
+Epic này mô tả chức năng cho phép người dùng xem, theo dõi và quản lý cài đặt sinh lời sau khi đăng ký thành công. Giao diện chính là Trang chủ sinh lời với 3 tab:
+
+Tab Sản phẩm: Số dư, tiền lời, streak sinh lời, ước tính tháng này, điều hướng nạp/rút.
+
+Tab Lịch sử: Lịch sử giao dịch nạp/rút/lãi và chi tiết giao dịch.
+
+Tab Cài Dđặt: FAQ, Hợp đồng & điều khoản và Hủy đăng kí.
+
+US Flow
+image-20260422-051124.png
+
+
+image-20260422-051257.png
+
+
+image-20260424-051209.png
+
+
+
+
+US List
+US_ID
+
+User Story
+
+Priority
+
+Effort
+
+US_MNG_01
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn chuyển đổi giữa 3 tab Sản phẩm / Lịch sử / Thông tin, để tôi dễ dàng điều hướng trong trang chủ sinh lời.
+
+P0
+
+S
+
+US_MNG_02
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem tổng số dư, tiền lời ước tính và ngày nhận dự kiến, để tôi nắm được tình trạng ví sinh lời của mình.
+
+P0
+
+S
+
+US_MNG_03
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem chi tiết tiền lời theo từng năm và từng tháng, để tôi theo dõi lãi đã nhận và dự kiến theo thời gian.
+
+P0
+
+M
+
+US_MNG_04
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem thông tin "An toàn và đảm bảo", để tôi hiểu cơ chế bảo vệ tiền của mình.
+
+P0
+
+S
+
+US_MNG_05
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem streak sinh lời và lịch sinh lời từng ngày, để tôi biết mình đang sinh lời liên tục và xem lại tiền lời các ngày trước.
+
+P0
+
+M
+
+US_MNG_06
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn nhấn nút Nạp/Rút tiền, để tôi được điều hướng nhanh đến luồng nạp hoặc rút tiền.
+
+P0
+
+S
+
+US_MNG_07
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem công thức tính tiền lời, để tôi hiểu lãi của mình được tính như thế nào.
+
+P0
+
+S
+
+US_MNG_08
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem thời điểm trả lợi nhuận, để tôi biết khi nào tiền lời được ghi nhận vào ví.
+
+P0
+
+S
+
+US_MNG_09
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem thông tin đối tác và nơi lưu ký tiền, để tôi hiểu tiền của mình đang được quản lý ở đâu.
+
+P0
+
+S
+
+US_MNG_10
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem lịch sử nạp rút và lịch sử nhận lãi, để tôi kiểm tra các biến động số dư.
+
+P0
+
+M
+
+US_MNG_11
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem chi tiết từng giao dịch sinh lời, để tôi hiểu rõ thông tin của từng giao dịch.
+
+P0
+
+S
+
+US_MNG_12
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn xem FAQ, Hợp đồng sinh lời và Hủy đăng ký, để tôi tra cứu thông tin khi cần.
+
+P0
+
+S
+
+US_MNG_13
+
+Là người dùng ví VSP đã đăng ký SLTĐ, tôi muốn hủy đăng ký sản phẩm sinh lời từ tab Cài đặt, để tôi dừng sử dụng khi không còn nhu cầu.
+
+P0
+
+S
+
+US Detail
+
+US_MNG_01 — Chuyển đổi tab trong trang chủ sinh lời
+
+US_MNG_02 — Xem tổng số dư, tiền lời ước tính và ngày nhận dự kiến
+
+US_MNG_03 — Xem chi tiết tiền lời theo năm và tháng
+
+US_MNG_04 —Xem thông tin "An toàn và đảm bảo"
+
+US_MNG_05 — Xem streak sinh lời và lịch sinh lời từng ngày
+
+US_MNG_06 — Nút Nạp/Rút tiền
+
+US_MNG_07 — Xem công thức tính tiền lời
+
+US_MNG_08 — Xem thời điểm trả lợi nhuận
+
+US_MNG_09 — Xem thông tin đối tác và nơi lưu ký tiền
+
+US_MNG_10 — Xem lịch sử nạp rút và lịch sử nhận lãi
+
+US_MNG_11 — Xem chi tiết giao dịch
+
+US_MNG_12 — Xem FAQ và hợp đồng sinh lời
+
+US_MNG_13 — Hủy đăng ký từ tab Cài đặt
+5.1.3 Epic 3 – Nạp rút sinh lời
+Epic này mô tả các chức năng cho phép người dùng nạp tiền vào ví sinh lời, rút tiền từ ví sinh lời. Người dùng có thể nạp tiền từ ví V-SmartPay vào ví sinh lời để nhận lãi. Khi cần sử dụng tiền, người dùng có thể rút tiền từ ví sinh lời về ví V-SmartPay.
+
+Mỗi giao dịch sẽ tuân theo các bước tiêu chuẩn của ví điện tử:
+Nhập số tiền → xác nhận giao dịch → xác thực giao dịch → hiển thị trạng thái giao dịch.
+
+User flow
+US List
+US_ID
+
+User Story
+
+Priority
+
+Effort
+
+US_TXN_01
+
+Là người dùng đã tham gia sinh lời, tôi muốn nạp tiền vào từ ví VSP, để tiền của tôi có lợi nhuận.
+
+P0
+
+M
+
+US_TXN_02
+
+Là người dùng đang nạp tiền, tôi muốn xác thực giao dịch để đảm bảo xử lý an toàn.
+
+P0
+
+M
+
+US_TXN_03
+
+Là người dùng đã nạp tiền, tôi muốn xem trạng thái giao dịch,để tôi biết nên làm gì tiếp theo.
+
+P0
+
+M
+
+US_TXN_04
+
+Là người dùng đã tham gia sinh lời, tôi muốn rút tiền ra ví VSP để tôi có thể sử dụng tiền cho các nhu cầu cá nhân.
+
+P0
+
+S
+
+US_TXN_05
+
+Là người dùng đang rút tiền, tôi muốn xác thực giao dịch để đảm bảo xử lý an toàn.
+
+P0
+
+M
+
+US_TXN_06
+
+Là người dùng đã rút tiền, tôi muốn xem trạng thái giao dịch để tôi biết nên làm gì tiếp theo.
+
+P0
+
+M
+
+US Detail
+
+US_TXN_01 – Nhập số tiền nạp vào ví sinh lời
+
+US_TXN_02 – Xác thực giao dịch nạp tiền
+
+US_TXN_03 – Hiển thị trạng thái giao dịch nạp tiền
+
+US_TXN_04 – Nhập số tiền rút từ ví sinh lời
+
+US_TXN_05 – Xác thực giao dịch rút tiền
+
+US_TXN_06 – Hiển thị trạng thái giao dịch rút tiền
+5.1.4 Epic 4 – Hủy đăng ký
+Epic này mô tả chức năng cho phép người dùng hủy đăng ký Sinh lời tự động khi không còn nhu cầu sử dụng. Khi thực hiện hủy đăng ký, người dùng cần xác nhận hành động và xác thực để đảm bảo tính hợp lệ của yêu cầu.
+
+Sau khi yêu cầu hủy đăng ký được xác thực thành công, người dùng sẽ được thông báo rằng yêu cầu hủy đăng ký đã được tiếp nhận và có thể quay về trang chủ ứng dụng. Trong khoảng thời gian chờ, người dùng có thể truy cập lại Sinh lời tự động, nhưng bị hạn chế một số tính năng.
+
+Hệ thống sẽ tiếp nhận yêu cầu và chuyển trạng thái ví sinh lời của người dùng sang Inactive, trả toàn bộ tiền trong số dư sinh lời (gồm lãi nếu có) về số dư ví VSP, đồng thời giữ nguyên toàn bộ dữ liệu lịch sử giao dịch và thông tin liên quan.
+
+User flow
+image-20260423-030446.png
+US List
+US_ID
+
+User Story
+
+Priority
+
+Effort
+
+US_CLS_01
+
+Là người dùng đã tham gia sinh lời, tôi muốn gửi yêu cầu hủy đăng ký để tôi dừng sử dụng khi không còn nhu cầu.
+
+P0
+
+S
+
+US_CLS_02
+
+Là người dùng đang hủy tham gia sinh lời, tôi muốn xác thực hành động để đảm bảo yêu cầu hủy được thực hiện bởi chính tôi.
+
+P0
+
+S
+
+US_CLS_03
+
+Là người dùng đã gửi yêu cầu hủy sinh lời, tôi muốn hệ thống xử lý yêu cầu, hoàn toàn bộ số tiền sinh lời (bao gồm lãi nếu có) về ví VSP và cập nhật trạng thái, để tôi kết thúc việc tham gia sinh lời.
+
+P0
+
+S
+
+US Detail
+
+US_CLS_01 – Gửi yêu cầu hủy đăng ký sản phẩm
+
+US_CLS_02 – Xác thực khi hủy đăng ký sản phẩm
+
+US_CLS_03 – Tiếp nhận yêu cầu hủy đăng ký sinh lời
+5.1.5 Epic 5 – Đối soát và thanh toán ​@Nguyễn Vũ Quỳnh Hương​
+5.2 Nice-to-have (Post-MVP)
+ID
+
+Nhóm
+
+Tính năng
+
+Mô tả chi tiết
+
+Giá trị mang lại
+
+Độ ưu tiên
+
+Lưu ý / Rủi ro
+
+1
+
+Core Utility
+
+Sử dụng số dư sinh lời để thanh toán
+
+Dùng trực tiếp số dư sinh lời để thanh toán/chuyển tiền
+
+Giảm friction, tăng usability
+
+High
+
+⚠️ Compliance + liquidity
+
+2
+
+Core Utility
+
+Nạp/Rút đa nguồn tài khoản
+
+Nạp từ bank/ví khác, rút về nhiều tài khoản
+
+Tăng conversion & flexibility
+
+High
+
+⚠️ AML/KYC
+
+3
+
+Conversion
+
+Mô phỏng tiền lời
+
+Nhập số tiền → hiển thị lãi ước tính
+
+Tăng conversion & educate user
+
+High
+
+Tránh misleading
+
+4
+
+Automation
+
+Auto-earn
+
+Tự động chuyển tiền vào ví sinh lời khi đạt điều kiện
+
+Tăng AUM, tối ưu idle money
+
+Medium
+
+⚠️ UX trust (opt-in bắt buộc)
+
+5
+
+Personalization
+
+Cá nhân hóa trải nghiệm
+
+Gợi ý theo hành vi user (không thay đổi lãi suất)
+
+Tăng engagement
+
+Medium
+
+⚠️ Legal (pricing fairness)
+
+6
+
+Growth
+
+Chương trình khuyến mãi
+
+Bonus lãi suất, voucher khi tham gia
+
+Boost acquisition
+
+High
+
+Phụ thuộc campaign
+
+7
+
+Retention
+
+Push notification thông minh
+
+Nhắc khi idle balance / sắp mất streak
+
+Tăng retention
+
+High
+
+⚠️ Spam control
+
+8
+
+Acquisition
+
+Entry point đa kênh
+
+Banner, deeplink, universal link
+
+Tăng traffic
+
+High
+
+N/A
+
+9
+
+UX
+
+Tìm kiếm FAQ
+
+Tìm kiếm nội dung FAQ theo keyword
+
+Cải thiện UX support
+
+Low
+
+N/A
+
+10
+
+Behavioral
+
+Smart nudges
+
+“Bạn đang bỏ lỡ X ₫/ngày”
+
+Tăng conversion
+
+High
+
+Cần realtime calc
+
+11
+
+Retention
+
+Re-engagement sau rút tiền
+
+Gợi ý quay lại sau khi withdraw
+
+Tăng retention
+
+Medium
+
+
+
+12
+
+Growth
+
+Referral
+
+Mời bạn nhận thưởng
+
+Tăng viral growth
+
+Low
+
+⚠️ Fraud risk
+
+13
+
+Engagement
+
+Tier user (non-pricing)
+
+Hiển thị level user (Bronze/Silver/Gold)
+
+Tăng engagement
+
+Low
+
+Không gắn lãi suất
+
+14
+
+Core Utility
+
+Trả tiền lãi theo ngày
+
+Trả tiền lãi theo ngày
+
+Tăng AUM và engagement
+
+High
+
+Phụ thuộc core WN
+
+15
+
+Engagement
+
+Lợi suất theo chân dung user
+
+Lợi suất sinh lời dựa trên nhóm chân dung/hành vi người dùng (ví dụ: khi người dùng duy trì số dư lớn trong một khoảng thời gian).
+
+Tăng conversion và engagement
+
+Medium
+
+Phụ thuộc core WN
+
+16
+
+Core Utility
+
+Quét số dư sinh lời theo batch
+
+Quét số dư sinh lời theo batch
+
+Giảm workload vận hành
+
+High
+
+Phụ thuộc core WN
+
+17
+
+Operation
+
+Quản lý nội dung, file, hình ảnh…
+
+Có thể tạo mới/cập nhật nội dung FAQ khi cần thiết và hiển thị trên giao diện app
+
+Quản lý tập trung và tăng sự chủ động cho team sản phẩm
+
+Medium
+
+
+
+5.3 Error & Handling
+Bảng mã lỗi chung (Common Error)
+ID
+
+Partner error code
+
+Partner error message
+
+VSP Final Status
+
+HTTP Status
+
+Hành động tiếp theo
+
+UI State
+
+Nội dung mã lỗi BE trả về cho Mobile VI
+
+Nội dung mã lỗi BE trả về cho Mobile EN
+
+Ghi chú
+
+Error config (JITS)
+
+CE_01
+
+NOT_FOUND
+
+Không tìm thấy dữ liệu
+
+FAILED
+
+
+
+Quay lại Trang trước
+
+Empty / Error
+
+Nội dung bạn đang tìm hiện chưa sẵn sàng hoặc không còn tồn tại.
+
+The content you're looking for is unavailable or has been removed.
+
+
+
+
+
+CE_02
+
+
+
+
+
+FAILED
+
+408 – Request Timeout
+
+(Client phản hồi chậm)
+
+Thử lại
+
+Hiển thị popup thông báo lỗi
+
+Kết nối mạng đang chậm. Vui lòng thử lại.
+
+Your connection is slow. Please try again.
+
+Timeout mặc định: 5s. Tất cả US có gọi API
+
+
+
+CE_03
+
+INTERNAL_ERROR
+
+Lỗi hệ thống 
+
+FAILED
+
+500 – Internal Server Error
+
+(Backend lỗi không xác định)
+
+Thử lại
+
+Hiển thị popup thông báo lỗi
+
+Hệ thống đang xử lý. Vui lòng thử lại sau ít phút.
+
+The system is processing. Please try again in a few minutes.
+
+Log lỗi về monitoring.
+
+
+
+CE_04
+
+
+
+
+
+FAILED
+
+502 – Bad Gateway
+
+(Lỗi trung gian/ tích hợp)
+
+Thử lại
+
+Hiển thị popup thông báo lỗi
+
+Dịch vụ tạm thời gián đoạn. Vui lòng thử lại sau ít phút.
+
+The service is temporarily unavailable. Please try again in a few minutes.
+
+
+
+
+
+CE_05
+
+
+
+
+
+FAILED
+
+503 – Service Unavailable
+
+(Hệ thống bảo trì/ quá tải)
+
+Thử lại
+
+Hiển thị popup thông báo lỗi
+
+Dịch vụ tạm thời gián đoạn. Vui lòng thử lại sau ít phút.
+
+The service is temporarily unavailable. Please try again in a few minutes.
+
+
+
+
+
+CE_06
+
+
+
+
+
+FAILED
+
+504 – Gateway Timeout
+
+(Server không nhận được phản hồi)
+
+Thử lại
+
+Hiển thị popup thông báo lỗi
+
+Dịch vụ tạm thời gián đoạn. Vui lòng thử lại sau ít phút.
+
+The service is temporarily unavailable. Please try again in a few minutes.
+
+
+
+
+
+CE_07
+
+
+
+
+
+FAILED
+
+Không có Internet
+
+Thử lại khi có mạng
+
+Hiển thị popup thông báo lỗi
+
+Không có kết nối mạng. Vui lòng kiểm tra kết nối Internet và thử lại.
+
+No internet connection. Please check your connection and try again.
+
+Không mất dữ liệu form.
+
+Tất cả US áp dụng.
+
+
+
+CE_08
+
+INVALID_PARAMETER 
+
+Tham số không hợp lệ. 
+
+FAILED
+
+
+
+Nhập lại thông tin hợp lệ
+
+Hiển thị popup thông báo lỗi
+
+Hiển thị theo từng message lỗi tại từng field nhập liệu
+
+
+
+
+
+CE_09
+
+REQUIRED_FIELD
+
+Thiếu tham số bắt buộc
+
+FAILED
+
+
+
+Tiếp tục nhập
+
+Hiển thị popup thông báo lỗi
+
+Hiển thị theo từng message lỗi tại từng field nhập liệu
+
+
+
+
+
+CE_10
+
+
+
+
+
+FAILED
+
+Các URL lưu trữ để hiển thị HTML trên UI bị lỗi:
+
+URL bị null.
+
+URL sai format.
+
+URL không phải http/https.
+
+URL trả về redirect loop.
+
+Quay lại Trang trước
+
+Hiển thị popup thông báo lỗi
+
+CTA: đóng
+
+Không thể tải nội dung. Vui lòng thử lại sau.
+
+Unable to load the content. Please try again later.
+
+
+
+
+
+CE_11
+
+
+
+
+
+FAILED
+
+Session hết hạn
+
+Cho phép khởi tạo session mới.
+
+Hiển thị popup thông báo lỗi
+
+CTA: Thử lại
+
+Phiên giao dịch đã hết hạn. Vui lòng thực hiện lại giao dịch.
+
+The transaction session has expired. Please try the transaction again.
+
+Sau login, redirect lại đúng màn hình.
+
+
+
+CE_12
+
+
+
+
+
+FAILED
+
+Double-tap / multi-tap CTA
+
+Disable button ngay sau lần nhấn đầu tiên. Chỉ gửi 1 request.
+
+UI behavior thuần túy.
+
+
+
+
+
+Không cần error code.
+
+
+
+CE_13
+
+
+
+
+
+PROCESSING
+
+Dữ liệu prefill null / thiếu field
+
+Hiển thị field trống. User nhập bổ sung. Không block luồng.
+
+Silent handling.
+
+
+
+
+
+Không cần error code. 
+
+
+
+Bảng tổng hợp mã lỗi đối tác WealthNet
+⚠️ Những mã lỗi không được define ở bảng bên dưới thì mặc định có status là PROCESSING. 
+
+#
+
+API
+
+Partner Code
+
+Partner Message
+
+HTTP Status
+
+VSP Final Status
+
+VSP Phân loại
+
+Ghi chú
+
+1
+
+Register
+
+220000
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+Happy path
+
+2
+
+Register
+
+220400
+
+Input parameter invalid
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+Validate input phía VSP trước khi gọi
+
+3
+
+Register
+
+220201
+
+The contract already existed
+
+400
+
+FAILED
+
+Không làm gì
+
+User đã đăng ký trước đó
+
+4
+
+Register
+
+220224
+
+Account is waiting for closure
+
+400
+
+FAILED
+
+Chặn đăng ký
+
+User đang PROCESSING hủy — cần handle ở US_ACT_06
+
+5
+
+Register
+
+220500
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+Chờ đối tác xử lý
+
+6
+
+Unregister
+
+220000
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+Happy path
+
+7
+
+Unregister
+
+220400
+
+Input parameter invalid
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+
+
+8
+
+Unregister
+
+220206
+
+Customer not found
+
+400
+
+FAILED
+
+Không làm gì
+
+User không tồn tại trên WealthNet
+
+9
+
+Unregister
+
+220500
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+10
+
+Inquiry Account
+
+220000
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+Trả về status: ACTIVE / INACTIVE
+
+11
+
+Inquiry Account
+
+220400
+
+Input parameter invalid
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+
+
+12
+
+Inquiry Account
+
+220062
+
+partnerAccountIds max size is 1000
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+Giới hạn 1000 account/request
+
+13
+
+Inquiry Account
+
+220500
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+14
+
+Callback Unregister
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+VSP phải đảm bảo idempotency
+
+15
+
+Callback Unregister
+
+VSF010
+
+No unregistration request found
+
+400
+
+FAILED
+
+Không làm gì
+
+Không tìm thấy yêu cầu hủy
+
+16
+
+Callback Unregister
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+17
+
+Deposit (customer)
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+Response trả status: SUCCESS
+
+18
+
+Deposit (customer)
+
+512345
+
+Account does not exist
+
+400
+
+FAILED
+
+Hoàn tiền
+
+User account không tồn tại trên WealthNet
+
+19
+
+Deposit (customer)
+
+—
+
+Duplicated transactionId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+20
+
+Deposit (customer)
+
+—
+
+Duplicated referenceId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+21
+
+Deposit (customer)
+
+512000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+Chờ callback hoặc dùng Inquiry
+
+22
+
+Withdraw (customer)
+
+—
+
+Success
+
+200
+
+PROCESSING
+
+Chờ callback
+
+
+
+23
+
+Withdraw (customer)
+
+512345
+
+Account does not exist
+
+400
+
+FAILED
+
+Hoàn tiền
+
+
+
+24
+
+Withdraw (customer)
+
+—
+
+Duplicated transactionId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+25
+
+Withdraw (customer)
+
+512000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+26
+
+Withdraw (WealthNet)
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+WealthNet gọi vào VSP
+
+27
+
+Withdraw (WealthNet)
+
+VSF001
+
+Account does not exist
+
+400
+
+FAILED
+
+Báo lỗi WealthNet
+
+
+
+28
+
+Withdraw (WealthNet)
+
+—
+
+Duplicated transactionId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+29
+
+Withdraw (WealthNet)
+
+—
+
+Bank account invalid
+
+400
+
+FAILED
+
+Báo lỗi WealthNet
+
+
+
+30
+
+Withdraw (WealthNet)
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+31
+
+Notify Withdrawal
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+WealthNet đảm bảo idempotency
+
+32
+
+Notify Withdrawal
+
+512002
+
+Transaction not existed
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+33
+
+Notify Withdrawal
+
+512000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+34
+
+Notify Deposit/Withdraw
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+VSP đảm bảo idempotency
+
+35
+
+Notify Deposit/Withdraw
+
+VSF002
+
+Transaction not existed
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+36
+
+Notify Deposit/Withdraw
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+37
+
+Internal Transfer
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+WealthNet gọi vào VSP
+
+38
+
+Internal Transfer
+
+VSF003
+
+Account does not exist
+
+400
+
+FAILED
+
+Báo lỗi WealthNet
+
+
+
+39
+
+Internal Transfer
+
+—
+
+Duplicated transactionId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+40
+
+Internal Transfer
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+41
+
+Deposit (WealthNet)
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+WealthNet gọi vào VSP
+
+42
+
+Deposit (WealthNet)
+
+VSF004
+
+Account does not exist
+
+400
+
+FAILED
+
+Báo lỗi WealthNet
+
+
+
+43
+
+Deposit (WealthNet)
+
+—
+
+Duplicated transactionId
+
+400
+
+FAILED
+
+Tra soát
+
+
+
+44
+
+Deposit (WealthNet)
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+45
+
+Inquiry Transaction
+
+—
+
+SUCCESS / ERROR / PROCESSING
+
+200
+
+Theo status
+
+Theo status trả về
+
+Nếu transactionId không có trong response → coi là ERROR
+
+46
+
+Inquiry Transaction
+
+512987
+
+Length of transactionIds exceeded
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+Giới hạn 1000 transaction/request
+
+47
+
+Inquiry Transaction
+
+512000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+48
+
+Inquiry Balance
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+Nếu accountId không có trong response → INACTIVE hoặc không tồn tại
+
+49
+
+Inquiry Balance
+
+512987
+
+Length of accountIds exceeded
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+Giới hạn 1000 account/request
+
+50
+
+Inquiry Balance
+
+512000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+51
+
+Notify Interest File
+
+—
+
+Success
+
+200
+
+SUCCESS
+
+Thành công
+
+WealthNet gọi vào VSP
+
+52
+
+Notify Interest File
+
+VSF045
+
+File type is required
+
+400
+
+FAILED
+
+Kiểm tra lại request
+
+
+
+53
+
+Notify Interest File
+
+VSF000
+
+Internal server error
+
+500
+
+PROCESSING
+
+Tra soát
+
+
+
+5.4 Engagement & Message Delivery
+💡 Hướng dẫn: sau khi chốt thông tin ở file 20260108 - VSP Notification usecase.xlsx / Quý 1 2026 - VSP Notification usecase - Wallet core.xlsx thì lấy thông tin chính thức điền vào bảng bên dưới
+
+
+
+V-app's scope
+
+VSP's scope
+
+Group
+
+Summary
+
+Trigger
+
+Header
+
+Body
+
+Template_id
+
+Có trong Noti list
+
+Target screen (Push noti và Noti list)
+
+Path
+
+Scheme - V-app
+
+Payload API push noti to V-app
+
+Scheme - VSP app
+
+Deeplink VSP app
+Push noti và Noti list 
+
+VSP Stand alone template
+
+System
+
+Đăng ký ví sinh lời thành công
+
+Khi đăng ký sinh lời thành công
+
+VI: Đăng ký {productName} thành công
+EN: {productName} registration successful
+
+VI: Nạp tiền để bắt đầu sinh lời và tích lũy lợi nhuận mỗi ngày.
+EN: Add funds now to start earning and accumulate returns daily.
+
+vsp_earnwallet_register_success
+
+YES
+
+Đăng ký sinh lời
+
+
+
+
+
+
+
+
+
+
+
+
+
+System
+
+Đăng ký ví sinh lời thất bại
+
+Khi đăng ký sinh lời thất bại
+
+VI: Đăng ký {productName} thất bại
+EN: {productName} registration failed
+
+VI: Bạn chưa thể sử dụng {productName}. Thử lại sau hoặc liên hệ hỗ trợ để kiểm tra.
+EN: You are not eligible to use {productName}. Try again or contact support for assistance.
+
+vsp_earnwallet_register_failed
+
+YES
+
+Đăng ký sinh lời
+
+
+
+
+
+
+
+
+
+
+
+
+
+System
+
+Hủy đăng ký ví sinh lời thành công
+
+Khi hủy đăng ký sinh lời thành công
+
+VI: Hủy đăng ký {productName}
+EN: Cancelled {productName}
+
+VI: Bạn đã huỷ đăng ký thành công, tiền gốc và tiền lời (nếu có) đang được chuyển về ví của bạn.
+EN: Your principal and any earnings are being transferred back to your wallet.
+
+vsp_earnwallet_unregister_success
+
+YES
+
+Hủy đăng ký sinh lời
+
+
+
+
+
+
+
+
+
+
+
+
+
+Transactional
+
+Nạp tiền vào ví sinh lời thành công
+
+Khi nạp tiền vào ví sinh lời thành công
+
+VI: Đã nạp tiền {productName}
+EN: Funds added to {productName}
+
+VI: {amount} đ đã được chuyển vào {productName} của bạn và bắt đầu sinh lời mỗi ngày.
+EN: {amount} đ has been added to your {productName} and is now earning returns daily.
+
+vsp_earnwallet_deposit_success
+
+NO
+
+Chi tiết giao dịch 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Transactional
+
+Nạp tiền vào ví sinh lời thất bại
+
+Khi nạp tiền vào ví sinh lời thất bại
+
+VI: Chưa nạp được {productName}
+EN: Add funds to {productName} failed
+
+VI: {amount} đ chưa thể chuyển vào số dư {productName} của bạn. Xem chi tiết giao dịch để biết thêm.
+EN: {amount} đ could not be added to {productName}. Check transaction details for more Setting.
+
+vsp_earnwallet_deposit_failed
+
+NO
+
+Chi tiết giao dịch 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Transactional
+
+Rút tiền từ ví sinh lời thành công
+
+Khi rút tiền từ ví sinh lời thành công
+
+VI: Đã rút tiền {productName}
+EN: Withdrawn from {productName}
+
+VI: {amount} đ đã được chuyển về ví của bạn và sẵn sàng để sử dụng
+EN: {amount} đ has been transferred to your wallet and is ready for use
+
+vsp_earnwallet_withdraw_success
+
+NO
+
+Chi tiết giao dịch 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Transactional
+
+Rút tiền từ ví sinh lời thất bại
+
+Khi rút tiền từ ví sinh lời thất bại
+
+VI: Chưa rút được {productName}
+EN: Withdrawal from {productName} failed
+
+VI: Rút tiền chưa thành công, {amount} đ vẫn trong {productName} của bạn. Xem chi tiết giao dịch để biết thêm.
+EN: Withdrawal failed. {amount} đ remains in your {productName}. Check transaction details for more Setting.
+
+vsp_earnwallet_withdraw_failed
+
+NO
+
+Chi tiết giao dịch 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Transactional
+
+Nhận lãi ví sinh lời
+
+Khi nhận tiền lãi sinh lời thành công
+
+VI: Đã nhận tiền lời {productName}
+EN: Earnings from {productName}
+
+VI: {amount} đ tiền lời kỳ {period} đã được cộng vào số dư {productName} của bạn để tiếp tục sinh lời.
+EN: {amount} đ earned in {period} has been added to your {productName} and will continue earning.
+
+vsp_earnwallet_interest_payout
+
+YES
+
+Chi tiết giao dịch 
+
+
+
+
+
+
+
+
+
+
+
+
+
+5.5 Feature flag
+màn hình
+
+Button
+
+Code
+
+Trạng thái
+
+Thông báo
+
+image-20260423-022223.png
+
+
+Entry point
+
+autoearn_service_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032155.png
+
+
+Đăng ký
+
+autoearn_register_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032217.png
+
+
+Chi tiết sinh lời
+
+autoearn_detailrevenue_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032229.png
+
+
+Nạp / Rút tiền
+
+autoearn_topupwithdraw_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032317.png
+
+
+Xem hợp đồng
+
+autoearn_viewcontract_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032330.png
+
+
+Hủy đăng ký
+
+autoearn_unregister_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+image-20260410-032403.png
+
+
+Lịch sử
+
+autoearn_history_enabled
+
+True: bật cờ → Tính năng hoạt động bình thường
+
+False: tắt cờ → Tính năng không hoạt động
+
+True: N/A
+
+False: Toast mess/popup: “Tính năng đang bảo trì”
+
+6. Success Metrics & Tracking Events
+6.1 Customer Success Metrics
+Metric
+
+Mô tả
+
+Công thức cơ bản
+
+Target
+
+Cơ sở
+
+Số người dùng đăng ký
+
+Tổng số người dùng đã kích hoạt sinh lời thành công
+
+Tổng tài khoản sinh lời có trạng thái ACTIVE
+
+137,00 Users
+
+Theo số liệu KDVH dự phóng
+
+Tổng AUM
+
+Tổng số tiền đang sinh lời trong hệ thống
+
+Tổng số dư ví sinh lời của toàn bộ người dùng ACTIVE
+
+220 tỷ
+
+Theo số liệu KDVH dự phóng
+
+Tỷ lệ giữ chân (D30)
+
+Tỷ lệ người dùng vẫn còn tiền sinh lời sau 30 ngày
+
+Số người dùng còn số dư > 0 sau 30 ngày / Tổng người dùng đã nạp lần đầu × 100%
+
+≥ 50%
+
+Benchmark thị trường SLTĐ
+
+Tỷ lệ hủy đăng ký
+
+Tỷ lệ người dùng dừng sử dụng trong tháng
+
+Số người hủy trong tháng / Tổng người dùng ACTIVE đầu tháng × 100%
+
+≤ 10%
+
+Benchmark thị trường SLTĐ
+
+Doanh thu ước tính
+
+Doanh thu VSP từ spread lãi suất với đối tác, tính dựa trên AUM từng ngày cộng dồn theo tháng
+
+AUM tháng × Spread rate
+
+660 triệu (sau thời gian 1 năm)
+
+Theo số liệu KDVH dự phóng
+
+6.2 Tracking Events (Tham chiếu Tracking Events)
+
+
+7. Risks & Assumptions
+7. Risks & Assumptions
+7.1 Risks
+#
+
+Risk
+
+Mô tả
+
+Mức độ
+
+Giảm thiểu
+
+R1
+
+Rủi ro tích hợp đối tác
+
+Dữ liệu lợi nhuận sinh lời được cung cấp từ hệ thống đối tác, nếu đối tác trả dữ liệu chậm hoặc sai có thể ảnh hưởng đến hiển thị lợi nhuận cho người dùng.
+
+High
+
+Thiết lập cơ chế kiểm tra dữ liệu, retry API và monitoring.
+
+R2
+
+Rủi ro giới hạn pháp lý
+
+Hạn mức giao dịch ví điện tử theo quy định của NHNN có thể ảnh hưởng đến giao dịch nạp/rút tiền.
+
+High
+
+Kiểm tra hạn mức giao dịch trước khi xử lý giao dịch.
+
+R3
+
+Rủi ro sai lệch dữ liệu lợi nhuận
+
+Dữ liệu lãi sinh lời được tính từ file đối tác, có thể xảy ra sai lệch khi đồng bộ dữ liệu.
+
+Medium
+
+Đối soát dữ liệu định kỳ giữa hệ thống ví và đối tác.
+
+R4
+
+Rủi ro trải nghiệm người dùng
+
+Người dùng có thể hiểu nhầm về cơ chế sinh lời hoặc thời điểm trả lợi nhuận.
+
+Medium
+
+Hiển thị thông tin giải thích rõ ràng về cơ chế sinh lời và lợi nhuận.
+
+R5
+
+Rủi ro hệ thống khi xử lý giao dịch
+
+Lỗi hệ thống có thể khiến giao dịch nạp hoặc rút tiền thất bại hoặc timeout.
+
+Medium
+
+Áp dụng retry, monitoring hệ thống và xử lý fallback.
+
+R6
+
+Rủi ro bank run
+
+Người dùng rút tiền hàng loạt gây áp lực thanh khoản cho đối tác.
+
+Low
+
+Confirm cơ chế xử lý thanh khoản với đối tác trước launch; có kế hoạch xử lý tình huống khẩn cấp.
+
+R7
+
+Rủi ro pháp lý thay đổi
+
+Quy định của NHNN về ví điện tử và sản phẩm sinh lời có thể thay đổi sau launch.
+
+Low
+
+Theo dõi thông tư NHNN; có legal review định kỳ.
+
+7.2 Assumptions
+#
+
+Assumption
+
+Mô tả
+
+A1
+
+Đối tác cung cấp dữ liệu lợi nhuận
+
+Hệ thống đối tác cung cấp dữ liệu lợi nhuận sinh lời đầy đủ và đúng thời gian.
+
+A2
+
+Hệ thống ví hỗ trợ xử lý giao dịch
+
+Hệ thống ví VSP có khả năng xử lý các giao dịch nạp và rút tiền với độ ổn định cao.
+
+A3
+
+Hệ thống OTP hoạt động ổn định
+
+Luồng OTP hiện tại của ví VSP có thể được sử dụng lại cho xác thực giao dịch sinh lời.
+
+A4
+
+Người dùng đã hoàn thành KYC
+
+Người dùng sử dụng tính năng sinh lời đã hoàn thành các yêu cầu định danh theo quy định.
+
+A5
+
+Hạn mức giao dịch được cấu hình từ hệ thống
+
+Các hạn mức giao dịch ví sinh lời được quản lý và cấu hình từ backend.
+
+A6
+
+Lợi suất đủ cạnh tranh
+
+Lợi suất 5.75%/năm duy trì ổn định và đủ cạnh tranh so với đối thủ trong giai đoạn launch.
+
+8. Timeline & Milestones
+Milestone
+
+Mô tả
+
+Owner
+
+Timeline
+
+PRD Approval
+
+Hoàn thiện PRD và được các bên liên quan phê duyệt.
+
+Product
+
+T0
+
+Design Completion
+
+Hoàn thành thiết kế UI/UX cho toàn bộ luồng sinh lời.
+
+Design
+
+T0 + 1 tuần
+
+Backend Development
+
+Phát triển API cho đăng ký, quản lý, nạp/rút và hủy sinh lời.
+
+Backend Team
+
+T0 + 3 tuần
+
+Mobile App Development
+
+Tích hợp UI và logic trên ứng dụng V-SmartPay.
+
+Mobile Team
+
+T0 + 4 tuần
+
+Integration Testing
+
+Kiểm thử tích hợp với hệ thống đối tác và ví lõi.
+
+QA
+
+T0 + 5 tuần
+
+UAT
+
+Kiểm thử chấp nhận người dùng.
+
+Product + Business
+
+T0 + 6 tuần
+
+Production Release
+
+Phát hành chính thức tính năng sinh lời.
+
+Engineering
+
+T0 + 7 tuần
+
+9. Stakeholders & Team
+Role
+
+Team
+
+Responsibility
+
+Product Owner
+
+Product Team
+
+Định nghĩa yêu cầu sản phẩm, quản lý backlog và roadmap, theo dõi Metrics
+
+Tech Lead
+
+Engineering Team
+
+Thiết kế kiến trúc hệ thống và triển khai kỹ thuật
+
+Mobile Engineers
+
+Mobile Team
+
+Phát triển tính năng sinh lời trên ứng dụng
+
+Backend Engineers
+
+Backend Team
+
+Xây dựng API và xử lý giao dịch sinh lời
+
+QA Engineers
+
+QA Team
+
+Kiểm thử chức năng và đảm bảo chất lượng hệ thống
+
+Data Team 
+
+Dev Team
+
+Xây dựng dashboard phân tích
+
+Compliance
+
+Risk & Compliance
+
+Đảm bảo tính năng tuân thủ quy định pháp lý
+
+Partner Team
+
+Business Partnership
+
+Làm việc với đối tác cung cấp dịch vụ sinh lời
+
+10. PRD Quality Checklist
+Checklist
+
+Status
+
+Problem statement rõ ràng
+
+✔
+
+Customer persona được xác định
+
+✔
+
+Customer journey được mô tả
+
+✔
+
+Solution overview mô tả đầy đủ giá trị sản phẩm
+
+✔
+
+User stories và acceptance criteria đầy đủ
+
+✔
+
+Metrics và tracking events được định nghĩa
+
+✔
+
+Risks và assumptions được liệt kê
+
+✔
+
+Timeline và milestones được xác định
+
+✔
+
+Stakeholders và trách nhiệm được rõ ràng
+
+✔
+
+Appendix: Tips for Success 
+Appendix A – Design, API & Integration References
+A.1 Figma Design
+Figma design: ​V-Smart Save
+ 
+
+A.2 Partner API
+Tài liệu tham chiếu:
+
+Sequence diagram: Sequence diagram.pdf
+
+API: API WealthNet
+
+Lấy file lãi ngày/tháng: File specification_190326.pdf
+
+(Chi tiết request/response được lưu tại tài liệu tích hợp riêng)
+
+A.3 Cash-in/Cash-out Integration
+Sử dụng luồng nạp/rút tiền chuẩn của VSP
+
+Hỗ trợ: Ví
+
+Callback
+
+Cơ chế async
+
+A.4 Risk Disclosure
+STT
+
+Mô tả rủi ro
+
+Loại rủi ro
+
+Mức độ tác động
+
+Hành động
+
+1
+
+Tiền trong TKĐBTT của VSP tại TCB không đáp ứng việc nạp/rút sinh lời.
+
+Ví dụ:
+
+KH A (tiền ở TKĐBTT BIDV): nạp 5 triệu
+
+KH B (tiền ở TKĐBTT TCB): nạp 1 triệu
+
+→ tiền sinh lời chuyển sang WN: 6 triệu → tuy nhiên, TKĐBTT của TCB đang chỉ có 1 triệu → không đủ
+
+Rủi ro thanh khoản
+
+Trung bình
+
+Đã trao đổi với TCB, WN, Kế toán VSP → đề xuất các phương án sau:
+
+Mở tài khoản thấu chi cho VSP → TCB đang đánh giá nội bộ
+
+Chuyển tiền sang TKTT WN theo batch
+
+WN ứng trước tiền trong trường hợp không đủ
+
+2
+
+VSP và WN đều đang dùng máy chủ ở Sing → cần gửi hồ sơ đánh giá tác động chuyển dữ liệu cá nhân xuyên biên giới cho BCA (dựa trên điều 17, 18, 20 Nghị định 356/2025/NĐ-CP)
+
+Rủi ro pháp lý
+
+Cao
+
+Đã trao đổi với pháp chế → đợi phản hồi
+
+3
+
+Nếu VSP được coi là tổ chức xử lý dữ liệu cá nhân --> cần có giấy phép dịch vụ xử lý dữ liệu cá nhân (Điều 22 đến điều 27)
+
+Rủi ro pháp lý
+
+Cao
+
+Đã trao đổi với pháp chế → đợi phản hồi
+
+Appendix B - Đối soát và thanh toán (chưa xong)
+Mục A, B không thuộc template tiêu chuẩn nhưng cần thực hiện theo yêu cầu của Fintech
+
+A. Competitive Analysis & UX Benchmark
+A.1 Key Competitors
+1 One Circle Blue
+Ví điện tử
+
+MoMo – Đã triển khai “Túi thần tài” / “Túi +” với đối tác Finsight;
+
+ZaloPay – Đã triển khai “Số dư sinh lời” với đối tác Infina.
+
+2 Two Circle Blue
+Ngân hàng số
+
+Techcombank - Đã triển khai “Sinh lời tự động” với đối tác WealthCraft (SPV của TCB);
+
+TPBank - Đã triển khai “Sinh lời kép” với đối tác Infina;
+
+VPBank - Đã triển khai “Super Sinh lời” với đối tác VPBank Securities (thuộc hệ sinh thái VPBank).
+
+memo
+Nhận định
+
+Ví điện tử/ Ngân hàng đang xem sinh lời là cách tối ưu và tăng giá trị nguồn tiền nhàn rỗi cho người dùng;
+
+Trải nghiệm tập trung vào: ít bước – sinh lời – sử dụng linh hoạt.
+
+A.2 User Journey Comparison
+Competitive Benchmark
+
+Hạng mục
+
+MoMo
+
+ZaloPay
+
+V-Smart Pay Target
+
+Mô hình sản phẩm
+
+Túi thần tài hợp tác với đối Finsight
+
+Số dư sinh lời hợp tác Infina
+
+Sản phẩm sinh lời hợp tác đối tác với WealthNet
+
+Entry Point
+
+Feature flag Túi thần tài
+
+Feature flag Số dư sinh lời
+
+Ở Trang chủ để tăng khả năng tiếp cận → Sinh lời tự động
+
+Đăng ký tham gia
+
+Đăng ký nhanh trong app (người dùng đã eKYC)
+
+Đăng ký nhanh trong app (người dùng đã eKYC)
+
+Đăng ký nhanh trong app (người dùng đã eKYC)
+
+Khả năng rút tiền
+
+Rút về Ví momo miễn phí
+Rút về tài khoản ngân hàng mất phí
+
+Rút về ví và ngân hàng miễn phí
+
+Rút linh hoạt về ví VSP
+
+Hiển thị lợi nhuận
+
+Hiển thị số dư + lợi nhuận tích lũy
+
+Hiển thị số dư + lợi nhuận tích lũy
+
+Hiển thị số dư và lợi nhuận tạm tính  trong kì
+
+UX tổng thể
+
+Đơn giản, dễ hiểu, tập trung người dùng phổ thông
+
+Tích hợp trong hệ sinh thái tài chính
+
+Tối giản thao tác, ưu tiên tốc độ tham gia
+
+puzzle piece
+Insight chính
+MoMo: Entry point rõ ràng, branding mạnh (Túi thần tài), luồng tham gia ngắn, tập trung tạo cảm giác “tiền đang tăng”;
+
+ZaloPay: UX tối giản, ít yếu tố marketing, luồng tham gia nhanh, hiển thị số dư và lợi nhuận đơn giản.
+
+A.3 UX/UI Benchmark
+Screen name
+
+MoMo
+
+ZaloPay
+
+Conclusion
+
+Đăng ký
+
+image-20260314-073638.png
+image-20260314-073632.png
+Các thông tin cơ bản được lấy từ thông tin eKYC và điền sẵn (chỉ cho phép chỉnh sửa ngày cấp và địa chỉ).
+
+Nạp/Rút tiền
+
+image-20260314-073649.png
+image-20260314-073621.png
+Nạp/rút tiền hiển thị rõ ràng ở trang chủ của tính năng.
+
+Lịch sử sinh lời
+
+image-20260314-073658.png
+image-20260314-073842.png
+
+
+Hiển thị tổng số dư sinh lời lũy kế.
+
+A.4 Opportunity & Differentiation
+Tối ưu hành trình (Flow Optimization)
+
+Thiết kế luồng tham gia ngắn gọn ≤ 3–4 bước: Đăng ký → Xác nhận → Nạp tiền → Bắt đầu sinh lời;
+
+Prefill thông tin người dùng từ dữ liệu ví và eKYC, giảm thao tác nhập liệu;
+
+Tối ưu thời gian xử lý giao dịch nạp/rút tiền, đảm bảo trải nghiệm mượt mà.
+
+Note
+Vòng đời & Giữ chân người dùng (Lifecycle & Retention)
+
+Hiển thị thông tin sinh lời ngay trên trang chủ tài chính hoặc dashboard ví để người dùng theo dõi thường xuyên;
+
+Push notification thông minh khi có lợi nhuận mới, thiết lập số dư để tham gia sinh lời tự động;
+
+Cung cấp lịch sử lợi nhuận và tăng trưởng tài sản, giúp người dùng cảm nhận rõ giá trị tích lũy theo thời gian.
+
+Tăng niềm tin người dùng
+
+Hiển thị rõ thông tin đối tác tài chính cung cấp sản phẩm sinh lời;
+
+Công bố lợi suất, cơ chế tính lợi nhuận và nhận lãi minh bạch ngay trong ứng dụng;
+
+Cung cấp lịch sử giao dịch và lợi nhuận chi tiết, giúp người dùng dễ dàng kiểm tra.
+
+Note
+Tận dụng lợi thế ví điện tử
+
+Nạp và rút tiền trực tiếp từ số dư ví;
+
+Thanh toán và xác thực 1 chạm nhờ hạ tầng thanh toán sẵn có của ví;
+
+Tạo nền tảng để cross-sell các dịch vụ tài chính khác trong tương lai (tiết kiệm, đầu tư, bảo hiểm).
+
+B. Evidences & Ref
+
+Bằng chứng về yêu cầu, phê duyệt, chỉ đạo
+
+Bằng chứng về sign off BRD, sign off Design, sign off PRD
+
+Đường dẫn tham khảo
+
+
